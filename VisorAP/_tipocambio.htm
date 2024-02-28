@@ -1,0 +1,22 @@
+<!--	_tipocambio.htm	-->
+		<table border="0" cellpadding="0" cellspacing="0" width="170">	
+		<tr class="tt" style="color: white; heigth: 5px; font-family: Tahoma, Arial; font-weight: sbold">
+			<td bgcolor="blue">&nbsp;compra</td>
+			<td width="40px" style="background-color: #f1f78b; color: black"></td>
+			<td bgcolor="Crimson">&nbsp;venta</td>
+		</tr>
+		<tr class="tc" align="center" style="height: 15px; margin: 5px 5px 5px 5px" >
+			<td id="tcc" bgcolor="blue" width="70px"></td>
+			<td id="tcmo" style="background-color: #f1f78b; color: black" width="40px"></td>
+			<td id="tcv" bgcolor="Crimson" width="70px"></td>
+		</tr>
+		</table>
+		<script language="vbscript">
+			Sub Cargar_tipocambio()
+				On Error Resume Next				
+				tcc.innerText="<%=FormatNumber(cCur(0 & rs("pr_compra")) - cCur(0 & Request("co")), 2)%>"
+				tcmo.innerText="<%=rs("codigo")%>"
+				tcv.innerText="<%=FormatNumber(cCur(0 & rs("pr_venta")) + cCur(0 & Request("ve")), 2)%>"
+				Err.Clear 
+			End Sub
+		</script>

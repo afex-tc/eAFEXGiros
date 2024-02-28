@@ -1,0 +1,8 @@
+[Query]
+cirestriction=(%UserRestriction%) & ! #vpath *\_vti* & ! #vpath *\_private\* & ! #vpath *\_derived\* & ! #vpath *\_themes\* & ! #vpath *\_overlay\* & ! #vpath *\_fpclass\* & ! #vpath *\_borders\* 
+ciscope=/AfexMoneyWeb
+citemplate=/AfexMoneyWeb/_derived/search.htm0.htx
+cicolumns=DocTitle,filename,vpath,write,size
+ciflags=DEEP
+cisort=Rank[d]
+cicatalog=c:\inetpub

@@ -1,0 +1,42 @@
+<!-- MenuDetalleCliente.asp -->
+<% If Session("CodigoAgente") <> "WS" Then %>
+<table class="BordeSombra" cellpadding="0" cellspacing="0" border="0" width="175" bgcolor="#f1f1f1" style="background-color: white; color: ">
+<tr height="22" bgcolor="#ffdd77" style="font-size: 10pt; font-weight: bold">
+	<td colspan="5">&nbsp;&nbsp;Opciones</td>
+</tr>
+<tr height="1"><td colspan="5" bgcolor="#D6D3D6"></td></tr>
+<tr>
+	<td width="10"></td>
+	<td>
+		<table cellpadding="0" cellspacing="0" border="0" style="color: gray">
+			<tr height="5px"><td></td></tr>					
+			<tr height="5px">
+				<td style="font-family: marlett">8</td>
+				<td width="10"></td>
+				
+				<td width="175">
+					<%
+					Dim IdentificacionCliente
+					if sRut <> "" then
+						IdentificacionCliente = replace(replace(sRut,".",""),"-","")
+					elseif sPasaporte <> "" then
+						IdentificacionCliente = sPasaporte
+					end if					
+					%>
+					<a class="Caja" href='<%=Session("URLAdjuntarImagenCliente")%>?cc=<%=Request("cc")%>&usr=<%=session("nombreusuariooperador")%>&idc=<%=IdentificacionCliente%>'>
+					Adjuntar Imagen<br></a>
+				</td>
+			</tr>
+			<tr height="5px">
+			    <td style="font-family: marlett">8</td>
+				<td width="10"></td>
+				<td width="175"><a class="Caja" href="http:DetalleCliente.asp?cc=<%=Request("cc")%>&nc=<%=Request("nc")%>&rt=<%=Request("rt")%>&mnu=1&md=1">Actualizar Datos<br></a></td>
+			</tr>		
+			
+			<tr height="10px"><td></td></tr>
+		</table>
+	</td>	
+	<td width="20"></td>
+</tr>
+</table>
+<% End If %>

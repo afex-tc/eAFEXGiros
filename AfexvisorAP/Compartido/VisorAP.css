@@ -1,0 +1,61 @@
+TD.botones
+{
+	onmouseover.color: silver;
+	border: 1px solid silver; 
+	cursor: Hand;
+	align: center
+}
+
+TR.tc
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 16pt;
+    COLOR: white;
+    FONT-FAMILY: arial, verdana
+}
+TR.tt
+{
+    FONT-SIZE: 8pt;
+    COLOR: white;
+    FONT-FAMILY: arial, verdana
+}
+TR.tt2
+{
+    FONT-SIZE: 8pt;
+    COLOR: gray;
+    FONT-FAMILY: arial, verdana
+}
+BODY
+{
+    FONT-SIZE: 8pt;
+    FONT-FAMILY: Verdana, Arial
+}
+TABLE
+{
+    FONT-SIZE: 8pt
+}
+
+TR.titulo
+{
+	font-weight: bold; 
+	height: 30px; 
+	background-color: '#DFDFDF'
+}
+
+TD.tituloXP
+{
+	height: 20px;
+	background-color: '#cceeff';
+	color: black;
+	font-size: 16pt;
+	border: 1px solid silver;
+}
+
+TD.tituloXP2
+{
+	height: 20px;
+	background-color: '#ffeeaa';
+	color: black;
+	font-size: 16pt;
+	border: 1px solid silver;
+}

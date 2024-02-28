@@ -1,0 +1,103 @@
+<%@ Language=VBScript %>
+<!--#include file="../Compartido/Rutinas.asp" -->
+<%
+Dim sSQL
+Dim rsHistoria
+Dim sMensaje
+
+Dim sDescripcion
+Dim sAsunto
+Dim sMoneda
+
+On Error Resume Next
+
+sDescripcion = "					Desde la Sucursal Virtual el Cliente: " & Session("NombreOperador") & " CÓDIGO: " & Session("CodigoCliente") & vbCrlf 
+Select Case Request("Accion")
+	Case 1	' comprar dolares
+		sAsunto = "Compra de US$ SV"
+		sDescripcion = sDescripcion & "desea comprar US$ con el siguiente detalle: " & _
+							vbCrlf & vbCrlf 
+
+		sDescripcion = sDescripcion & vbCrlf & "MONTO  : US$ " & trim(request.Form("txtMontoC"))
+		sDescripcion = sDescripcion & vbCrlf & "CAMBIO : US$ " & trim(request.Form("txtTCC"))
+		sDescripcion = sDescripcion & vbCrlf & "TOTAL  :   $ " & trim(request.Form("txtTotalC"))
+		
+	Case 2	' vender dolares
+		sAsunto = "Venta de US$ SV"
+		sDescripcion = sDescripcion & "desea vender US$ con el siguiente detalle: " & _
+							vbCrlf & vbCrlf 
+
+		sDescripcion = sDescripcion & vbCrlf & "MONTO  : US$ " & trim(request.Form("txtMontoV"))
+		sDescripcion = sDescripcion & vbCrlf & "CAMBIO : US$ " & trim(request.Form("txtTCV"))
+		sDescripcion = sDescripcion & vbCrlf & "TOTAL  :   $ " & trim(request.Form("txtTotalV"))
+
+	Case 3	' enviar giro		
+		Select Case request.Form("cbxMoneda")
+			Case "USD"
+				sMoneda = "DOLARES"
+			Case "CLP"
+				sMoneda = "PESOS CHILENOS"
+		End Select
+		
+		sAsunto = "Envío de Giro SV"
+		sDescripcion = sDescripcion & "solicita el envío del siguiente Giro: " & _
+							vbCrlf & vbCrlf 
+
+		sDescripcion = sDescripcion & vbCrlf & "BENEFICIARIO "
+		sDescripcion = sDescripcion & vbCrlf & "NOMBRE : " & trim(request.Form("txtNombresB")) & " " & trim(request.Form("txtApellidosB"))
+		sDescripcion = sDescripcion & vbCrlf & "PAIS   : " & trim(request.Form("txtPaisB"))
+		sDescripcion = sDescripcion & vbCrlf & "CIUDAD : " & trim(request.Form("txtCiudadB"))
+		sDescripcion = sDescripcion & vbCrlf & "DIRECCIÓN : " & trim(request.Form("txtDireccionB"))
+		sDescripcion = sDescripcion & vbCrlf & "TELÉFONO  : " & trim(request.Form("txtFonoB"))
+		sDescripcion = sDescripcion & vbCrlf & "MONEDA : " & trim(sMoneda)
+		sDescripcion = sDescripcion & vbCrlf & "MONTO  : " & trim(request.Form("txtMonto"))
+		sDescripcion = sDescripcion & vbCrlf & "TARIFA : " & trim(request.Form("txtTarifa"))
+		sDescripcion = sDescripcion & vbCrlf & "TOTAL  : " & trim(request.Form("txtTotal"))
+	
+	Case 5	' pagar tarjeta de credito
+		sAsunto = "Pagar Tarjeta de Crédito en US$ SV"
+		sDescripcion = sDescripcion & "desea pagar su tarjeta de crédito en US$ con el siguiente detalle: " & _
+							vbCrlf & vbCrlf 
+
+		sDescripcion = sDescripcion & vbCrlf & "MONTO  : US$ " & trim(request.Form("txtMontoTC"))
+		sDescripcion = sDescripcion & vbCrlf & "Nº TARJETA : " & trim(request.Form("txtNTarjeta"))
+		sDescripcion = sDescripcion & vbCrlf & "BANCO  :     " & trim(request.Form("txtBanco"))
+	
+	Case 6	' enviar transfer
+		sAsunto = "Enviar Transferencia"
+		sDescripcion = sDescripcion & "desea enviar una transferencia con el siguiente detalle: " & _
+							vbCrlf & vbCrlf 
+		
+		sDescripcion = sDescripcion & vbCrlf & "F. PAGO : " & trim(request("FPago"))		
+		sDescripcion = sDescripcion & vbCrlf & "VALUTA  : " & trim(request("Valuta"))
+		sDescripcion = sDescripcion & vbCrlf & "RATE    : " & trim(request("Rate"))		
+		sDescripcion = sDescripcion & vbCrlf & "MONEDA  : " & trim(request("Moneda"))
+		sDescripcion = sDescripcion & vbCrlf & "MONTO   : " & trim(request("Monto"))
+		sDescripcion = sDescripcion & vbCrlf & "EQUIVALENTE US$ : " & trim(request("Equivalente"))
+		sDescripcion = sDescripcion & vbCrlf & "TARIFA  : " & trim(request("Tarifa"))
+		sDescripcion = sDescripcion & vbCrlf & "TOTAL   : " & trim(request("Total"))		
+End Select
+
+
+' envia el mail
+EnviarEmail "AFEX", "jonathan.miranda@afex.cl", Session("emailcliente"), sAsunto, sDescripcion, 0
+
+If err.number <> 0 Then
+	response.Write "Ocurrió un error. " & err.Description	
+	response.End
+else
+	response.Write "Los datos han sido enviados. Gracias por operar con nosotros." & err.Description	
+	response.End
+End If
+
+%>
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+</HEAD>
+<BODY>
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

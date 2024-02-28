@@ -1,0 +1,273 @@
+<html>
+<head>
+<meta name="VI60_defaultClientScript" content="VBScript">
+<meta NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<link rel="stylesheet" type="text/css" href="../Estilos/MenuCliente.CSS">
+<title>Menu</title>
+</head>
+
+<script LANGUAGE="vbscript" id="Metodos">
+<!--
+Option Explicit
+
+Dim sHrefOld
+Dim oldColor
+Dim intCount
+
+intCount = 0
+
+Function Public_AddPassword(strName)
+    Dim strID 
+    Dim strTemp
+    Dim sColor
+
+    strID = "ID" & intCount
+    intCount = intCount + 1
+	sColor =  Replace(bBody.bgColor, "#", "")
+	If strName = "Sucursales/Agentes" Then
+		strTemp = "<TABLE border=""0"" left=""0"" top=""0"" id=""tab" & strID & """ name=""" & strID & """ CLASS=""BordeInactivo"" cellspacing=""0"" width=""100%"" language=""VBScript"" onMouseOver=""DoMouseOver()"" onMouseOut=""DoMouseOut()"" style=""cursor: Default"">" & _
+						"<TR class=""trTitulo"" STYLE=""display: ; font-family: arial;"">" & _
+							"<TD id=""td1" & strID & """ name=""" & strID & """ CLASS=""MenuInactivo""><imgs title=""" & strID & """ class=""image""  border=""0"" height=""10px"" width=""10px"" src=""../images/bordemenu" & scolor & ".gif"" style=""position: relative; top: -3px; left: -2px"">&nbsp;" & strName & "</TD>" & _
+							"<TD id=""td2" & strID & """ CLASS=""MenuInactivo"" align=""right"" name=""" & strID & """ >" & _
+								"<img title=""" & strID & """ class=""image""  border=""0"" valign=""middle"" align=""right"" src=""../images/MenuExpandido.gif"" LANGUAGE=""VBScript"" ONCLICK=""DoClick"" style=""cursor: Hand"">" & _
+							"</td>" & _
+						"</TR>" & _
+						"<TR ID=""" & strID & """ name=""" & strID & """><td name=""" & strID & """ colspan=""2"">" & _
+							"<table  name=""" & strID & """ ALIGN=""center"" WIDTH=""100%"" BORDER=""0"" CELLSPACING=""1"" CELLPADDING=""0"" STYLE=""COLOR: "">" & _
+							"<tr><td name=""" & strID & """ >&nbsp;&nbsp;&nbsp;&nbsp;Usuario</td><td  name=""" & strID & """ ALIGN="""" colspan=""2""><input name=""" & strID & """ ID=""txtUsuario"" SIZE=""5"" maxlength=""12"" style=""HEIGHT: 22px; WIDTH: 105px""></td></tr>" & _
+							"<tr><td name=""" & strID & """ >&nbsp;&nbsp;&nbsp;&nbsp;Password</td><td  name=""" & strID & """ ALIGN=""""><input name=""" & strID & """ id=""txtClave"" type=""password"" maxLength=""10"" name=""txtClave"" size=""5"" style=""HEIGHT: 22px; LEFT: 4px; TOP: 1px; WIDTH: 54px"">&nbsp;&nbsp;</td>" & _
+							"<td  name=""" & strID & """ valign=""center""><A><IMG title=""" & strID & """ border=""0"" src=""../images/FlechaDerecha.gif"" style=""CURSOR: hand"" onClick=""DoUsuarioClave()""></A></td>" & _
+							"</tr></table>" & _
+						"</td></TR>" & _
+					  "</TABLE> <BR>"
+	Else
+		strTemp = "<TABLE border=""0"" left=""0"" top=""0"" id=""tab" & strID & """ name=""" & strID & """ CLASS=""BordeInactivo"" cellspacing=""0"" width=""100%"" language=""VBScript"" onMouseOver=""DoMouseOver()"" onMouseOut=""DoMouseOut()"" style=""cursor: Default"">" & _
+						"<TR class=""trTitulo"" STYLE=""display: ; font-family: arial;"">" & _
+							"<TD id=""td1" & strID & """ name=""" & strID & """ CLASS=""MenuInactivo""><imgs title=""" & strID & """ class=""image""  border=""0"" height=""10px"" width=""10px"" src=""../images/bordemenu" & scolor & ".gif"" style=""position: relative; top: -3px; left: -2px"">&nbsp;" & strName & "</TD>" & _
+							"<TD id=""td2" & strID & """ CLASS=""MenuInactivo"" align=""right"" name=""" & strID & """ >" & _
+								"<img title=""" & strID & """ class=""image""  border=""0"" valign=""middle"" align=""right"" src=""../images/MenuExpandido.gif"" LANGUAGE=""VBScript"" ONCLICK=""DoClick"" style=""cursor: Hand"">" & _
+							"</td>" & _
+						"</TR>" & _
+						"<TR ID=""" & strID & """ name=""" & strID & """><td name=""" & strID & """ colspan=""2"">" & _
+							"<table  name=""" & strID & """ ALIGN=""center"" WIDTH=""100%"" BORDER=""0"" CELLSPACING=""1"" CELLPADDING=""0"" STYLE=""COLOR: "">" & _
+							"<tr><td name=""" & strID & """ >&nbsp;&nbsp;&nbsp;&nbsp;User</td><td  name=""" & strID & """ ALIGN="""" colspan=""2""><input name=""" & strID & """ NAME=""txtUsuario"" ID=""txtUsuario"" SIZE=""5"" maxlength=""12"" style=""HEIGHT: 22px; WIDTH: 105px""></td></tr>" & _
+							"<tr><td name=""" & strID & """ >&nbsp;&nbsp;&nbsp;&nbsp;Password</td><td  name=""" & strID & """ ALIGN=""""><input name=""" & strID & """ id=""txtClave"" type=""password"" maxLength=""10"" name=""txtClave"" size=""5"" style=""HEIGHT: 22px; LEFT: 4px; TOP: 1px; WIDTH: 54px"">&nbsp;&nbsp;</td>" & _
+							"<td  name=""" & strID & """ valign=""center""><A><IMG title=""" & strID & """ border=""0"" src=""../images/FlechaDerecha.gif"" style=""CURSOR: hand"" onClick=""DoUsuarioClave()""></A></td>" & _
+							"</tr></table>" & _
+						"</td></TR>" & _
+					  "</TABLE> <BR>"
+	End If
+	
+    outlineDiv.insertAdjacentHTML "BeforeEnd", strTemp
+        
+    Public_AddPassword = strID
+End Function
+
+Sub KeyEnter()
+	On Error Resume Next
+	
+	If window.event.keyCode <> 13 Then Exit Sub
+	If Trim(txtUsuario.value) <> Empty And Trim(txtClave.value) <> Empty Then
+		DoUsuarioClave
+	End If
+	
+	err.Clear
+End Sub
+	
+
+Function Public_AddParent(strName)
+    Dim strID 
+    Dim strTemp
+    Dim sColor
+
+    strID = "ID" & intCount
+    intCount = intCount + 1
+	 sColor =  Replace(bBody.bgColor, "#", "")
+    strTemp = "<TABLE left=""0"" top=""0"" id=""tab" & strID & """ name=""" & strID & """ CLASS=""BordeInactivo"" cellspacing=""0"" width=""100%"" language=""VBScript"" onMouseOver=""DoMouseOver()"" onMouseOut=""DoMouseOut()"" style=""cursor: Default"">" & _
+					"<TR class=""trTitulo"" STYLE=""display:"">" & _
+						"<TD id=""td1" & strID & """ name=""" & strID & """ CLASS=""MenuInactivo""><imgs title=""" & strID & """ class=""image""  border=""0"" src=""../images/bordemenu" & scolor & ".gif"" style=""position: relative; top: -3px; left: -2px"">&nbsp;" & strName & "</TD>" & _
+						"<TD id=""td2" & strID & """ CLASS=""MenuInactivo"" align=""right"" name=""" & strID & """ >" & _
+							"<img title=""" & strID & """ class=""image""  border=""0"" valign=""middle"" align=""right"" src=""../images/MenuExpandido.gif"" LANGUAGE=""VBScript"" ONCLICK=""DoClick"" style=""cursor: Hand"">" & _
+						"</td>" & _
+					"</TR>" & _
+					"<TR ID=""" & strID & """ name=""" & strID & """><td name=""" & strID & """ colspan=""2""></td></TR>" & _
+				  "</TABLE> <BR>"
+
+    outlineDiv.insertAdjacentHTML "BeforeEnd", strTemp
+        
+    Public_AddParent = strID
+End Function
+
+Sub Public_DeleteParent(strParentID)
+    Dim objTemp
+
+    Set objTemp = document.all.item(strParentID)
+    objTemp.outerHTML = ""   
+End Sub
+
+Sub Public_AddChild(strParentID, strName, strUrl, strTarget)
+    Dim strTemp
+    Dim objTemp
+	
+	 strTemp = "&nbsp;&nbsp;" & _
+              "<A target=""" & strParentID & """ HREF=""" & strUrl & """ title=""" & strName & """ onClick=""DoLinkEvent()"" onMouseOver=""window.status='" & strName & "'"" onMouseOut=""window.status=''"">" & strName & "</A>" & _
+              "&nbsp;&nbsp;<BR>"
+    Set objTemp = document.all.item(strParentID)
+    on error resume next
+	 objTemp.children(0).insertAdjacentHTML "BeforeEnd", strTemp
+	 
+    on error goto 0
+End Sub
+
+Sub ExpandCollapse()    
+    Dim objElement
+    Dim sImgMenu
+    
+	 
+	 Set objElement = document.getElementById("td2" & window.event.srcElement.title)
+
+    ' did the user click the image or the parent name?
+    Set objElement = document.getElementById(objElement.name)
+    
+    If objElement.style.display = "" Then
+	    sImgMenu = "../images/MenuContraido"
+		objElement.style.display = "none"
+    Else
+		sImgMenu = "../images/MenuExpandido"
+		objElement.style.display = ""
+    End If
+	 window.event.srcElement.src = sImgMenu & ".gif"    
+	
+End Sub
+
+Sub DoClick()
+	Dim objTemp
+	
+	If Ucase(window.event.srcElement.tagName) = UCase("img") Then	
+		Set objTemp = document.getElementById("td2" & window.event.srcElement.title)
+	Else
+		Set objTemp = window.event.srcElement
+	End If
+	
+   If (Left(Trim(objTemp.className), 6) = "Menu")  Then			
+       ExpandCollapse
+   End If
+    
+   window.event.cancelBubble = True
+End Sub
+
+Sub DoMouseOver()
+	Dim i
+	Dim sName
+	Dim objTemp
+	
+	Select Case window.event.srcElement.TagName
+		Case "A"
+			sName = window.event.srcElement.target
+		Case "IMG"
+			sName = window.event.srcElement.title
+		Case Else
+			sName = window.event.srcElement.name 
+	End Select
+	
+	document.all.item("tab" & sName).className = "BordeMenu"
+	document.all.item("td1" & sName).className = "Menu"
+	document.all.item("td2" & sName).className = "Menu"
+End Sub
+
+Sub DoMouseOut()
+	Dim i
+	Dim sName
+	Dim objTemp
+	
+	Select Case window.event.srcElement.TagName
+		Case "A"
+			sName = window.event.srcElement.target
+		Case "IMG"
+			sName = window.event.srcElement.title
+		Case Else
+			sName = window.event.srcElement.name 
+	End Select
+
+	document.all.item("tab" & sName).className = "BordeInactivo"
+	document.all.item("td1" & sName).className = "MenuInactivo"
+	document.all.item("td2" & sName).className = "MenuInactivo"
+End Sub
+
+Sub DoLinkEvent()
+    Dim strUrl
+
+    strUrl = window.event.srcElement.href
+    'prevent default action for a link
+    window.event.returnValue = False
+    window.external.raiseEvent "linkClick", strUrl 
+End Sub
+
+Sub DoUsuarioClave()
+    window.event.returnValue = False
+    window.external.raiseEvent "Clave", window.txtUsuario.value
+End Sub
+
+Sub DoStatus()	
+	
+End Sub
+
+-->
+</script>
+
+<script LANGUAGE="VBScript" id="Propiedades">
+<!--
+
+Sub Public_Put_StyleSheet(strUrl)
+	dim i
+	
+	for i = 0 to document.styleSheets.length - 1
+    'document.stylesheets(0).addImport(strUrl)
+    document.styleSheets(i).href = strUrl
+   next 
+End Sub
+
+Sub Public_Put_bgColor(sColor)
+	bBody.bgColor = sColor	
+End Sub
+
+Function Public_Get_Password
+	Public_Get_Password =  window.txtClave.value
+End Function
+
+Function Public_Get_Usuario
+	Public_Get_Usuario =  window.txtUsuario.value
+End Function
+		
+-->
+</script>
+
+<body onKeyPress="KeyEnter" bgcolor="transparent" id="bBody">
+
+<div ID="outlineDiv">
+</div>
+
+</body>
+
+<script LANGUAGE="VBScript">
+	sub window_onload()
+		Dim sId		
+		
+'		Public_AddPassword "Cliente"
+'		
+'		sId = public_addparent("Pruebas")
+'		public_addchild sId, "Opcion 1", "Sucursales.asp", ""
+'		public_addchild sId, "Opcion 2", "Sucursales.asp", ""
+'		public_addchild sId, "Opcion 3", "Sucursales.asp", ""
+'		public_addchild sId, "Opcion 4", "Sucursales.asp", ""
+'		sId = public_addparent("Pruebas 2")
+'		public_addchild sId, "Opcion 1", "../Sucursales.asp", ""
+'		public_addchild sId, "Opcion 2", "Sucursales.asp", ""
+'		public_addchild sId, "Opcion 3", "Sucursales.asp", ""
+'		public_addchild sId, "Opcion 4", "Sucursales.asp",""
+'		
+'
+	end sub
+</script>
+
+</html>

@@ -1,0 +1,32 @@
+<!-- _visorap.htm -->
+<html>
+<head>
+<title>AFEX</title>
+</head>
+<script LANGUAGE="VBScript">
+
+	On Error Resume Next
+		
+	Sub window_onload()
+		'window.setInterval "CargarVisor", 10000, "vbscript"
+	End Sub	
+	
+	Sub CargarVisor
+		window.navigate "http:_visorAP.htm"
+	End Sub
+
+</script>
+
+<body style="margin: -1 -1 -1 -1 ">
+		<table cellspacing="0" cellpadding="0" style="BORDER-BOTTOM: lightgrey 0px solid">
+			<tr height="0"><td></td></tr>
+			<tr height="66px"><td>
+		      <object align="left" id="objUSD" style="HEIGHT: 66px; WIDTH: 170px" type="text/x-scriptlet" width="174" border="0" VIEWASTEXT><param NAME="Scrollbar" VALUE="0"><param NAME="URL" VALUE="http:VisorAP.asp?mn=usd"></object>
+			</td></tr>
+			<tr height="66px"><td>
+		      <object align="left" id="objEUR" style="HEIGHT: 66px; WIDTH: 170px" type="text/x-scriptlet" width="174" border="0" VIEWASTEXT><param NAME="Scrollbar" VALUE="0"><param NAME="URL" VALUE="http:VisorAP.asp?mn=eur"></object>
+			</td></tr>
+			<tr><td>Precios referenciales sujetos a cambios y<br>solo para operaciones con Casa Matriz</td></tr>
+		</table>
+</body>
+</html>

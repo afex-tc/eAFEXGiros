@@ -1,0 +1,49 @@
+<!--	_opciones.htm	-->
+		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="display: ">	
+		<tr>
+			<td>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" style="display:">	
+			<tr height="20px" align="center">
+			<% If VPo1 Then %>
+					<td class="boton" onClick="Mostrar_detalleposicion" onMouseOver="MouseOver()" onMouseOut="MouseOut()">Posicion</td>
+			<% End If %>
+			<% If VUt1 Then %>
+					<td class="boton" onClick="Mostrar_utilidad" onMouseOver="MouseOver()" onMouseOut="MouseOut()">Utilidad</td>
+			<% End If %>
+			<% If VUt2 Then %>
+					<td class="boton" onClick="Mostrar_utilidadmensual" onMouseOver="MouseOver()" onMouseOut="MouseOut()">Mensual</td>
+			<% End If %>
+			<% If VMn1 Then %>
+					<td class="boton" onClick="Mostrar_monedas" onMouseOver="MouseOver()" onMouseOut="MouseOut()">FC</td>
+			<% End If %>
+			</tr>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" style="display: ">	
+			<tr height="20px" align="center">
+			<% If VCo1 Then %>			
+					<td class="boton" id="tdopConfiguracion" onClick="Mostrar_configuracion" onMouseOver="MouseOver()" onMouseOut="MouseOut()">Config</td>
+			<% End If %>
+			<% If VCl1 Then %>			
+					<td class="boton" id="tdopClientes" onClick="Mostrar_clientes" onMouseOver="MouseOver()" onMouseOut="MouseOut()">Clientes</td>
+			<% End If %>
+			<% If VCd1 Then %>			
+					<td class="boton" id="tdopCierreDiario" onClick="Mostrar_cierrediario()" onMouseOver="MouseOver()" onMouseOut="MouseOut()">CerrarDia</td>
+			<% End If %>
+			<td class="boton" onClick="CerrarSesion()" onMouseOver="MouseOver()" onMouseOut="MouseOut()">FinSesion</td>
+			</tr>
+			</table>
+			</td>
+		</tr>
+		</table>
+		<script language="vbscript">
+		
+			Sub CerrarSesion()
+				If Not CajaPreguntaSiNo("Abandonar Sesion", "Está seguro que desea cerrar la sesion?") Then Exit Sub
+				window.navigate "CerrarSesion.asp"
+			End Sub			
+		
+		</script>

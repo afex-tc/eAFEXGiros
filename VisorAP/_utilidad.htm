@@ -1,0 +1,80 @@
+<!--	_utilidad.htm	-->
+		<table id="tbUtilidad" border="0"  cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid silver; display: none">	
+		<tr class="tt2" align="center">
+			<td style="border-right: 1px solid silver">Personal</td>
+		</tr>
+		<tr class="tc" align="right" style="font-size: 12pt">
+			<td id="tdUtilidad" style="color: blue; border-right: 1px solid silver; border-bottom: 1px solid silver  "></td>
+		</tr>
+		</table>	
+		<script language="vbscript">
+			Sub Mostrar_utilidad()
+				If ActualizarFicha.style.display = "" Then
+					tbUtilidad.style.display = "none"
+				Else
+					tbUtilidad.style.display = ""
+				End IF
+			End Sub
+
+
+			Private Sub Cargar_utilidad(ByVal Conexion, Byval Moneda, ByVal Fecha, ByVal Ejecutivo)
+			   Dim rs 
+			   Dim sMoneda 
+			   
+			   On Error Resume Next
+			   If Year(dtpFecha) <= 2004 Then
+			      sMoneda = Moneda
+			   Else
+			      sMoneda = ""
+			   End If
+			   'If prmVerUtilidadEjecutivo Then
+			      Set rs = ObtenerRSAPVTotal(Conexion, Moneda, Fecha, Ejecutivo)
+			   'Else
+			   '   Set rs = afxAPPR.ObtenerRSAPVUtilidadEjecutivo(sAPConexion, sMoneda, prmFecha, prmEjecutivo)
+			   'End If
+			   
+				If Err.Number <> 0 Then 
+					Set rs = Nothing
+					Exit Sub
+				End If	   
+			      
+			   Do Until rs.EOF
+			      Select Case rs("tipo")
+			      
+			         Case 1   'Utilidad
+
+			         Case 2   'Utilidad Ejecutivos
+
+			         Case 3   'Utilidad Moneda
+
+			         Case 4   'Utilidad Ejecutivos Moneda
+			      
+			      End Select
+			      rs.MoveNext
+			   Loop
+			   rs.Close		   
+			   Set rs = Nothing
+			   
+			End Sub
+
+			
+			Function ObtenerRSAPVTotal(ByVal Conexion, ByVal Moneda, _
+			                          ByVal Fecha, ByVal Ejecutivo)
+			   Dim rs
+			   Dim sSQL
+				      
+			   On Error Resume Next
+			   Set ObtenerRSAPVTotal = Nothing
+				   
+			   sSQL = "APVisorUtilidadTotal " & EvaluarStr(Moneda) & ", " & FormatoFechaSQL(Fecha) & ", " & EvaluarStr(Ejecutivo)
+			   Set rs = EjecutarSQLCliente(Conexion, sSQL)
+			   If Err.Number <> 0 Then 
+					Set rs = Nothing
+					Exit Function
+				End If	   
+				   
+			   Set ObtenerRSAPVTotal = rs
+			   Set rs = Nothing
+			End Function
+
+		</script>

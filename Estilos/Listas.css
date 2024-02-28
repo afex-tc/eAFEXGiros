@@ -1,0 +1,29 @@
+TR.Encabezado
+{
+    BACKGROUND-COLOR: #20b2aa;
+    COLOR: white;
+    CURSOR: default;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 11px;
+    HEIGHT: 30px;
+    TEXT-ALIGN: center
+}
+TR.Detalle1
+{
+    BACKGROUND-COLOR: #daf6ea;
+    CURSOR: hand;
+    HEIGHT: 20px
+}
+TR.Detalle2
+{
+    BACKGROUND-COLOR: #d0ece0;
+    CURSOR: hand;
+    HEIGHT: 20px
+}
+TR.Seleccionado
+{
+    BACKGROUND-COLOR: sienna;
+    COLOR: aqua;
+    CURSOR: hand;
+    HEIGHT: 20px
+}

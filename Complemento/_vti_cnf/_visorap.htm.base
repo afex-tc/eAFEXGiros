@@ -1,0 +1,15 @@
+<!-- _visorap.htm -->
+		<table cellspacing="0" cellpadding="0" style="BORDER-BOTTOM: lightgrey 0px solid">
+		<!--
+			<tr height="0"><td></td></tr>
+			<tr height="30px"><td>
+		      <object align="left" id="objUSD" style="HEIGHT: 36px; WIDTH: 170px" type="text/x-scriptlet" width="174" border="0" VIEWASTEXT><param NAME="Scrollbar" VALUE="0"><param NAME="URL" VALUE="http:VisorAP/VisorAP.asp?mn=usd&vpr1=1"></object>
+			</td></tr>
+			<tr height="30px"><td>
+		      <object align="left" id="objEUR" style="HEIGHT: 38px; WIDTH: 170px" type="text/x-scriptlet" width="174" border="0" VIEWASTEXT><param NAME="Scrollbar" VALUE="0"><param NAME="URL" VALUE="http:VisorAP/VisorAP.asp?mn=eur&vpr1=1"></object>
+			</td></tr>
+			<tr><td style="font-family: Tahoma, Arial; background-color: red; color: white; font-size: 7pt">*Precios referenciales sujetos a cambios y solo para operaciones con Casa Matriz</td></tr>
+			<tr><td><iframe src="http:visorap/VisorAP.asp?mn=usd&vpr1=1&co=3&ve=1" style="width:170; height:32" scrolling="no" frameborder="0"></iframe></td></tr>
+		-->
+			<tr><td onClick="window.open('VisorAP/_visorap.asp?vpr2=1', 'VisorAP', 'height=224,width=170,top=250, left=350,status=no,toolbar=no,menubar=no,resize=yes,location=no,channelmode=no')" ><img border="0" style="cursor:hand" src="http:Complemento/LinkVisorAP.jpg"></td></tr>
+		</table>

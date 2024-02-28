@@ -1,0 +1,253 @@
+BODY
+{
+    CLEAR: both;
+    COLOR: black;
+    FONT-FAMILY: 'MS Sans Serif', Verdana, 'Times New Roman', Arial, 'Arial Black';
+    FONT-SIZE: 8pt;
+    LIST-STYLE: none;
+    MARGIN: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-RIGHT: 0px;
+    PADDING-TOP: 0px;
+    TEXT-TRANSFORM: none;
+    BACKGROUND-REPEAT: no-repeat;
+    COLOR: #404040;
+}
+H1
+{
+    COLOR: #43829d;
+    FONT-FAMILY: 'Arial Black', Verdana, 'Arial Narrow';
+    FONT-SIZE: 24pt;
+    LETTER-SPACING: -2.6pt
+}
+H3
+{
+    COLOR: darkcyan;
+    FONT-FAMILY: 'Arial Black', Verdana;
+    LETTER-SPACING: -1pt
+}
+H2
+{
+    COLOR: darkcyan;
+    FONT-FAMILY: 'Arial Black', Verdana;
+    LETTER-SPACING: -1.6pt
+}
+H5
+{
+    COLOR: white;
+    FLOAT: right;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 28pt;
+    LETTER-SPACING: -2pt;
+    PADDING-TOP: 2pt;
+    POSITION: static;
+    TEXT-TRANSFORM: none;
+    TOP: 1%
+}
+H6
+{
+    COLOR: #f5f5f5;
+    FONT-FAMILY: 'Arial Black', Arial, Verdana;
+    FONT-SIZE: 60pt;
+    FONT-WEIGHT: lighter;
+    HEIGHT: 40px;
+    LETTER-SPACING: -5pt;
+    POSITION: relative;
+    TEXT-ALIGN: left;
+    TOP: -30px;
+    WIDTH: 100%
+}
+TABLE
+{
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: 8pt
+}
+TABLE.Borde
+{
+    BORDER-BOTTOM: #005b5b 1px solid;
+    BORDER-LEFT: #005b5b 1px solid;
+    BORDER-RIGHT: #005b5b 1px solid;
+    BORDER-TOP: #005b5b 1px solid;
+    COLOR: black;
+    MARGIN: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-RIGHT: 0px;
+    PADDING-TOP: 0px
+}
+TD.Menu
+{
+    BACKGROUND-COLOR: #005b5b;
+    COLOR: white;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: 8pt;
+    FONT-WEIGHT: bold
+}
+TD.Titulo
+{
+    BACKGROUND-COLOR: #005b5b;
+    BORDER-BOTTOM: 1px;
+    BORDER-LEFT: 1px;
+    BORDER-RIGHT: 1px;
+    BORDER-TOP: 1px;
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold;
+    HEIGHT: 4pt
+}
+TR.Descripcion
+{
+    BACKGROUND-COLOR: beige;
+    COLOR: black;
+    FONT-SIZE: 8pt
+}
+A:active
+{
+    COLOR: mediumblue;
+    TEXT-DECORATION: underline
+}
+A:link
+{
+    COLOR: mediumblue;
+    TEXT-DECORATION: underline
+}
+A:visited
+{
+    COLOR: mediumblue;
+    TEXT-DECORATION: underline
+}
+A:hover
+{
+    COLOR: mediumblue;
+    TEXT-DECORATION: underline
+}
+TABLE.BordeInactivo
+{
+    BORDER-BOTTOM: silver 1px solid;
+    BORDER-LEFT: silver 1px solid;
+    BORDER-RIGHT: silver 1px solid;
+    BORDER-TOP: silver 1px solid;
+    COLOR: silver
+}
+TD.MenuInactivo
+{
+    COLOR: white;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: 8pt;
+    FONT-WEIGHT: bold
+}
+TD.TituloInactivo
+{
+    BACKGROUND-COLOR: silver;
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold
+}
+DIV.divMenu
+{
+    BACKGROUND-COLOR: #005b5b;
+    BORDER-BOTTOM: #005b5b 1px solid;
+    BORDER-LEFT: #005b5b 1px solid;
+    BORDER-RIGHT: #005b5b 1px solid;
+    BORDER-TOP: #005b5b 1px solid;
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial
+}
+.TextoBoton
+{
+    BACKGROUND-COLOR: darkcyan;
+    BORDER-BOTTOM: white 1px solid;
+    BORDER-LEFT: white 1px solid;
+    BORDER-RIGHT: white 1px solid;
+    BORDER-TOP: white 1px solid;
+    COLOR: white;
+    CURSOR: hand;
+    FONT-FAMILY: Arial, Verdana;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: 800;
+    LETTER-SPACING: -1pt;
+    POSITION: relative
+}
+TABLE.BordeMsgBox
+{
+    BORDER-BOTTOM: skyblue 1px solid;
+    BORDER-LEFT: skyblue 1px solid;
+    BORDER-RIGHT: skyblue 1px solid;
+    BORDER-TOP: skyblue 1px solid;
+    COLOR: skyblue
+}
+TD.TituloMsgBox
+{
+    BACKGROUND-COLOR: skyblue;
+    COLOR: white;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold
+}
+INPUT
+{
+    FONT-FAMILY: 'MS Sans Serif', Arial;
+    FONT-SIZE: 10pt;
+    HEIGHT: 16pt
+}
+SELECT
+{
+    FONT-FAMILY: 'MS Sans Serif', Arial;
+    FONT-SIZE: 10pt;
+    HEIGHT: 20pt
+}
+TD.TituloFondo
+{
+    BACKGROUND-COLOR: transparent;
+    BORDER-BOTTOM: black;
+    BORDER-LEFT: black;
+    BORDER-RIGHT: black;
+    BORDER-TOP: black;
+    COLOR: #f5f5f5;
+    FONT-FAMILY: 'Arial Black', Arial, Verdana;
+    FONT-SIZE: 60pt;
+    FONT-WEIGHT: lighter;
+    LEFT: 0px;
+    LETTER-SPACING: -5pt;
+    LINE-HEIGHT: 54pt;
+    MARGIN: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-RIGHT: 0px;
+    PADDING-TOP: 0px;
+    POSITION: relative;
+    TEXT-ALIGN: left;
+    TOP: 0px;
+    VERTICAL-ALIGN: super;
+    WIDTH: 100%
+}
+.Sombra
+{
+    COLOR: #cfcfcf;
+    FONT-FAMILY: 'Arial Black'
+}
+A:active.Caja
+{
+    COLOR: Gray;
+    TEXT-DECORATION: none
+}
+A:link.Caja
+{
+    COLOR: Gray;
+    TEXT-DECORATION: none
+}
+A:visited.Caja
+{
+    COLOR: Gray;
+    TEXT-DECORATION: none
+}
+A:hover.Caja
+{
+    COLOR: mediumblue;
+    TEXT-DECORATION: none
+}

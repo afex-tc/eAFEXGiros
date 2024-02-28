@@ -1,0 +1,23 @@
+.linkcss {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 12px;
+	font-style: normal;
+	color: #FFFFFF;
+}
+linkcss:link {
+	text-decoration: none;
+	color: #FF0000;
+}
+linkcss:visited {
+	text-decoration: none;
+	color: #0000FF;
+}
+linkcss:hover {
+	text-decoration: underline;
+	color: #FF0000;
+	font-family: "Courier New", Courier, monospace;
+}
+linkcss:active {
+	text-decoration: none;
+	color: #000099;
+}

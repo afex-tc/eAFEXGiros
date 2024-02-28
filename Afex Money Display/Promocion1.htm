@@ -1,0 +1,32 @@
+<html>
+<body scroll="no" style="margin: 0 0 0 0">
+<script language="vbscript">
+
+	Sub window_onload()
+		Dim sLinea
+		window.setInterval "Terminar", 35000, "vbscript"
+		'window.moveTo 801, 0
+	End Sub	
+	
+	Sub Terminar
+		'window.close 
+		window.navigate "MoneyDisplay TV Flotante.htm"
+	End Sub
+
+	Sub Abrir()
+		Set  fs = CreateObject("Scripting.FileSystemObject")
+		Set f = fs.OpenTextFile("C:\Afex Money Display\Promocion1.txt", 1, False)
+		Texto.innerText = f.readall		
+		f.Close
+	End Sub		
+
+</script>
+	<embed id="Promocion" border="0" width="100%" height="85%" src="videos/Promocion1.swf" style="cursor: hand; zindex: 1" TYPE="application/x-shockwave-flash">
+	<center>
+	<table  width="100%" ><tr>
+	<td id="Texto" align="center" height="100px" bgcolor="steelblue" style="position: relative; top: 00; font-family: verdana; font-size: 60; font-weight: bold; color: white" >Llámenos al 636-9000
+	</td>
+	</tr></table>
+	</center>
+</body>
+</html>

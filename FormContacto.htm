@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+
+<!-- PRIMER PASO: Copiar este código dentro del tag HEAD -->
+
+<script LANGUAGE="JavaScript">
+
+function Validar(form)
+{
+  if (form.Nombre.value == "")
+  { alert("Por favor ingrese su nombre"); form.Nombre.focus(); return; }
+
+  if (form.Email.value == "")
+  { alert("Por favor ingrese su dirección de e-mail"); form.Email.focus(); return; }
+
+  if (form.Domicilio.value == "")
+  { alert("Por favor ingrese su domicilio"); form.Domicilio.focus(); return; }
+ 
+  if (form.Telefono.value == "")
+  { alert("Por favor ingrese su número de teléfono"); form.Telefono.focus(); return; }
+
+  if (form.Empresa.value == "")
+  { alert("Por favor ingrese el nombre de su empresa"); form.Empresa.focus(); return; }
+
+  if (form.NumeroTarjeta.value == "")
+  { alert("Por favor ingrese los números de su tarjeta de crédito"); form.NumeroTarjeta.focus(); return; }
+
+  if (form.Codigo.value == "")
+  { alert("Por favor ingrese el código de su tarjeta de crédito"); form.Codigo.focus(); return; }
+
+  if (form.NombreTitular.value == "")
+  { alert("Por favor indique el nombre del titular de la tarjeta de crédito"); form.NombreTitular.focus(); return; }
+
+  if (form.Email.value.indexOf('@', 0) == -1 ||
+      form.Email.value.indexOf('.', 0) == -1)
+  { alert("Dirección de e-mail inválida"); form.Email.focus(); return; }
+
+  form.submit();
+}
+
+</script>
+
+
+<TITLE> New Document </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+</HEAD>
+
+<BODY>
+<!-- SEGUNDO PASO: Copiar el formulario dentro del tag BODY -->
+
+<form METHOD="post" ACTION="../cgi-bin/formulario.cgi">
+  <div align="center"><center><table border="0" width="57%">
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>Apellido</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Apellido"
+      size="20"></font></td>
+      <td width="38%" align="right"><div align="right">
+        <p><font face="Arial" color="#000000"><small>Nombre</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Nombre"
+      size="20"></font></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>Domicilio</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Domicilio"
+      size="20"></font></td>
+      <td width="38%" align="right"><font face="Arial" color="#000000"><small>(*) Ciudad</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Ciudad"
+      size="20"></font></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>(*) Provincia</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Provincia"
+      size="20"></font></td>
+      <td width="38%" align="right"><font face="Arial" color="#000000"><small>(*) Codigo Postal</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="CodPost"
+      size="20"></font></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>(*) Pais</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Pais"
+      size="20"></font></td>
+      <td width="38%" align="right"><font face="Arial" color="#000000"><small>E-mail</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Email"
+      size="20"></font></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>Teléfono</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Telefono"
+      size="20"></font></td>
+      <td width="38%" align="right"><font face="Arial" color="#000000"><small>(*) Fax</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Fax" size="20"></font></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"></td>
+      <td width="23%"></td>
+      <td width="38%" align="right"><font face="Arial" color="#000000">&nbsp; </font></td>
+      <td width="23%"></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>Empresa</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Empresa"
+      size="20"></font></td>
+      <td width="38%" align="right"><font face="Arial" color="#000000"><small>(*) Dirección</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text"
+      name="DireccionEmpresa" size="20"></font></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>(*) Teléfono</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text"
+      name="telefonoEmpresa" size="20"></font></td>
+      <td width="38%" align="right"><font face="Arial" color="#000000"><small>(*) Fax</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="FaxEmpresa"
+      size="20"></font></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>(*) E-mail</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="EmailEmpresa"
+      size="20"></font></td>
+      <td width="38%" align="right"></td>
+      <td width="23%"></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"></td>
+      <td width="23%"></td>
+      <td width="38%" align="right"></td>
+      <td width="23%"></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>Tarjeta de Credito</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <select name="Tarjeta" size="1">
+        <option value="Amex">Amex</option>
+        <option value="Visa">Visa</option>
+        <option value="Mastercard">Mastercard</option>
+        <option value="Diners">Diners</option>
+      </select></font></td>
+      <td width="38%" align="right"><font face="Arial" color="#000000"><small>Nombre del Titular</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="NombreTitular"
+      size="20"></font></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>Numero</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="NumeroTarjeta"
+      size="20"></font></td>
+      <td width="38%" align="right"><font face="Arial" color="#000000"><small>Código de
+      seguridad</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text" name="Codigo"
+      size="5"></font></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"><font face="Arial" color="#000000"><small>(*) Fecha de
+      vencimiento</small></font></td>
+      <td width="23%"><font color="#FFFFFF" face="Arial">
+        <input type="text"
+      name="VencimientoMes1" size="2"> / <input type="text" name="Vencimientoano1" size="2"></font></td>
+      <td width="38%" align="right"></td>
+      <td width="23%"></td>
+    </tr>
+    <tr>
+      <td width="16%" align="right"></td>
+      <td width="23%"></td>
+      <td width="38%" align="right"></td>
+      <td width="23%"></td>
+    </tr>
+    <tr>
+      <td align="center" colspan="4"><div align="center"><center><table border="0"
+      width="100%" cellspacing="15" cellpadding="0">
+        <tr>
+          <td width="100%"><div align="center"><center><p><font face="Arial" color="#000000"><small><input
+          TYPE="button" VALUE="Enviar" onClick="Validar(this.form)"><input TYPE="reset"></small></font></td>
+        </tr>
+      </table>
+      </center></div></td>
+    </tr>
+  </table>
+  </center></div>
+</form>
+
+
+
+
+</BODY>
+</HTML>

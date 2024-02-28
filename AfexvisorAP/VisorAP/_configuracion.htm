@@ -1,0 +1,162 @@
+<!--	_configuracion.htm	-->
+		<table id="tbConfiguracion" border="0"  cellpadding="2" cellspacing="2" width="100%" style="border: 1px solid silver; display: none">	
+		<tr class="tt2" align="left">
+			<% If VCo11 Then %>
+					<td style="">&nbsp;Moneda</td>
+			<% End If %>
+			<% If VCo12 Then %>
+					<td>&nbsp;Fecha</td>
+			<% End If %>
+		</tr>
+		<tr align="left">
+			<% If VCo11 Then %>
+					<td style="">
+						<div id="dvMonedaAP">
+						</div>
+					</td>
+			<% End If %>
+			<% If VCo12 Then %>
+					<td><input name="fch" value=<%=sFecha%> style="width: 80px"></td>
+			<% End If %>
+		</tr>
+		<tr>
+			<% If VCo11 Then %>
+					<td colspan="2"><input type="checkbox" <%=sCheckMonedaUti%> id="mut" name="mut">Mostrar utilidad sólo moneda actual</td>
+			<% End If %>
+		</tr>			
+		<tr align="left">
+			<td colspan="2">
+			<table>
+			<tr class="tt2" align="left">
+				<td style="width: 143px">
+					<% If VCo13 Then %>
+							Sucursal
+					<% End If %>
+				</td>
+				<% If VCo11 Or VCo12 Or VCo13 Then %>
+						<td></td>
+				<% End If %>
+			</tr>
+			<tr>
+				<td style="width: 143px">
+					<% If VCo13 Then %>
+							<div id="dvSucursal">
+							</div>
+					<% End If %>
+				</td>
+				<% If VCo11 Or VCo12 Or VCo13 Then %>
+						<td align="center" class="boton" style="height: 20px; width: 80px" onClick="RecargarVisor" onMouseOver="MouseOver()" onMouseOut="MouseOut()">Cargar</td>
+				<% End If %>
+			</tr>
+			</table>
+			</td>
+		</tr>
+
+		<tr height="10px"><td></td></tr>
+		</table>	
+		<script language="vbscript">		
+			Sub RecargarVisor()
+				'frmVisorAP.action = "VisorAP.asp"
+				'msgbox "<%=Session("SesionActiva")%>"
+				frmVisorAP.action = "../VisorAP.asp?itv=60000"
+				frmVisorAp.submit 
+				frmVisorAP.action = ""
+				'window.navigate "VisorAP.asp?mn=" & cbxMonedaAP
+			End Sub
+			
+			Sub Mostrar_configuracion()
+				If bVPr3 Then Mostrar_detalleposicion
+				If bVUt1 Then Mostrar_utilidad
+				If bVUt2 Then Mostrar_utilidadmensual
+				If bVMn1 Then Mostrar_monedas
+				If bVCd1 Then Mostrar_cierrediario
+				If tbConfiguracion.style.display = "" Then
+					tbConfiguracion.style.display = "none"
+				Else
+					tbConfiguracion.style.display = ""
+				End IF
+				bVCo1 = (tbConfiguracion.style.display = "")
+			End Sub
+
+			Sub Cargar_configuracion()
+				Cargar_monedasvisor "<%=Session("cnxVisorAP")%>", "<%=sMoneda%>"
+				<% If VCo13 Then %>
+						Cargar_sucursales "<%=Session("cnxVisorAP")%>", "<%=sSucursal%>"
+				<% End If %>
+			End Sub
+				
+			Sub Cargar_monedasvisor(ByVal Conexion, ByVal Moneda)
+				Dim rs, sHTML, sSelected
+				
+				On Error Resume Next
+				Set rs = ObtenerMonedasAP(Conexion)
+				If Err.number <> 0 Then
+					Set rs = Nothing
+					Err.Clear 
+					Exit Sub
+				End If
+				sHTML = "<select name=mn style=""width: 140px"">"
+				Do Until rs.EOF
+					If rs("correlativo") = Moneda Then
+						sSelected = "selected"
+					Else
+						sSelected = ""
+					End If
+					sHTML = 	sHTML & "<option value=" & rs("correlativo") & " " & sSelected & " >" & rs("descripcion") & ""
+					rs.MoveNext
+				Loop
+				Set rs = Nothing
+				sHTML = sHTML & "</select>"
+				dvMonedaAP.innerHTML = sHTML	
+			End Sub
+
+			Sub Cargar_sucursales(ByVal Conexion, ByVal Sucursal)
+				Dim rs, sHTML, sSelected
+				Dim i
+'				Dim aCodigoSC(1), aNombreSC(1)
+'				
+'				aCodigoSC(0) = "AW"
+'				aCodigoSC(1) = "PP"
+'				aNombreSC(0) = "Afex Mesa"
+'				aNombreSC(1) = "Afex Pruebas"
+
+<!--#INCLUDE FILE="_sucursales.vb" -->
+
+				On Error Resume Next
+				sHTML = "<select name=sc style=""width: 143px"">"
+				For i = 0 To UBound(aCodigoSC)
+					If aCodigoSC(i) = Sucursal Then
+						sSelected = "selected"
+					Else
+						sSelected = ""
+					End If
+					sHTML = sHTML & "<option value=" & aCodigoSC(i) & " " & sSelected & " >" & aNombreSC(i) & ""
+				Next
+				sHTML = sHTML & "</select>"
+				dvSucursal.innerHTML = sHTML	
+			End Sub
+						
+			Function ObtenerMonedasAP(Byval Conexion)
+			   Dim rs
+				Dim sSQL
+
+			   Set ObtenerMonedasAP = Nothing
+
+			   On Error Resume Next
+
+				sSQL = "SELECT ISNULL(codigo_moneda, '0') AS Correlativo, ISNULL(Alias_moneda, '') as Descripcion FROM Moneda WHERE estado_moneda =1 AND estado_ap = 1 ORDER BY Descripcion"				
+			   	   
+			   Set rs = EjecutarSQLCliente(Conexion, sSQL)
+
+			   If Err.Number <> 0 Then 
+					Set rs = Nothing
+					Exit Function
+				End If
+			   
+			   Set ObtenerMonedasAP = rs
+
+			   Set rs = Nothing
+			End Function
+
+			
+		</script>

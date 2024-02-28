@@ -1,0 +1,639 @@
+<html>
+<head>
+<meta name="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<title>AFEX Ltda.</title>
+<style TYPE="text/css">
+BODY
+{
+    CLEAR: both;
+    MARGIN: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-RIGHT: 0px;
+    PADDING-TOP: 0px;
+    TEXT-TRANSFORM: none
+}
+	tr.fila1	{	background-color: black; #59a2a7; #6db2b0;
+				}
+	tr.fila2	{	background-color:  black; #008686;
+				}
+	td.monto {	align: right }
+</style> 
+</head>
+<script language="vbscript">
+	Dim nRecord
+	Dim sCodigoMoneda
+	Dim rs, rsMoneda
+	Dim nPromocionActual
+	Dim nPromociones
+	Dim nVeces, nVecesPromocion
+	Dim nX, nY, nXPosVar, nXCtdadVar, nXPosActual, nXCtdadActual
+	Dim nYPosVar, nYCtdadVar, nYPosActual, nYCtdadActual, nXOperador, nYOperador
+	Dim nMonedas
+	Dim nCompraUSD, nVentaUSD, sNombreUSD, sImgUSD
+	Dim nCompraEUR, nVentaEUR, sNombreEUR, sImgEUR
+	Dim bUSD, bMoneda, bEUR
+	Dim bTodaMoneda, bTodaGrilla
+
+	bUSD = True
+	bEUR = False
+	bMoneda = False
+	nMonedas = 1
+			
+	Const rowMonedas = 4
+
+	nX = 0
+	nY = 0
+	nXPosVar = 5
+	nXCtdadVar = 2
+	nYPosVar = 5
+	nYPosActual = 100
+	nYCtdadVar = 2
+	nXCtdadActual = 0
+	nYCtdadActual = 0
+	nXOperador = 1
+	nYOperador = -1
+	nMax =  100
+
+	nXEUR = 200
+	nYEUR = 600
+	nXOperadorEUR = -1
+	nYOperadorEUR = 1
+	
+	
+	sCodigoMoneda = "USD"
+	nPromocionActual = 1
+	nPromociones = 1
+	nVeces = 1
+	nVecesPromocion = 1
+	
+	Set rsMoneda = CreateObject("ADODB.Recordset")
+	Set rsMoneda = Buscar("1")			
+	bTodaMoneda = False
+	bTodaGrilla = False
+		
+	Sub window_onload()
+		CargarMonedaRS
+		nRecord = 0
+		'window.setInterval "Promocion", 200000, "vbscript"
+		'Promocion
+		'window.setInterval "Flotante", 130, "vbscript"
+		'window.moveTo 801, 0
+	End Sub	
+
+	Sub window_onunload()
+		'Set rsMoneda = Nothing
+		'Set rs = Nothing	
+		'msgbox "chao"
+	End Sub
+	
+	Sub Flotante
+		If nx = 0 Then nxOperador = 2
+		If nx = 390 Then nxOperador = -2
+		If ny = 0 Then nYOperador = 2
+		If ny = 550 Then nYOperador = -2
+		nx = nx + nXOperador
+		ny= ny + nYOperador
+		divFloTC.style.posLeft = ny
+		divFloTC.style.postop = nx
+
+		If nxEUR <= 0 Then nxOperadorEUR = 2
+		If nxEUR >= 390 Then nxOperadorEUR = -2
+		If nyEUR <= 0 Then nYOperadorEUR = 2
+		If nyEUR >= 550 Then nYOperadorEUR = -2
+		nxEUR = nxEUR + nXOperadorEUR
+		nyEUR= nyEUR + nYOperadorEUR
+		divFloTCEUR.style.posLeft = nyEUR
+		divFloTCEUR.style.postop = nxEUR
+
+	End Sub
+	
+	Sub Promocion()
+		'window.navigate "Promocion.htm"
+		'window.open "Promocion" & nPromocionActual & ".htm", "" , "left=1200, fullscreen=yes"
+		window.navigate "Promocion" & nPromocionActual & ".htm"
+		If nPromocionActual >= nPromociones Then
+			nPromocionActual = 1
+		Else
+			nPromocionActual = nPromocionActual + 1
+		End If
+	End Sub
+	
+	Sub mqCiclo_onstart
+		mqCiclo.loop = 1
+  		divPrecios.innerHTML = MostrarTablaPrecios  		
+	End Sub
+	
+	Sub mqCiclo_onfinish
+		If mqCiclo.loop = 2 Then
+			mqCiclo.loop = 1
+		Else
+			mqCiclo.loop = 2
+		End If
+				
+		If rsMoneda.EOF Then
+'			Select Case nVecesPromocion
+'			Case 1, 3
+'				'window.open "MoneyDisplay TV Moneda.htm", "" , "left=1200, fullscreen=yes"
+'				window.open "MDTV Monedas.htm", "" , "left=1200, fullscreen=yes"
+'			Case 5
+'				Promocion
+'				nVecesPromocion = 0
+'			End Select
+'			nVecesPromocion = nVecesPromocion + 1
+			Set rsMoneda = Buscar("1")
+			bTodaMoneda = True
+			bUSD = True
+			bEUR = False
+			bMoneda = False
+		End If			
+		If bTodaMoneda And bTodaGrilla Then
+			bTodaMoneda = False
+			bTodaGrilla = False
+			'GrabarIni
+			GrabarTxt
+		End If
+		CargarMonedaRS		
+	End Sub	
+
+	Sub GrabarIni()
+		Dim fs, f, n, s		
+
+		Set  fs = CreateObject("Scripting.FileSystemObject")
+		Set f = fs.OpenTextFile("c:\Afex Money Display\AFEXdisplay.ini", 1, false)
+		'Set f = fs.OpenTextFile("AFEXdisplay.ini", 1, false)
+		s = f.readline
+		f.Close
+		Set f = fs.OpenTextFile("c:\Afex Money Display\AFEXdisplay.ini", 2, false)
+		'Set f = fs.OpenTextFile("AFEXdisplay.ini", 2, false)
+		n = cInt(0 & s)
+		Select Case n
+			Case 1, 2
+				f.write n + 1
+				f.Close
+				window.navigate "MDTV Monedas.htm"
+				Exit Sub
+				
+			Case 3
+				f.write 1
+				f.Close
+				Promocion
+				Exit Sub
+				
+		End Select
+		f.write n + 1
+		f.Close
+	End Sub		
+
+
+	Sub GrabarTxt()
+		Dim fs, f, n, s
+		Dim rsPrm
+		
+		On Error Resume Next
+		Set rsPrm = BuscarTxt()		
+
+		n = cInt(0 & rsPrm("Promocion"))
+		Select Case n
+			Case 1, 2
+				n = n + 1
+				GuardarTxt n
+				window.navigate "MDTV Monedas.htm"
+				exit sub
+				
+			Case 3
+				n = 1
+				GuardarTxt n
+				Promocion
+				Exit Sub
+				
+			Case Else
+				n = n + 1
+		End Select
+		GuardarTxt n + 1 
+		Set rsPrm = Nothing
+	End Sub		
+
+
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function BuscarTxt()
+		Dim rsTxt, scnx, cnxTXT
+		Dim sSQL
+		Set BuscarTxt = Nothing
+		
+		sSQL = " SELECT codigo_tipo AS Promocion " & _
+				 " FROM	 Tipo " & _
+				 " WHERE	 Nombre_campo = 'MDTVPrm' "
+
+		' crea la conexión con la base de datos
+		On Error Resume Next
+		Set rsTxt = Createobject("ADODB.Recordset")		
+		
+
+		rsTxt.CursorLocation = 3 'Cliente
+		scnx = "DSN=AFEXchange;UID=cambios;PWD=cambios;"
+		rsTxt.Open sSQL, scnx, 3, 4, 1
+		If err.number <> 0 Then			
+			'msgbox err.Description 		
+			Exit Function
+		End if
+		If rsTxt.EOF Then
+			Set cnxTxt = Createobject("ADODB.Connection")		
+			sSQL = " INSERT INTO Tipo " & _
+					 " (nombre_campo, codigo_tipo, nombre_tipo) " & _
+					 " VALUES ('MDTVPrm', 1, 'MDTVPrm')	"
+
+			cnxTxt.Open scnx
+		
+			cnxTxt.Execute sSQL
+			If err.number <> 0 Then			
+				'msgbox 1 & err.Description 		
+				Exit Function
+			End if
+
+			sSQL = " SELECT codigo_tipo AS Promocion " & _
+					 " FROM	 Tipo " & _
+					 " WHERE	 Nombre_campo = 'MDTVPrm' "
+
+			rsTxt.Open sSQL, scnx, 3, 4, 1			
+			If err.number <> 0 Then			
+				'msgbox 1 & err.Description 		
+				Exit Function
+			End if
+			
+		End If
+		'Set rsTxt.ActiveConnection = Nothing
+		Set BuscarTxt = rsTxt
+		Set rsTxt = Nothing
+		Set cnxTXT = Nothing
+
+	End Function
+
+
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function GuardarTxt(ByVal nNum)
+		Dim cnxTxt, scnx
+		Dim sSQL
+		GuardarTxt = False
+		
+		sSQL = " UPDATE Tipo " & _
+				 " SET codigo_tipo = " & nNum & _
+				 "	WHERE nombre_campo = 'MDTVPrm' "
+
+		' crea la conexión con la base de datos
+		On Error Resume Next
+		Set cnxTxt = Createobject("ADODB.Connection")		
+		scnx = "DSN=AFEXchange;UID=cambios;PWD=cambios;"
+		
+		cnxTxt.Open scnx
+		
+		cnxTxt.Execute sSQL
+		If err.number <> 0 Then			
+			'msgbox 1 & err.Description 		
+			Exit Function
+		End if
+		'Set rsTxt.ActiveConnection = Nothing
+		GuardarTxt = True
+		Set cnxTxt = Nothing
+
+	End Function
+
+
+	Sub GrabarCookie()
+		
+	End Sub	
+	
+	Function MostrarTablaPrecios 
+		Dim sTr, sString, i
+		
+		
+		Set rs = CreateObject("ADODB.Recordset")
+		Set rs = Buscar("")		
+		If Err.number <> 0 Then 
+			Set rs = Nothing
+			Exit Function
+		End If
+'		sString = sString &  "<table style=""color: white; font-family: Verdana, Arial;	font-size: 16pt; font-weight: bold;"" id=""tabPrecios"" border=""0"">" & _
+'							"<tr style=""background-color:  #305050; height: 40px""><td width=""480px"" align=""center"">Moneda-Currency</td><td width=""170px"" align=""center"">Compra-Buy</td><td width=""170px"" align=""center"">Venta-Sell</td></tr>"
+'		
+'		sString = sString &  "<tr><td colspan=""3"">"
+'		sString = sString &  "<marquee id=""mqPrecios"" height=""250px"" width=""100%"" direction=""down"" scrollamount=""20"" scrolldelay=""40"" behavior=""slide"" loop=""1"">"
+'		sString = sString &  "<table style=""color: white; font-family: Verdana, Arial;	font-size: 25pt; font-weight: sbold;"" id=""tabPrecios"" border=""0"">"
+
+		sString = sString &  "<table style=""background-color: #646400; color: yellow; font-family: Verdana, Arial; font-size: 16pt; font-weight: bold;"" id=""tabPrecios"" border=""0"">" & _
+							"<tr style=""background-color:  black; height: 40px""><td width=""480px"" align=""center"">Moneda-Currency</td><td width=""170px"" align=""center"">Compra-Buy</td><td width=""170px"" align=""center"">Venta-Sell</td></tr>"
+		
+		sString = sString &  "<tr><td colspan=""3"">"
+		sString = sString &  "<marquee id=""mqPrecios"" height=""250px"" width=""100%"" direction=""down"" scrollamount=""20"" scrolldelay=""40"" behavior=""slide"" loop=""1"">"
+		sString = sString &  "<table style=""color: yellow; font-family: Verdana, Arial;	font-size: 25pt; font-weight: sbold;"" id=""tabPrecios"" border=""0"">"
+		i = 0
+		If nRecord < rs.RecordCount Then
+			If rs.RecordCount - nRecord < rowMonedas Then
+				nRecord = rs.recordCount - rowMonedas
+			End If
+			rs.move nRecord		
+		End If
+		Do Until rs.EOF
+			If sTr = "Fila1" Then
+				sTr = "Fila2"
+			Else
+				sTr = "Fila1"
+			End If
+			sString = sString &  "<tr class=" & _
+									sTr & _
+								" height=""60px""><td><img src=""" & "imagenes/" & trim(rs("codigo_pais")) & ".jpg"" width=""50px"" height=""30px""></td><td width=""430px"">&nbsp;" & _
+									"" & rs("alias_Moneda") & " " & _ 
+								"</td><td align=""right"" width=""170px"">" & _
+									FormatNumber(rs("tipo_cambio_Compra"), 2) & _
+								"&nbsp;</td><td align=""right"" width=""170px"">" & _
+									FormatNumber(rs("tipo_cambio_Venta"), 2) & _
+								"&nbsp;</td></tr>"
+								'(" & rs("Codigo_moneda") & ") " 
+			rs.movenext			
+			i = i + 1
+			If i = rowMonedas Then Exit Do
+		Loop
+		If rs.EOF Then
+			nRecord = 0
+			bTodaGrilla = True
+		Else
+			nRecord = nRecord + rowMonedas
+		End If
+		sString = sString &  "</table>"
+		sString = sString &  "</marquee>"
+		sString = sString &  "</td></tr>"
+		
+		sString = sString &  "</table>"		
+		MostrarTablaPrecios = sString
+		Set rs = Nothing
+		
+	End Function
+	
+	
+	Sub CargarMonedaRS()
+				
+		If Not rsMoneda.EOF Then
+						
+			If rsMoneda("codigo_moneda") = sCodigoMoneda Then
+				nCompraUSD = FormatNumber(Round(rsMoneda("tipo_cambio_compra"), 0), 0)
+				nVentaUSD = FormatNumber(Round(rsMoneda("tipo_cambio_venta"), 0), 0)
+				sNombreUSD = rsMoneda("alias_moneda")
+				sImgUSD = "imagenes/" & trim(rsMoneda("codigo_pais")) & ".jpg"
+
+				
+'******* Para flotante
+'				divFloCodComNormal.innerText = rsMoneda("codigo_moneda")
+'				divFloCodComSombra.innerText = rsMoneda("codigo_moneda")
+'				divFloTCCompraSombra.innerText  = FormatNumber(Round(rsMoneda("tipo_cambio_compra"), 0), 0)
+'				divFloTCCompraNormal.innerText = FormatNumber(Round(rsMoneda("tipo_cambio_compra"), 0), 0)
+'				divFloTCVentaSombra.innerText = FormatNumber(Round(rsMoneda("tipo_cambio_venta"), 0), 0)
+'				divFloTCVentaNormal.innerText = FormatNumber(Round(rsMoneda("tipo_cambio_venta"), 0), 0)
+'				imgFloBandera1.src = "imagenes/" & trim(rsMoneda("codigo_pais")) & ".jpg"
+'				imgFloBandera2.src = "imagenes/" & trim(rsMoneda("codigo_pais")) & ".jpg"
+'******** Fin Flotante
+
+
+				If nVeces = 1 Then
+					nVeces = 1
+					rsMoneda.MoveNext
+				Else
+					nVeces = nVeces + 1
+				End If
+				
+			ElseIf rsMoneda("codigo_moneda") = "EUR" Then
+				nCompraEUR = FormatNumber(Round(rsMoneda("tipo_cambio_compra"), 0), 0)
+				nVentaEUR = FormatNumber(Round(rsMoneda("tipo_cambio_venta"), 0), 0)
+				sNombreEUR = rsMoneda("alias_moneda")
+				sImgEUR = "imagenes/" & trim(rsMoneda("codigo_pais")) & ".jpg"
+
+			
+'********* Inicio Flotante
+'				divFloCodComNormalEUR.innerText = rsMoneda("codigo_moneda")
+'				divFloCodComSombraEUR.innerText = rsMoneda("codigo_moneda")
+'				divFloTCCompraSombraEUR.innerText  = FormatNumber(Round(rsMoneda("tipo_cambio_compra"), 0), 0)
+'				divFloTCCompraNormalEUR.innerText = FormatNumber(Round(rsMoneda("tipo_cambio_compra"), 0), 0)
+'				divFloTCVentaSombraEUR.innerText = FormatNumber(Round(rsMoneda("tipo_cambio_venta"), 0), 0)
+'				divFloTCVentaNormalEUR.innerText = FormatNumber(Round(rsMoneda("tipo_cambio_venta"), 0), 0)
+'				imgFloBanderaEUR1.src = "imagenes/" & trim(rsMoneda("codigo_pais")) & ".jpg"
+'				imgFloBanderaEUR2.src = "imagenes/" & trim(rsMoneda("codigo_pais")) & ".jpg"
+'********** Fin Flotante
+
+				rsMoneda.MoveNext
+			Else
+				nCompra = FormatNumber(Round(rsMoneda("tipo_cambio_compra"), 0), 0)
+				nVenta = FormatNumber(Round(rsMoneda("tipo_cambio_venta"), 0), 0)
+				sNombre = rsMoneda("alias_moneda")
+				sImg = "imagenes/" & trim(rsMoneda("codigo_pais")) & ".jpg"			
+				
+				'rsMoneda.MoveNext 
+			End If
+
+			If bMoneda Then
+				bMoneda = (nMonedas <> 2)
+				tdCodigo.innerHTML = sNombre
+				tdCompra.innerText = nCompra
+				tdVenta.innerText = nVenta
+				img1.src = sImg
+				img2.src = sImg
+				rsMoneda.MoveNext 
+				If Not bMoneda Then 
+					nMonedas = 1
+				Else
+					nMonedas = nMonedas + 1
+				End If
+			ElseIf bUSD Then
+				bMoneda = False
+				bEUR = True
+				bUSD = False
+				tdCodigo.innerHTML = sNombreUSD
+				tdCompra.innerText = nCompraUSD
+				tdVenta.innerText = nVentaUSD
+				img1.src = sImgUSD
+				img2.src = sImgUSD
+
+
+			ElseIf bEUR Then
+				bMoneda = True
+				bEur = False
+				bUSD = True			
+				tdCodigo.innerHTML = sNombreEUR
+				tdCompra.innerText = nCompraEUR
+				tdVenta.innerText = nVentaEUR
+				img1.src = sImgEUR
+				img2.src = sImgEUR								
+			End If			
+			
+		Else
+			tdCompra.innerText = "0,00"
+			tdVenta.innerText = "0,00"
+		End If
+	End Sub	
+
+
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function Buscar(ByVal CodigoMoneda)
+		Dim rs
+		Dim sSQL
+		Set Buscar = Nothing
+		
+		sSQL = "SELECT pmn.codigo_moneda, mn.alias_moneda, pmn.tipo_cambio_compra, pmn.tipo_cambio_venta, mn.codigo_pais " & _
+				 "FROM	Plan_Moneda PMN " & _
+				 "JOIN	Moneda MN ON mn.codigo_moneda=pmn.codigo_moneda " & _
+				 "WHERE	pmn.codigo_producto=1 AND " & _
+				 "			pmn.codigo_caja = '0000' AND " & _
+				 "			pmn.tipo_cambio_compra <> 0 " 
+
+		If CodigoMoneda <> "" Then
+			sSQL = sSQL & " AND mn.shower_moneda >= 1 "
+		Else
+			sSQL = sSQL & " AND mn.shower_grilla >= 1 "
+		End If
+		sSql = sSQL & " ORDER BY mn.shower_moneda, mn.shower_grilla, mn.alias_moneda "
+		' crea la conexión con la base de datos
+		On Error Resume Next
+		Set rs = Createobject("ADODB.Recordset")
+		rs.CursorLocation = 3 'Cliente
+		
+		rs.Open sSQL, "DSN=AFEXchange;UID=cambios;PWD=cambios;", 3, 4, 1
+		If err.number <> 0 Then					
+			Exit Function
+		End if
+		Set rs.ActiveConnection = Nothing
+		Set Buscar = rs
+		Set rs = Nothing
+
+	End Function
+
+
+
+-->
+</script>
+<script language="vbscript">
+<!--
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function BuscarPromociones()
+		Dim rs
+		Dim sSQL
+		Set BuscarPromociones = Nothing
+		
+		sSQL = "SELECT pmn.codigo_moneda, mn.alias_moneda, pmn.tipo_cambio_compra, pmn.tipo_cambio_venta, mn.codigo_pais, mn.shower_mensaje " & _
+				 "FROM	Plan_Moneda PMN " & _
+				 "JOIN	Moneda MN ON mn.codigo_moneda=pmn.codigo_moneda " & _
+				 "WHERE	pmn.codigo_producto=1 AND " & _
+				 "			pmn.codigo_caja = '0000' AND " & _
+				 "			pmn.tipo_cambio_compra <> 0 AND " & _
+				 "			RTRIM(mn.shower_mensaje) <> ''  "
+
+		' crea la conexión con la base de datos
+		On Error Resume Next
+		Set rs = Createobject("ADODB.Recordset")
+		rs.CursorLocation = 3 'Cliente
+		
+		rs.Open sSQL, "DSN=AFEXchange;UID=cambios;PWD=cambios;", 3, 4, 1
+		If err.number <> 0 Then					
+			Exit Function
+		End if
+		Set rs.ActiveConnection = Nothing
+		Set BuscarPromociones = rs
+		Set rs = Nothing
+
+	End Function
+
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function ObtenerPromociones()
+		Dim rs
+		Set rs = BuscarPromociones
+		
+		If rs.EOF Then		
+			ObtenerPromociones = 0
+		Else
+			ObtenerPromociones = rs.RecordCount 
+		End If
+		
+		Set rs = Nothing
+	End Function
+	
+-->
+</script>
+
+<body bgcolor="#f5f5f5" style="color: black" id="bBody" style="margin: 0 0 0 0" scroll="no">
+
+<table border="0" cellpadding="0" cellspacing="0" style="position: relative; left: 0px; top: -10px;">
+	<tr>		
+		<!--
+		<td><img SRC="imagenes/afex.jpg" style="position: relative">&nbsp;</td>
+		<td width="20"></td>
+		-->
+		<td align="middle" swidth="600px">
+			<table style="display: nones; font-family: Arial Black;	font-size: 30pt; " id="tabMoneda" border="0" style="" cellpadding="0" cellspacing="0">
+			<tr><td>
+				<table border="0" style="" cellpadding="0" cellspacing="0" height="160px" width="780px">
+				<tr style=" letter-spacing: -4pt; font-size: 60pt; font-weight: bold; line-height: 44pt"><td align="center"><img id="img1" width="150"></td><td align="center" id="tdCodigo" colspan="0" width="400px"></td><td align="center"><img id="img2" width="150"></td></tr>
+				</table>
+			</td></tr>
+			<tr><td>
+				<table border="0" style="" cellpadding="0" cellspacing="0" width="780px">
+				<tr style=" valign: top; font-size: 20pt; font-weight: ; line-height: 20pt; letter-spacing: -2pt">
+					<td id="tdTitulo1" align="center">Compra-Buy</td><td width="100%" ffbf1c ></td>
+					<td id="tdTitulo2" align="center">Venta-Sell</td>
+				</tr>
+				<tr style=" font-family:  Arial; font-size: 120pt; font-weight: bold; line-height: 96pt; letter-spacing: -10">
+					<td id="tdCompra" align="center" style="color: steelblue"></td><td width="100%" ></td>
+					<td id="tdVenta" align="center" style="color: red"></td>
+				</tr>
+				</table>
+			</td></tr>
+			</table>
+		</td>
+	</tr>
+	<tr><td colspan="3" >
+		<marquee id="mqCiclo" scrolldelay="10" scrollamount="10" style="display: " behavior="slide">
+		&nbsp;
+		</marquee>		
+		<div id="divPrecios">
+<!--		<script language="vbscript">
+			CargarTablaPreciosRS
+		</script>
+-->
+		</div>
+	</td></tr>
+	<tr><td></td></tr>
+</table>
+<div id="divFloTC" style="display: none; position: absolute; font-family: Arial; background-color: yellow; margin: 0 0 0 0">
+	<img id="imgFloBandera1" style="position: absolute; left: 12px; top: 88px; height: 30; width: 50">
+	<div id="divFloCodComLuz" style="font-family: Arial Blacks; display: nones; font-size: 30pt; font-weight: bold; position: absolute; left: 71px; top: 79px; color: white">USD</div>
+	<div id="divFloCodComSombra" style="font-family: Arial Blacks; display: nones; font-size: 30pt; font-weight: bold; position: absolute; left: 72px; top: 82px; color: black">USD</div>
+	<div id="divFloCodComNormal" style="font-family: Arial Blacks; display: nones; font-size: 30pt; font-weight: bold; position: absolute; left: 70px; top: 80px; color: #f1f1f1">USD</div>
+	<img id="imgFloBandera2" style="display: nones; position: absolute; left: 160px; top: 88px; height: 30; width: 50">
+
+	<div id="divFloTCCompraLuz" style="font-size: 70pt; font-weight: line-height: 1; position: absolute; left: 31px; top: -1px; color: white">575</div>
+	<div id="divFloTCCompraSombra" style="font-size: 70pt; font-weight: line-height: 1; position: absolute; left: 32px; top: 2px; color: black">575</div>
+	<div id="divFloTCCompraNormal" style="font-size: 70pt; font-weight: line-height: 1; position: absolute; left: 30px; top: 0px; color: #b8e0ff; #ffc000">579</div>
+	<div id="divFloTCVentaluz" style="font-size: 70pt; font-weight: line-height: 1; position: absolute; left: 31px; top: 102px; color: white">579</div>
+	<div id="divFloTCVentaSombra" style="font-size: 70pt; font-weight: line-height: 1; position: absolute; left: 32px; top: 105px; color: black">579</div>
+	<div id="divFloTCVentaNormal" style="font-size: 70pt; font-weight: line-height: 1; position: absolute; left: 30px; top: 103px; color: #ffcece">575</div>
+</div>
+<div id="divFloTCEUR" style="display: none; position: absolute; font-family: Verdana, Arial Black; background-color: yellow; margin: 0 0 0 0">
+	<div id="divFloTCCompraSombraEUR" style="font-size: 80pt; font-weight: line-height: 1; position: absolute; left: 32px; top: 2px; color: black">572</div>
+	<div id="divFloTCCompraNormalEUR" style="font-size: 80pt; font-weight: line-height: 1; position: absolute; left: 30px; top: 0px; color: #ffff99">572</div>
+	<div id="divFloTCVentaSombraEUR" style="font-size: 80pt; font-weight: line-height: 1; position: absolute; left: 32px; top: 115px; color: black">572</div>
+	<div id="divFloTCVentaNormalEUR" style="font-size: 80pt; font-weight: line-height: 1; position: absolute; left: 30px; top: 113px; color: #ffff99">572</div>
+	<div id="divFloCodComSombraEUR" style="color: yellows; display: nones; font-size: 50pt; font-weight: bold; position: absolute; left: 58px; top: 82px; color: black">USD</div>
+	<div id="divFloCodComNormalEUR" style="color: yellows; display: nones; font-size: 50pt; font-weight: bold; position: absolute; left: 56px; top: 80px">USD</div>
+	<img id="imgFloBanderaEUR1" style="position: absolute; left: 0px; top: 108px; height: 40; width: 60">
+	<img id="imgFloBanderaEUR2" style="position: absolute; left: 214px; top: 108px; height: 40; width: 60">
+</div>
+
+<!--
+<div id="divFloTCEUR" style="display: nones; position: absolute; font-family: Verdana, Arial Black; background-color: white; margin: 0 0 0 0">
+	<div id="divFloTCCompraSombraEUR" style="font-size: 60pt; font-weight: line-height: 1; position: absolute; left: 31px; top: 1px; color: black">572</div>
+	<div id="divFloTCCompraNormalEUR" style="font-size: 60pt; font-weight: line-height: 1; position: absolute; left: 30px; top: 0px">572</div>
+	<div id="divFloTCVentaSombraEUR" style="font-size: 60pt; font-weight: line-height: 1; position: absolute; left: 31px; top: 84px; color: black">572</div>
+	<div id="divFloTCVentaNormalEUR" style="font-size: 60pt; font-weight: line-height: 1; position: absolute; left: 30px; top: 83px">572</div>
+	<div id="divFloCodComSombraEUR" style="color: yellow; display: nones; font-size: 30pt; font-weight: bold; position: absolute; left: 1px; top: 59px; color: black">USD</div>
+	<div id="divFloCodComNormalEUR" style="color: yellow; display: nones; font-size: 30pt; font-weight: bold; position: absolute; left: 0px; top: 58px">USD</div>
+	<img id="imgFloBanderaEUR" style="position: absolute; left: 120px; top: 68px; height: 30; width: 50">
+</div>
+-->
+</body>
+</html>

@@ -1,0 +1,98 @@
+.link_css2 {
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	color: #0000FF;
+	font-weight: bold;
+}
+link_css2:link {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: bold;
+}
+link_css2:visited {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: bold;
+}
+link_css2:hover {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: bold;
+}
+link_css2:active {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: bold;
+}
+.titulos {
+	font-family: Tahoma;
+	font-size: 12px;
+	color: #333333;
+	font-weight: bold;
+}
+.subtitulos {
+	font-family: Tahoma;
+	font-size: 14px;
+}
+.cajas {
+	border: 1px solid #999999;
+	font-family: Tahoma;
+}
+.Estilo2 {
+	font-size: 11px;
+	font-family: Tahoma;
+	color: #333333;
+	font-weight: bold;
+}
+.textoempresa {
+	font-family: Tahoma;
+	font-size: 11px;
+	color: #333333;
+}
+.Textopequeño {
+	font-family: Tahoma;
+	font-size: 9px;
+	font-weight: normal;
+	color: #333333;
+}
+.Borde_tabla_abajo {
+	border: 1px solid #999999;
+	font-family: Tahoma;
+	font-size: 11px;
+	color: #333333;
+}
+.bordelogo {
+	border: thin solid #FFFFFF;
+}
+.Borde_tabla_abajo2 {
+	border-right: 1px solid #999999;
+	border-bottom: 1px solid #999999;
+	border-left: 1px solid #999999;
+}
+.texto_piepagina {
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	color: #FFFFFF;
+}
+.tituloslistatransfer1 {
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+}

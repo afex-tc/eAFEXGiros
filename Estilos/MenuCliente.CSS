@@ -1,0 +1,89 @@
+BODY
+{
+    CLEAR: both;
+    FONT-SIZE: 8pt;
+    TEXT-TRANSFORM: none;
+    COLOR: white;
+    FONT-FAMILY: Verdana, 'Times New Roman', Arial, 'Arial Black';
+    LIST-STYLE-TYPE: none;
+    BACKGROUND-COLOR: #336699
+}
+TABLE.Borde
+{
+    BORDER-RIGHT: #1f5487 1px solid;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: #1f5487 1px solid;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    BORDER-LEFT: #1f5487 1px solid;
+    COLOR: white;
+    PADDING-TOP: 0px;
+    BORDER-BOTTOM: #1f5487 1px solid
+}
+A:active
+{
+    TEXT-DECORATION: none
+}
+A:link
+{
+    TEXT-DECORATION: none
+}
+A:visited
+{
+    TEXT-DECORATION: none
+}
+A:hover
+{
+    TEXT-DECORATION: none
+}
+TABLE.BordeInactivo
+{
+    BORDER-RIGHT: steelblue 1px solid;
+    BORDER-TOP: steelblue 1px solid;
+    BORDER-LEFT: steelblue 1px solid;
+    COLOR: #e1e1e1;
+    BORDER-BOTTOM: steelblue 1px solid
+}
+A
+{
+    FONT-SIZE: 8pt;
+    COLOR: white;
+    FONT-FAMILY: Arial, Verdana;
+    TEXT-DECORATION: none
+}
+TABLE
+{
+    FONT-SIZE: 8pt;
+    COLOR: white;
+    FONT-FAMILY: Arial, Verdana
+}
+TD.Menu
+{
+    BORDER-RIGHT: 1px;
+    BORDER-TOP: 1px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    BORDER-LEFT: 1px;
+    COLOR: white;
+    BORDER-BOTTOM: 1px;
+    FONT-FAMILY: Verdana, Arial, 'Times New Roman';
+    HEIGHT: 4pt;
+    BACKGROUND-COLOR: #1f5487
+}
+TD.MenuInactivo
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    BACKGROUND-COLOR: steelblue
+}
+TABLE.BordeMenu
+{
+    BORDER-RIGHT: #1f5487 1px solid;
+    BORDER-TOP: #1f5487 1px solid;
+    BORDER-LEFT: #1f5487 1px solid;
+    COLOR: white;
+    BORDER-BOTTOM: #1f5487 1px solid
+}

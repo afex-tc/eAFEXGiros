@@ -1,0 +1,24 @@
+<!--==Visual InterDev Generated - startspan==-->
+<!--==Visual InterDev Generated - endspan==-->
+<SCRIPT LANGUAGE='VBScript' RUNAT='Server'> 
+ 
+'Puede agregar controladores de evento especiales a este archivo que se ejecuten automáticamente al 
+'producirse eventos de páginas Active Server. Para ello, cree una subrutina y déle un nombre de la 
+'lista siguiente que se corresponda con el evento que desea utilizar. Por ejemplo, para crear un 
+'controlador de evento para Session_OnStart, debe insertar el siguiente código en 
+'este archivo (sin comentarios): 
+ 
+'Sub Session_OnStart 
+'**Inserte el código aquí ** 
+'End Sub 
+ 
+'EventName              Descripción 
+'Session_OnStart        Se ejecuta la primera vez que un usuario abre cualquier página de la aplicación 
+'Session_OnEnd          Se ejecuta cuando finaliza el tiempo de espera de la sesión de un usuario o éste sale de la aplicación 
+'Application_OnStart    Se ejecuta una vez cuando un usuario abre por primera vez la primera página de la aplicación 
+'Application_OnEnd      Se ejecuta una vez cuando se apaga el servidor Web 
+ Session("cnxVisorAP") = "Provider=SQLOLEDB.1;Password=38Ki40p67s;User ID=cambios;Initial Catalog=cambios;Data Source=canelo;"
+ Session("SesionActiva") = False
+ Session("TipoCliente") = 0
+ Session("TipoSesion") = 0
+</SCRIPT>

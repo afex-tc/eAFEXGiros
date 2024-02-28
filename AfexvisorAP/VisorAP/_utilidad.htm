@@ -1,0 +1,253 @@
+<!--	_utilidad.htm	-->
+		<table id="tbUtilidad" border="0"  cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid silver; display: none">	
+		<% If VUt11 Then %>
+				<tr class="tt2" align="center">
+					<td style="border-right: 1px solid silver; cursor: hand" onMouseOver="javascript:this.bgColor='#EfEfEf'" onMouseOut="javascript:this.bgColor='#FFFFFF'; " onClick="MostrarUtilidad"><%=Session("NombreEmpleado")%>&nbsp;<%=sMonedaUti%></td>
+				</tr>
+				<tr class="tc" align="right" style="font-size: 12pt">
+					<td id="tdUtilidad" style="color: blue; border-right: 1px solid silver; border-bottom: 1px solid silver; cursor: hand" onMouseOver="javascript:this.bgColor='#EfEfEf'" onMouseOut="javascript:this.bgColor='#FFFFFF'">0</td>
+				</tr>
+		<% End If %>
+		<% If VUt12 Then %>
+				<tr class="tt2" align="center">
+					<td style="border-right: 1px solid silver; cursor: hand" onMouseOver="javascript:this.bgColor='#EfEfEf'" onMouseOut="javascript:this.bgColor='#FFFFFF'" onClick="MostrarUtilidadEjecutivos1">Ejecutivos&nbsp;<%=sMonedaUti%></td>
+				</tr>
+				<tr class="tc" align="right" style="font-size: 12pt">
+					<td id="tdUtilidadEjecutivos" style="color: blue; border-right: 1px solid silver; border-bottom: 1px solid silver; cursor: hand" onMouseOver="javascript:this.bgColor='#EfEfEf'" onMouseOut="javascript:this.bgColor='#FFFFFF'" onClick="MostrarUtilidadEjecutivos2">0</td>
+				</tr>
+		<% End If %>
+		<% If VUt13 Then %>
+				<tr class="tt2" align="center">
+					<td style="border-right: 1px solid silver">AFEX&nbsp;<%=sMonedaUti%></td>
+				</tr>
+				<tr class="tc" align="right" style="font-size: 12pt">
+					<td id="tdUtilidadAFEX" style="color: blue; border-right: 1px solid silver; border-bottom: 1px solid silver; cursor: hand" onMouseOver="javascript:this.bgColor='#EfEfEf'" onMouseOut="javascript:this.bgColor='#FFFFFF'" onClick="MostrarUtilidadMoneda">0</td>
+				</tr>
+		<% End If %>
+		</table>	
+		<div id="divMenu1" style="position: absolute; top: 366; left: 100; display: none; background-color: white; color; border: 1px solid gray">
+			<table >
+			<tr>
+				<td class="boton" onClick="" onMouseOver="MouseOver()" onMouseOut="MouseOut()">Por Tipo Cliente</td>
+			</tr>
+			<tr>
+				<td class="boton" onClick="" onMouseOver="MouseOver()" onMouseOut="MouseOut()">Por Ejecutivo</td>
+			</tr>
+			</table>
+		</div>
+		<script language="vbscript">	
+			Sub MostrarMenu(Byval Obj)
+				obj.style.left = window.event.screenX - 50
+				obj.style.top  = window.event.screenY - 150
+				'msgbox window.event.screeny
+				obj.style.display = ""
+			End Sub
+			
+			Sub OcultarMenu(Byval Obj)
+				obj.style.display = "none"
+				window.event.fromElement.style.backgroundcolor="white"
+			End Sub
+
+			Sub MostrarMenu1()
+				divMenu1.style.left = window.event.screenX - 50
+				divMenu1.style.top  = window.event.screenY - 150
+				'msgbox window.event.screeny
+				divMenu1.style.display = ""
+			End Sub
+			
+			Sub Mostrar_utilidad()
+				If bVPr3 Then Mostrar_detalleposicion
+				If bVUt2 Then Mostrar_utilidadmensual
+				If bVMn1 Then Mostrar_monedas
+				If bVCo1 Then Mostrar_configuracion	
+				If bVCd1 Then Mostrar_cierrediario			
+				If tbUtilidad.style.display = "" Then
+					tbUtilidad.style.display = "none"
+				Else
+					tbUtilidad.style.display = ""
+					nUtActual = <%=nItvUt%>
+					nItvLVActual = 0
+					'Cargar_utilidad "<%=sConexion%>", "", "<%=sFecha%>", "<%=Session("NombreUsuario")%>"
+					Cargar_utilidad "<%=sConexion%>", "<%=sMonedaUti%>", "<%=sFecha%>", "<%=Session("NombreUsuario")%>"
+				End IF
+				bVUt1 = (tbUtilidad.style.display = "")
+			End Sub
+									
+			Sub MostrarUtilidad
+				'window.showModelessDialog  "Utilidad.asp?fch=<%=sFecha%>&mn=&pr=1&tp=1&gr=1&ej=<%=Session("NombreUsuario")%>&nej=<%=Session("NombreEmpleado")%>", , "dialogWidth:25; dialogHeight:20"
+				window.showModalDialog "Utilidad.asp?fch=<%=sFecha%>&mn=<%=sMonedaUti%>&pr=1&tp=1&gr=1&ej=<%=Session("NombreUsuario")%>&nej=<%=Session("NombreEmpleado")%>", , "dialogWidth:25; dialogHeight:20"
+			End Sub
+
+			Sub MostrarUtilidadEjecutivos1
+				<% If VUt121 Then %>
+						window.showModalDialog  "Utilidad.asp?fch=<%=sFecha%>&mn=<%=sMonedaUti%>&pr=1&tp=1&gr=1&ej=&nej=Ejecutivos <%=sMonedaUti%>", , "dialogWidth:25; dialogHeight:20"
+				<% End If %>
+			End Sub
+
+
+			Sub MostrarUtilidadEjecutivos2
+				<% If VUt121 Then %>
+						window.showModalDialog "Utilidad.asp?fch=<%=sFecha%>&mn=<%=sMonedaUti%>&pr=1&tp=1&gr=2&ej=&nej=Ejecutivos <%=sMonedaUti%>", , "dialogWidth:25; dialogHeight:20"
+				<% End If %>
+			End Sub
+
+			Sub MostrarUtilidadMoneda
+				<% If VUt121 Then %>
+						window.showModalDialog "Utilidad.asp?fch=<%=sFecha%>&mn=&pr=1&tp=3&gr=3&ej=&nej=Monedas", , "dialogWidth:25; dialogHeight:20"
+				<% End If %>
+			End Sub
+
+			Sub Cargar_utilidad(ByVal Conexion, Byval Moneda, ByVal Fecha, ByVal Ejecutivo)
+			   Dim sMoneda
+			   
+			   On Error Resume Next
+				If nUtActual = <%=nItvUt%> Then	
+					Cargar_utilidadejecutivo Conexion, Moneda, Fecha, Ejecutivo
+					<% If VUt13 Then %>
+							'Cargar_utilidadAFEXOld Conexion, Moneda, Fecha, Ejecutivo
+							Cargar_utilidadAFEX Conexion, Moneda, Fecha
+					<% End If %>
+					nUtActual = 1	
+				Else
+					nUtActual = nUtActual + 1							
+				End If
+			End Sub
+
+			
+			Sub Cargar_utilidadEjecutivo(ByVal Conexion, Byval Moneda, ByVal Fecha, ByVal Ejecutivo)
+			   Dim rs 
+			   Dim afxPR 
+			   
+			   On Error Resume Next
+			   
+			   Set afxPR = CreateObject("AFEXpr.PrecioReferencia")
+			   <% If VUt13 Then %>
+						'Set rs = afxPR.ObtenerRSAPVTotal(Conexion, Moneda, Fecha, Ejecutivo)
+						Set rs = ObtenerRSAPVTotal(Conexion, Moneda, Fecha, Ejecutivo)
+			   <% ElseIf VUt11 Or VUt12 Then %>
+						'Set rs = afxPR.ObtenerRSAPVUtilidadEjecutivo(Conexion, Moneda, Fecha, Ejecutivo)
+						Set rs = ObtenerRSAPVUtilidadEjecutivo(Conexion, Moneda, Fecha, Ejecutivo)
+			   <% End If %>
+			   
+				If Err.Number <> 0 Then 
+					Set rs = Nothing
+					Exit Sub
+				End If	   
+			      
+			   Do Until rs.EOF
+			      Select Case rs("tipo")			      
+			         Case 1   'Utilidad
+								tdUtilidad.innerText = FormatNumber(rs("Ingreso"), 0) & " "
+								
+			         Case 2   'Utilidad Ejecutivos
+								tdUtilidadEjecutivos.innerText = FormatNumber(rs("Ingreso"), 0) & " "			      
+			      End Select
+			      rs.MoveNext
+			   Loop
+			   rs.Close		   
+			   			   
+			   Set rs = Nothing
+			   Set afxPR = Nothing
+			   
+			End Sub
+
+			Function ObtenerRSAPVTotal(ByVal Conexion, ByVal Moneda, _
+			                          ByVal Fecha, ByVal Ejecutivo)
+			   Dim rs 
+			   Dim sSQL
+			      
+			   On Error Resume Next
+			   Set ObtenerRSAPVTotal = Nothing
+			   
+			   sSQL = "APVisorUtilidadTotal " & EvaluarStr(Moneda) & ", " & EvaluarStr(FormatoFechaSQL(Fecha)) & ", " & EvaluarStr(Ejecutivo)
+			   Set rs = EjecutarSQLCliente(Conexion, sSQL)
+				If Err.Number <> 0 Then 
+					Set rs = Nothing
+					Exit Function
+				End If	   
+			   
+			   Set ObtenerRSAPVTotal = rs
+			   Set rs = Nothing
+			End Function
+
+
+			Function ObtenerRSAPVUtilidadEjecutivo(ByVal Conexion, ByVal Moneda, _
+			                          ByVal Fecha, ByVal Ejecutivo)
+			   Dim rs 
+			   Dim sSQL
+			      
+			   On Error Resume Next
+			   Set ObtenerRSAPVUtilidadEjecutivo = Nothing
+			   
+			   'sSQL = "APVisorUtilidadTotal " & EvaluarStr(Moneda) & ", " & EvaluarStr(FormatoFechaSQL(Fecha)) & ", " & EvaluarStr(Ejecutivo)
+			   sSQL = "APVisorUtilidadEjecutivo " & EvaluarStr(Moneda) & ", " & EvaluarStr(FormatoFechaSQL(Fecha)) & ", " & EvaluarStr(Ejecutivo)
+			   Set rs = EjecutarSQLCliente(Conexion, sSQL)
+				If Err.Number <> 0 Then 
+					msgbox err.Description 					
+					Set rs = Nothing
+					Exit Function
+				End If	   
+			   
+			   Set ObtenerRSAPVUtilidadEjecutivo = rs
+			   Set rs = Nothing
+			End Function
+
+
+			Sub Cargar_utilidadAFEX(ByVal Conexion, ByVal Moneda, ByVal Fecha)
+			   Dim nIngreso
+			   Dim sMoneda
+			   
+			   On Error Resume Next
+			   nIngreso = ObtenerUtilidadAFEX(Conexion, Fecha, Moneda)
+				If Err.Number <> 0 Then 
+					Set rs = Nothing
+					Exit Sub
+				End If	   
+			      
+				tdUtilidadAFEX.innerText = FormatNumber(nIngreso, 0) & " "			      
+			   rs.Close		   
+			   			   
+			   Set rs = Nothing
+			   Set afxPR = Nothing			   
+			End Sub
+
+			Function ObtenerUtilidadAFEX(ByVal Conexion, ByVal Fecha, Byval Moneda)
+			   Dim rs, rsMoneda
+			   Dim sSQL, nIngreso, sMoneda
+			      
+			   On Error Resume Next
+			   ObtenerUtilidadAFEX = 0
+
+			   sSQL = "SELECT	DISTINCT mn.codigo_moneda " & _
+						 "FROM	Moneda MN " & _
+						 "JOIN	detalle_solicitud dsp on dsp.codigo_moneda = mn.codigo_moneda " & _
+						 "JOIN	solicitud sp on sp.codigo_solicitud = dsp.codigo_solicitud " & _
+						 "WHERE	estado_ap = 1 " & _
+						 "			AND	sp.fecha_solicitud = '" & FormatoFechaSQL(Fecha) & "' "
+				If Moneda <> "" Then
+					sSQL = sSQL & "			AND	dsp.codigo_moneda = " & EvaluarStr(Moneda)
+				End If
+			   Set rsMoneda = EjecutarSQLCliente(Conexion, sSQL)
+			   If Err.Number <> 0 Then 
+					Set rsMoneda = Nothing
+					Exit Function
+				End If	   
+
+				Do Until rsMoneda.EOF
+					sMoneda = rsMoneda("codigo_moneda")
+					sSQL = "APUtilidadAFEXMoneda '" & sMoneda & "', '" & FormatoFechaSQL(Fecha) & "' "
+					Set rs = EjecutarSQLCliente(Conexion, sSQL)
+					If Err.Number <> 0 Then 
+						Set rs = Nothing
+					Else	   
+						If Not rs.EOF Then nIngreso = nIngreso + Round(cCur(rs("Ingreso")), 0)
+					End If
+					rsMoneda.MoveNext
+				Loop
+						
+			   ObtenerUtilidadAFEX = nIngreso
+			   Set rs = Nothing
+			   Set rsMoneda = Nothing
+			End Function
+
+		</script>

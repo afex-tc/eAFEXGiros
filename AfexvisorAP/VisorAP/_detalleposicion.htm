@@ -1,0 +1,71 @@
+<!--	_detalleposicion.htm	-->
+		<table id="tbDetallePosicion" border="0"  cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid silver; display: none">	
+		<tr class="tt2">
+			<td style="border-right: 1px solid silver">&nbsp;Inicial</td>
+			<td>&nbsp;Precio</td>
+		</tr>
+		<tr class="tc" align="right" style="font-size: 12pt">
+			<td id="tdPosAnterior" style="color: blue; border-right: 1px solid silver; border-bottom: 1px solid silver"></td>
+			<td id="tdTCAnterior" style="color: black; border-bottom: 1px solid silver"> </td>
+		</tr>
+
+		<tr class="tt2">
+			<td style="border-right: 1px solid silver">&nbsp;Compras</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr class="tc" align="right" style="font-size: 12pt">
+			<td id="tdPosCompra" style="color: blue; border-right: 1px solid silver; border-bottom: 1px solid silver; cursor: hand " onClick="Mostrar_detallecompras"></td>
+			<td id="tdTCCompra" style="color: black; border-bottom: 1px solid silver"> </td>
+		</tr>
+
+		<tr class="tt2">
+			<td style="border-right: 1px solid silver">&nbsp;Ventas</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr class="tc" align="right" style="font-size: 12pt">
+			<td id="tdPosVenta" style="color: red; border-right: 1px solid silver; border-bottom: 1px solid silver; cursor: hand " onClick="Mostrar_detalleventas"></td>
+			<td id="tdTCVenta" style="color: black; border-bottom: 1px solid silver"> </td>
+		</tr>
+
+		<tr class="tt2">
+			<td style="border-right: 1px solid silver">&nbsp;Final</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr class="tc" align="right" style="font-size: 12pt">
+			<td id="tdPosFinal" style="color: blue; border-right: 1px solid silver; border-bottom: 1px solid silver; cursor: hand " onClick="Mostrar_detallecv"></td>
+			<td id="tdTCFinal" style="color: black; border-bottom: 1px solid silver"> </td>
+		</tr>
+		</table>	
+		<script language="vbscript">
+			Sub Mostrar_detalleposicion()
+				If bVUt1 Then Mostrar_utilidad
+				If bVUt2 Then Mostrar_utilidadmensual
+				If bVMn1 Then Mostrar_monedas
+				If bVCo1 Then Mostrar_configuracion
+				If bVCd1 Then Mostrar_cierrediario
+				If tbDetallePosicion.style.display = "" Then
+					tbDetallePosicion.style.display = "none"
+				Else
+					tbDetallePosicion.style.display = ""
+				End IF
+				bVPr3 = (tbDetallePosicion.style.display = "")
+			End Sub
+			
+			Sub Mostrar_detallecompras()
+				<% If VPo11 Then %>
+					Window.showModelessDialog  "Operaciones.asp?fch=<%=sFecha%>&hst=<%=sFecha%>&mn=<%=sMoneda%>&pr=1&tp=0&to=1&gr=1&nej=Compras del <%=sFecha%>", , "dialogWidth:50; dialogHeight:20"
+				<% End If %>
+			End Sub
+
+			Sub Mostrar_detalleventas()
+				<% If VPo11 Then %>
+					Window.showModelessDialog  "Operaciones.asp?fch=<%=sFecha%>&hst=<%=sFecha%>&mn=<%=sMoneda%>&pr=1&tp=0&to=2&gr=1&nej=Ventas del <%=sFecha%>", , "dialogWidth:50; dialogHeight:20"
+				<% End If %>
+			End Sub
+
+			Sub Mostrar_detallecv()
+				<% If VPo11 Then %>
+					Window.showModelessDialog  "Operaciones.asp?fch=<%=sFecha%>&hst=<%=sFecha%>&mn=<%=sMoneda%>&pr=1&tp=0&to=&gr=1&nej=Compras/Ventas del <%=sFecha%>", , "dialogWidth:50; dialogHeight:20"
+				<% End If %>
+			End Sub
+		</script>

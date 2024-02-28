@@ -1,0 +1,294 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<TITLE></TITLE>
+<style TYPE="text/css">
+	Table
+		{	margin: 0px;
+			text-align:	center;
+			font-family: Arial, Verdana;
+			font-size: 60pt;
+			line-height: 48pt;
+			font-weight: bold;
+			color: steelblue;
+		}
+	div.Titulo
+		{
+			font-size: 30pt;
+			color: black;
+			position: absolute;
+			LETTER-SPACING: -2pt;
+		}
+	td.tc
+		{
+			font-family: Arial , Verdana;
+			font-size: 160pt;
+			line-height: 123pt;
+			LETTER-SPACING: -8pt;
+			
+		}
+	td.tcventa
+		{
+			font-family: Arial , Verdana;
+			font-size: 160pt;
+			line-height: 123pt;
+			color: red;
+			LETTER-SPACING: -8pt;
+		}
+
+	div.TCSombraNew
+		{
+			margin-top:	0px;
+			margin-left: 0px;
+			color: #e1e1e1;
+		}
+
+	div.TCNormalNew
+		{
+			margin-top:	0px;
+			margin-left: 0px;
+			font-family: Arial Black;
+			LETTER-SPACING: -8pt;
+		}
+
+	div.TCCodSombraNew
+		{
+			margin-top:	0px;
+			margin-left: 0px;
+			color: #e1e1e1;
+		}
+
+	div.TCCodNormalNew
+		{
+			margin-top:	0px;
+			margin-left: 0px;
+			line-height: 66pt;
+			font-family: Arial Black;
+			LETTER-SPACING: -6pt;
+			font-size:  80pt;
+			color: black
+
+		}
+
+</STYLE>
+</HEAD>
+<script language="vbscript">
+	Dim nRecord
+	Dim sCodigoMoneda
+	Dim rsMoneda
+	Dim nPromocionActual
+	Dim nPromociones
+	Dim nVeces
+	Dim sColorFondo, sColorMoneda, sColorCompra, sColorVenta, sColorBorde
+	Dim nEsp
+	
+	sColorFondo = "#006699" '"steelblue" '"#00767d"
+	sColorMoneda = "white"
+	sColorCompra = "white" '"DarkBlue" '"#ccffff"
+	sColorVenta = "white" '"red" '"MistyRose"
+	sColorBorde = "darkblue"
+	
+	Const rowMonedas = 4
+	
+	sCodigoMoneda = "USD"
+	nPromocionActual = 1
+	nPromociones = 1
+	nVeces = 1
+	
+	Set rsMoneda = CreateObject("ADODB.Recordset")
+	Set rsMoneda = Buscar("1")			
+		
+	Sub window_onload()
+		CargarMonedaRS
+		nRecord = 0
+		window.setInterval "Promocion", 5000, "vbscript"
+		'window.moveTo 801, 0
+	End Sub	
+
+	Sub Promocion()
+		If rsMoneda.EOF Then
+			Set rsMoneda = Buscar("1")
+		End If			
+		CargarMonedaRS		
+		If nVeces = 6 Then
+			Set rsMoneda = Nothing
+			'window.close 
+			window.navigate "MoneyDisplay TV Flotante.htm"
+		End If
+		nVeces = nVeces + 1
+	End Sub
+		
+	
+	Sub CargarMonedaRS()
+		Dim nPos
+				
+		nPos = Instr(rsMoneda("alias_moneda"), " ")
+		If nPos > 0 Then
+			divCodNormal1.innerHTML = TRIM(LEFT(rsMoneda("alias_moneda"), nPos-1))
+			divCodNormal2.innerHTML = TRIM(MID(rsMoneda("alias_moneda"), nPos+1))			
+			divCodSombra1.innerHTML = TRIM(LEFT(rsMoneda("alias_moneda"), nPos-1))
+			divCodSombra2.innerHTML = TRIM(MID(rsMoneda("alias_moneda"), nPos+1))			
+		Else
+			divCodNormal2.innerHTML = TRIM(rsMoneda("alias_moneda"))
+			divCodNormal1.innerHTML = "&nbsp;"
+			divCodSombra2.innerHTML = TRIM(rsMoneda("alias_moneda"))
+			divCodSombra1.innerHTML = "&nbsp;"
+		End If
+		If Not rsMoneda.EOF Then		
+			divTCCompraNormal.innerText = FormatNumber(ROUND(rsMoneda("tipo_cambio_compra"), 0), 0)
+			divTCCompraSombra.innerText = FormatNumber(ROUND(rsMoneda("tipo_cambio_compra"), 0), 0)
+			divTCVentaNormal.innerText = FormatNumber(ROUND(rsMoneda("tipo_cambio_venta"), 0), 0)
+			divTCVentaSombra.innerText = FormatNumber(ROUND(rsMoneda("tipo_cambio_venta"), 0), 0)
+			'tdVenta.innerText = FormatNumber(ROUND(rsMoneda("tipo_cambio_venta"), 0), 0)
+			'tdVenta.innerText = space((5 - len(tdVenta.innerText))) & tdVenta.innerText 
+			img1.src = "imagenes/" & trim(rsMoneda("codigo_pais")) & ".jpg"
+			img2.src = img1.src
+			rsMoneda.MoveNext 
+		Else
+'			tdCompra.innerText = "0,00"
+'			tdVenta.innerText = "0,00"
+		End If
+	End Sub	
+
+
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function Buscar(ByVal CodigoMoneda)
+		Dim rs
+		Dim sSQL
+		Set Buscar = Nothing
+		
+		sSQL = "SELECT pmn.codigo_moneda, mn.alias_moneda, pmn.tipo_cambio_compra, pmn.tipo_cambio_venta, mn.codigo_pais " & _
+				 "FROM	Plan_Moneda PMN " & _
+				 "JOIN	Moneda MN ON mn.codigo_moneda=pmn.codigo_moneda " & _
+				 "WHERE	pmn.codigo_producto=1 AND " & _
+				 "			pmn.codigo_caja = '0000' AND " & _
+				 "			pmn.tipo_cambio_compra <> 0 " 
+
+		If CodigoMoneda <> "" Then
+			sSQL = sSQL & " AND mn.codigo_moneda in ('usd', 'eur')"
+			'sSQL = sSQL & " AND mn.shower_moneda >= 1 "
+		Else
+			sSQL = sSQL & " AND mn.shower_grilla >= 1 "
+		End If
+		sSql = sSQL & " ORDER BY mn.shower_moneda, mn.shower_grilla, mn.alias_moneda "
+		' crea la conexión con la base de datos
+		On Error Resume Next
+		Set rs = Createobject("ADODB.Recordset")
+		rs.CursorLocation = 3 'Cliente
+		
+		rs.Open sSQL, "DSN=AFEXchange;UID=cambios;PWD=cambios;", 3, 4, 1
+		If err.number <> 0 Then					
+			Exit Function
+		End if
+		Set rs.ActiveConnection = Nothing
+		Set Buscar = rs
+		Set rs = Nothing
+
+	End Function
+
+-->
+</script>
+
+<BODY bgcolor="#f1f1f1" scroll="no">
+<!-- 2 -->
+<table border="0" cellspacing="0" cellpadding="0" height="580" width="98%" style="position: absolute; top: 20px; left: 20px">
+	<tr>
+		<td id="tdUSD" height="" width="">
+			<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%">
+				<tr>
+					<td class="tc" align="left">
+						<div id="divTCCompraSombra" class="TCnormalNew" style="color: #e1e1e1"></div>
+					</td>
+					<td align="center"><img id="img1" width="250px"></td>					
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td id="tdUSD" height="" width="">
+			<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%">
+
+				<tr>
+					<td colspan="2">
+						<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%" style="position: absolute; top: 184; left: 0">
+							<tr>
+								<td align="center">
+									<div id="divCodSombra1" class="TCCodNormalNew" style="color: #e1e1e1">&nbsp;</div>
+									<div id="divCodSombra2" class="TCCodNormalNew" style="color: #e1e1e1"></div>
+									<div id="divCodSombra3" class="TCCodnormalNew" style="color: #e1e1e1">&nbsp;</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td id="tdUSD" height="" width="">
+			<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%">
+				<tr height="180px"><td></td></tr>
+				<tr>
+					<td align="left"><img id="img2" src="imagenes/us.jpg" width="250px"></td>					
+					<td class="tcventa" align="right">
+						<div id="divTCVentaSombra" class="TCnormalNew" style="color: #e1e1e1; sleft: 600px"></div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+
+<table border="0" cellspacing="0" cellpadding="0" height="580" width="98%" style="position: absolute; top: 0px; left: 0px">
+	<tr>
+		<td id="tdUSD" height="" width="">
+			<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%">
+				<tr>
+					<td class="tc" align="left">
+						<div id="divTCCompraNormal" class="TCnormalNew">572</div>
+						<div class="Titulo" style="top: 110">Compra / Buy</div>
+					</td>
+					<td></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td id="tdUSD" height="" width="">
+			<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%">
+				<tr>
+					<td colspan="2">
+						<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%" style="position: absolute; top: 184; left: 0">
+							<tr>
+								<td align="center">
+									<div id="divCodNormal1" class="TCCodnormalNew">&nbsp;</div>
+									<div id="divCodNormal2" class="TCCodnormalNew"></div>
+									<div id="divCodNormal3" class="TCCodnormalNew">&nbsp;</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td id="tdUSD" height="" width="">
+			<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%">
+				<tr height="180px"><td></td></tr>
+				<tr>
+					<td></td>
+					<td class="tcventa" align="right">
+						<div id="divTCVentaNormal"  class="TCnormalNew"></div>
+						<div class="Titulo" style="top: 492; left: 580">Venta / Sell</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+		
+	</tr>
+</table>
+
+</BODY>
+</HTML>

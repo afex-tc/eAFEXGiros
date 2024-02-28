@@ -1,0 +1,41 @@
+.link_css2 {
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	color: #0000FF;
+	font-weight: bold;
+}
+link_css2:link {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: bold;
+}
+link_css2:visited {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: bold;
+}
+link_css2:hover {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: bold;
+}
+link_css2:active {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: bold;
+}

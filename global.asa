@@ -1,0 +1,288 @@
+<!--==Visual InterDev Generated - startspan==-->
+<!--METADATA TYPE="TypeLib" NAME="Microsoft ActiveX Data Objects 2.0 Library" UUID="{00000200-0000-0010-8000-00AA006D2EA4}" VERSION="2.0"-->
+<!--METADATA TYPE="TypeLib" NAME="Microsoft ActiveX Data Objects Recordset 2.1 Library" UUID="{00000300-0000-0010-8000-00AA006D2EA4}" VERSION="2.1"-->
+<!--METADATA TYPE="TypeLib" NAME="AFEXClienteXc" UUID="{09986792-B6BF-11D6-889C-0007951824B8}" VERSION="6.0"-->
+<!--METADATA TYPE="TypeLib" NAME="AFEXClienteXp" UUID="{1865918F-BA83-11D6-889C-0007951824B8}" VERSION="2.1"-->
+<!--METADATA TYPE="TypeLib" NAME="AFEXGiroXP" UUID="{F3BBABD8-816D-11D7-AB37-00E04C972D84}" VERSION="3.0"-->
+<!--METADATA TYPE="TypeLib" NAME="AFEXwebXP" UUID="{FC87BCD0-9134-11D7-AF1A-00E04C9B1440}" VERSION="1.0"-->
+
+
+
+<!--==Visual InterDev Generated - endspan==-->
+<SCRIPT LANGUAGE='VBScript' RUNAT='Server'> 
+ 
+'Variables de Sesión
+'Estas variables deben ser cargadas de un archivo de inicializacion (.ini)
+	Session("afxCnxCorporativa") = "Provider=SQLOLEDB.1;Password=123456;User ID=corporativa;Initial Catalog=corporativa;Data Source=dbcorporativa.AFEX-TC.CL;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	Session("afxCnxAFEXchange") = "Provider=SQLOLEDB.1;Password=123456;User ID=cambios;Initial Catalog=cambios;Data Source=dbcambios.AFEX-TC.CL;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	Session("afxCnxAFEXpress") = "Provider=SQLOLEDB.1;Password=123456;User ID=giros;Initial Catalog=giros;Data Source=dbgiros.afex-tc.cl;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	Session("afxCnxAFEXweb") = "Provider=SQLOLEDB.1;Password=123456;User ID=cambios;Initial Catalog=cambios;Data Source=dbcambios.AFEX-TC.CL;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	Session("afxCnxRemunera") = "Provider=SQLOLEDB.1;Password=123456;User ID=remunera;Initial Catalog=remuneraciones;Data Source=dbremuneraciones.AFEX-TC.CL;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	Session("afxCnxAFEXchangeMoneda") = "Provider=SQLOLEDB.1;Password=123456;User ID=cambios;Initial Catalog=cambios_moneda;Data Source=canelo;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	Session("afxCnxServidorCorreo") = "Provider=SQLOLEDB.1;Password=123456;User ID=MensajeriaAFEX;Initial Catalog=serviciosaplicacion;Data Source=dbserviciosaplicacion.AFEX-TC.CL;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	Session("afxCnxAFEXchangeWeb") = "Provider=SQLOLEDB.1;Password=123456;User ID=CajeroAFEXChangeWeb;Initial Catalog=AFEXChangeWeb_AG;Data Source=dbafexchangeweb.afex-tc.cl;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	
+	'MARC HTI-90
+	Session("afxCnxAFEXchangeGiros") = "Provider=SQLOLEDB.1;Password=123456;User ID=cambios;Initial Catalog=cambios_giros;Data Source=dbcambios.AFEX-TC.CL;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	Session("URLApiGiros")="http://localhost:10101/Envio.asmx"
+	' JFMG 21-08-2008 conexión para guardar los pagos amex
+	Session("afxCnxAFEXchangeMCF") = "Provider=SQLOLEDB.1;Password=123456;User ID=cambios;Initial Catalog=cambiosmcf;Data Source=192.168.160.11;Application Name=eAFEX-APLICA-NG-RM;Pooling=False;"
+	' ************************************ FIN **********************************************
+	Session("AmbienteServidorCorreo") = "3"
+	Session("PerfilServidorCorreo") = "MensajeriaBoldo"
+	
+ 	'Session("afxCnxCorporativa") = "DSN=AfexCorporativa;UID=corporativa;PWD=afxsqlcor;"
+	'Session("afxCnxAFEXchange") = "DSN=AFEXchange;UID=cambios;PWD=cambios;"
+	'Session("afxCnxAFEXpress") = "DSN=AFEX_giros;UID=giros;PWD=giros;"	
+	'Session("afxCnxAFEXweb") = "DSN=AFEXweb;UID=cambios;PWD=cambios;"
+	Session("CodigoAgente") = ""
+	Session("CodigoCliente") = ""
+	Session("IdCliente") = 0
+	Session("Categoria") = 0
+	Session("NombreCliente") = ""
+	Session("AFEXpress") = ""
+	Session("AFEXchange") = ""
+	Session("CiudadCliente") = ""
+	Session("PaisCliente") = ""
+	Session("CodigoMatriz") = "AF"
+	Session("CiudadMatriz") = "SCL"
+	Session("PaisMatriz") = "CL"
+	Session("MonedaNacional") = "CLP"
+	Session("MonedaExtranjera") = "USD"
+	Session("CodigoMGPago") = "MB"
+	Session("CodigoMGEnvio") = "ME"
+	Session("CodigoTXPago") = "TM"
+	Session("CodigoUTPago") = "UT"
+	'Session("CodigoTXEnvio") = "TV"
+	Session("CodigoCaja") = ""
+	Session("FechaApertura") = "01-01-2003"
+	Session("NombreUsuario") = ""
+	Session("ATCAFEXpress") = ""
+	Session("ATCAFEXchange") = ""
+	Session("CodigoMoneyBroker") = "MO"
+	Session("CodigoMoneyBrokerInt") = "MY"
+	Session("ModoPrueba") = False
+	Session("emailCliente") = ""
+	Session("NombreUsuarioOperador") = ""
+	Session("NombreOperador") = ""
+	Session("afxTipoGirEnvPen")="99"
+
+	Session("afxMailSV") = "operacionesti@afex.cl"     'este es el mail de la persona que maneja la sucursal virtual 
+    	Session("afxRestarTCCompraUSD") = "2"                'valor que se resta al dolar de compra para que opere el cliente
+    	Session("afxSumarTCVentaUSD") = "2"                    'valor que se suma al dolar de venta para que opere el client
+
+	Session("ConsultarGiros") = ""
+	Session("ConsultarCambios") = ""
+
+	' JFMG 04-12-2009 datos para AFEXchangeWeb
+	Session("ContrasenaOperador") = ""
+	Session("ContrasenaAgente") = ""
+	Session("NombreUsuarioAgente") = ""
+	Session("EnlaceAFEXChangeWeb") = ""
+	' ********** FIN 04-12-2009 *************
+
+	Session("URLwsUtilitariosAFEX") = ""	
+	Session("TipoOrigenLlamada") = 0
+	Session("VerClienteCorporativo") = 0
+	Session("URLImagenesCliente") = ""
+	Session("URLIngresarClienteCorporativo") = "" 'FREUTER 20180620 Se comenta Linea sin uso ""http://localhost:10109/Sucursal/NuevoCliente.asp"
+	Session("URLAdjuntarImagenCliente") = ""
+	Session("URLSubirArchivo") = "http://afexwebaws.afex-tc.cl/subirarchivos.aspx"
+	Session("URLVisorArchivo") = "http://afexwebaws.afex-tc.cl/compartido/VisorDocumentos.aspx"
+	Session("MontoTopeGirosHorarioInhabil") = 1000 'CUM-955 MCG    
+
+	Session("ListaAgentesAFEXChangeWebQA") = ""
+	
+	'JFMG 17-12-2010 datos para promoción de pines telefónicos
+	Session("EstadoPromocionPinTelefonico") = 1 ' INTERNO-2912 JFMG 23-11-2014  ' 1: Activo; 0: Inactivo
+    	Session("AgentesPromocionPinTelefonico") = "ZY" ' INTERNO-2912 JFMG 23-11-2014  
+	Session("CategoriaAgenteCaptadorPromocionPinTelefonico") = "1;2"
+	Session("MontoMinimoGiroPromocionPinTelefonico") = 0	' USD
+	'FIN 17-12-2010
+	
+        'INTERNO-14518 FRM
+        Session("UsaLocalServerPrinter") = ""
+        Session("URLLocalServer") = ""
+	
+	'APPL-47192 FRM
+	Session("CantidadReintentos") = 2
+	Session("TiempoEsperaReintentos") = 10
+
+	'AXOO-41 MCG
+    Session("DireccionCliente") = "" 
+
+		
+	'RVG 30-11-2011
+	Session("EstadoPromocionNavidad") = 0	' 1: Activo; 0: Inactivo
+    'RVG 30-11-2011
+
+    ' JFMG 10-03-2011
+    Session("UsuarioAutorizadoEnviarTransferencia") = False
+    ' FIN JFMG 10-03-2011
+	' JFMG 27-04-2011 datos para solicitar mensajería al cliente
+	Session("SolicitudMensajeriaClienteActiva") = False
+	Session("AgentePagadorMensajeriaCliente") = ""
+	' FIN JFMG 27-04-2011
+
+   
+
+	' JFMG 18-04-2012 sitios en donde se almacenan imagenes de cliente
+	Session("SitioImagenesClienteDiarias") = "http://AATFC004:9098/diarias/"
+	Session("SitioImagenesClienteHistoricas") = "http://AATFC004:9098/documentos/"
+	' FIN JFMG 18-04-2012
+    
+    ' JFMG 16-11-2012 URL sitio eAFEXNET
+    Session("URLeAFEXNet") = "http://laurel:85/eafexnet/giro/giro.aspx"
+    Session("URLeAFEXNetAGENTES") = ""
+    ' FIN JFMG 16-11-2012
+    
+    ' JFMG 16-11-2012 URL sitio AFEXChangeWEB
+    Session("URLAFEXChangeWEB") = "afexwebaws.afex-tc.cl"    
+    ' FIN JFMG 16-11-2012
+    
+    ' MS 19-11-2013 URL MoneyGram
+    Session("URLMoneyGram") = "http://mgramaws.afex-tc.cl/loginmanual.aspx"
+    Session("URLMoneyGramAGENTES") = ""
+    ' FIN MS 19-11-2013
+    
+    ' JFMG 15-04-2013 porcentage por defecto para busqueda worldcheck
+	Session("PorcentageCoincidenciaWorldCheck") = "80"
+	' FIN JFMG 15-04-2013
+	
+    ' JFMG 17-04-2013 mensaje legal para comprobante
+    Session("MensajeFirmaEnvio") = "Declaro expresamente conocer y aceptar que"
+    Session("MensajeFirmaEnvio") = Session("MensajeFirmaEnvio") & ";" & "<AFEX> será responsable del pago de este giro"
+    Session("MensajeFirmaEnvio") = Session("MensajeFirmaEnvio") & ";" & "de dinero únicamente si el beneficiario del"
+    Session("MensajeFirmaEnvio") = Session("MensajeFirmaEnvio") & ";" & "mismo se encuentra en la ciudad y país de"
+    Session("MensajeFirmaEnvio") = Session("MensajeFirmaEnvio") & ";" & "destino al momento de la emisión del presente"
+    Session("MensajeFirmaEnvio") = Session("MensajeFirmaEnvio") & ";" & "comprobante, situación que me comprometo a"
+    Session("MensajeFirmaEnvio") = Session("MensajeFirmaEnvio") & ";" & "acreditar en caso de ser requerido."
+    Session("MontoComparacionUSDMensajeFirmaEnvio") = "0"
+    Session("MontoComparacionCLPMensajeFirmaEnvio") = "0"
+    ' FIN JFMG 17-04-2013
+    Session("URLAyudaTransferencia") = "http://192.168.111.23/afexael/AyudaEnLinea/Contenido.asp?cc=10010"
+    
+    'CUM-505 MS 02-02-2016
+    Session("URLIngresarClienteCorporativoAfexWeb") = "http://afexwebaws.afex-tc.cl/Generico/AgregarClienteGenerico.aspx"
+    Session("URLIngresarDocumentoClienteCorporativoAfexWeb") = "http://afexwebaws.afex-tc.cl/Generico/AgregarAntecentesClienteGenerico.aspx"
+    'Topes de envío
+    Session("MontoTopeGirosColombia") = 1000 'USD INTERNO-12614
+    Session("MontoTopeGirosPasapColombiano") = 300 'USD
+    'FIN CUM-505 MS 02-02-2016
+
+Session("URLAutorizarAfexWeb") = "http://afexwebaws.afex-tc.cl/Generico/AutorizacionGenerica.aspx"
+Session("URLTipoCambio") = "http://localhost:10105/IESB_AFEX_ServicioTipoCambio.asmx"
+    'TEC-35
+    Session("MontoTopeGiros") = 3000 'USD
+    Session("MontoProcedenciaFondos") = 6000 'USD
+    Session("URLAutorizaOperacionAfexWeb") = "http://afexwebaws.afex-tc.cl/Generico/AutorizaOperacion.aspx"
+    'FIN TEC-35
+	Session("URLInicioPregiroAfexWeb") = "http://afexwebaws.afex-tc.cl/iniciopregiro.aspx" 'SCR-42
+
+    'miki CCP-137 MM 2016-07-27  Cliente único
+    Session("URLSimilitudCliente") = "http://afexwebaws.afex-tc.cl/FlujoSimilitud/AdvertirCoincidencias.aspx"
+    Session("URLwsCliente") = "http://localhost:10100/Servicios/wsCliente.asmx"    
+    'FIN miki CCP-137 MM 2016-07-27
+
+    'INTERNO-12550 LR 27-02-2018
+     Session("PantallaPrecios") ="http://192.168.160.12:83/Precios/PreciosSucursales/PreciosSector.aspx"
+    'Fin INTERNO-12550 LR 27-02-2018
+
+     'INTERNO-13458 - RP Version 9 - 28-08-2018
+     Session("afxCnxAFEXchangeWeb") = "Provider=SQLOLEDB.1;Password=123456;User ID=CajeroAFEXChangeWeb;Initial Catalog=AFEXChangeWeb_AG;Data Source=dbafexchangeweb.afex-tc.cl;Application Name=eAFEX;"
+     'FIN INTERNO-13458 - RP Version 9 - 28-08-2018	
+	 
+	 Session("NuevoClienteIntegrado") = "http://afexwebaws.afex-tc.cl/Generico/NuevoClienteIntegrado.aspx" 
+	Session("ActualizarClienteIntegrado") = "http://afexwebaws.afex-tc.cl/Generico/ActualizarClienteIntegrado.aspx"  
+
+	'INICIO HUI-112 - 12-Dic-2018 - RPEREZ 
+	Session("URLVerificacionBiometrika") = "http://afexwebaws.afex-tc.cl/Generico/VerificacionBiometrika.aspx"
+
+
+	'FIN HUI-112 - 12-Dic-2018 - RPEREZ 
+	'INICIO MSTC-265 19-12-2018
+	Session("URLServicioLogger") = "http://localhost:10105/IESB_AFEX_ServicioLogger.asmx"
+    Session("URLServicioAfexWeb") = "http://localhost:10105/IESB_AFEX_ServicioAfexWeb.asmx"
+	'FIN MSTC-265 19-12-2018
+	 'INICIO - ILADP-225 - ILADP-225  07-01-2019
+    Session("URLMoneyGramAD") = "http://mgramaws.afex-tc.cl/loginad.aspx"
+    Session("Aplicacion") = "Eafex"
+    Session("Firma") = ""
+    Session("Usuario") = ""
+    Session("URLWSAutenticarLDAP") = "http://localhost:10105/IESB_AV_ServicioAuth.asmx"
+    'FIN - ILADP-225  - ILADP-225  07-01-2019
+	'INICIO INTERNO-13916 
+	Session("SolicitudCumplimiento") ="http://afexwebaws.afex-tc.cl/Generico/SolicitudCumplimiento.aspx"
+	'FIN INTERNO-13916
+	'Inicio  APPL-47166
+	Session("UserNameWS") = ""
+	Session("RespWS") = ""
+    'CUM-1008
+    Session("AutorizaCumplimientoFichaOperaciones") = "http://afexwebaws.afex-tc.cl/Generico/AutorizaCumplimientoFichaOperaciones.aspx"
+    Session("FichaOperacionesMonto") = 5000
+	'Fin  APPL-47166
+	Session("URLValidacionBiometrika") = "http://afexwebaws.afex-tc.cl/Generico/ValidacionBiometrika.aspx" 'HUI-267
+	Session("URLServicioCumplimiento") = "http://localhost:10109/Cumplimiento.asmx" 'CUMAPI-158
+	Session("URLServicioPromoCode") = "http://localhost:10105/IESB_AFEX_ServicioPromoCode.asmx" 'CODESC-20
+	Session("URLwsCumplimiento") = "http://localhost:10109/Cumplimiento.asmx" 'EM-114
+
+        Session("URLBiometrics") = "http://afexwebaws.afex-tc.cl/Generico/BiometricsModal.aspx"
+
+
+Session("URLEnvioApiGiro") = "http://localhost:10105/IESB_AFEX_ServicioGiros.asmx"
+
+
+'Puede agregar controladores de evento especiales a este archivo que se ejecuten automáticamente al 
+'producirse eventos de páginas Active Server. Para ello, cree una subrutina y déle un nombre de la 
+'lista siguiente que se corresponda con el evento que desea utilizar. Por ejemplo, para crear un 
+'controlador de evento para Session_OnStart, debe insertar el siguiente código en 
+'este archivo (sin comentarios): 
+ 
+'Sub Session_OnStart 
+'**Inserte el código aquí ** 
+'End Sub 
+ 
+'EventName              Descripción 
+'Session_OnStart        Se ejecuta la primera vez que un usuario abre cualquier página de la aplicación 
+'Session_OnEnd          Se ejecuta cuando finaliza el tiempo de espera de la sesión de un usuario o éste sale de la aplicación 
+'Application_OnStart    Se ejecuta una vez cuando un usuario abre por primera vez la primera página de la aplicación 
+'Application_OnEnd      Se ejecuta una vez cuando se apaga el servidor Web 
+</SCRIPT>
+    'MSTC-55 / Implementar variables de aplicación eAFEX - Sucursales
+    <script language="vbscript" runat="server">
+
+    Sub Application_OnStart
+ 
+        Dim arrayPaises (1,1) 
+        arrayPaises(0,0) = "x"
+        Application("ListaPaises") = arrayPaises
+
+        Dim arrayCiudades (1,1) 
+        arrayCiudades(0,0) = "x"
+        Application("ListaCiudades") = arrayCiudades
+
+        Dim arrayComunas (1,1) 
+        arrayComunas(0,0) = "x"
+        Application("ListaComunas") = arrayComunas
+
+    End Sub
+
+    sub Application_OnEnd
+
+        Dim arrayPaises (1,1) 
+        arrayPaises(0,0) = ""
+        Application("ListaPaises") = arrayPaises
+
+        Dim arrayCiudades (1,1) 
+        arrayCiudades(0,0) = ""
+        Application("ListaCiudades") = arrayCiudades
+
+        Dim arrayComunas (1,1) 
+        arrayComunas(0,0) = ""
+        Application("ListaComunas") = arrayComunas
+
+    end sub
+    'FIN MSTC-55 / Implementar variables de aplicación eAFEX - Sucursales
+</script>
+
+

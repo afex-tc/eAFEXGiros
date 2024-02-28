@@ -1,0 +1,240 @@
+<html>
+<head>
+<meta NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<title>Opciones Tab</title>
+<style TYPE="text/css">
+	A:active
+	{
+	    COLOR: teal;
+	    TEXT-DECORATION: none;
+	}
+	A:link
+	{
+	    COLOR: teal;
+	    TEXT-DECORATION: none
+	}
+	A:visited
+	{
+	    COLOR: teal;
+	    TEXT-DECORATION: none;
+	}
+	A:hover
+	{
+	    COLOR: mediumblue;
+	    TEXT-DECORATION: underline;
+	}
+	table	{
+				color: white;
+				font-weight:	bold;				
+			}
+	td.tab1
+			{
+				background-color:	#4db087 ;
+				cell-spacing:	0;
+				cell-padding:	0;
+				border-left: #71f0bc   1 solid; 
+				border-top: #71f0bc   1 solid; 
+				border-right: #3e9b78 1 solid;
+			}
+	td.tab2
+			{
+				background-color:	#3d78ad ;
+				cell-spacing:	0;
+				cell-padding:	0;
+				border-left: skyblue   1 solid; 
+				border-top: skyblue   1 solid; 
+				border-right: #205987 1 solid;
+			}
+	td.tab3
+			{
+				background-color:	silver ;
+				cell-spacing:	0;
+				cell-padding:	0;
+				border-left: Gainsboro 1 solid; 
+				border-top: Gainsboro 1 solid; 
+				border-right: gray  1 solid;
+			}
+	td.tabselect
+			{
+				background-color:	aliceblue;
+				cell-spacing:	0;
+				cell-padding:	0;
+				color: black;
+				font-weight:	bold;
+				border-left: white 1 solid; 
+				border-top: white 1 solid; 
+				border-right: silver 1 solid;
+			}
+	td
+		{
+			font-family:		Arial, Verdana;
+			font-size:			8pt;
+			text-align:			center;
+			cursor:				hand;
+		}
+	
+	tr	{
+			height:				20px;
+			width:				100px;
+
+		}
+		
+</style> 
+<script language="vbscript">
+<!--
+	Dim nId
+	Dim sClass
+	Dim oldColor
+	Dim sTabActivo
+	Dim sId
+	sTabActivo = "td1"
+
+ 	Sub MouseOver()
+		
+		oldColor = window.event.srcElement.style.color
+		window.event.srcElement.style.color = "teal"
+		
+	End Sub
+
+	Sub MouseOut()
+		
+		window.event.srcElement.style.color = oldColor 
+		
+	End Sub
+
+	Sub OnMouseClick()
+
+		document.all.item(sTabActivo).classname = sClass
+		window.event.srcElement.className = "tabselect"
+		sTabActivo = window.event.srcElement.id
+		
+	End Sub
+	
+
+	Sub DoLinkEvent(ByVal strUrl)
+		
+		'OnMouseClick		
+	    window.event.returnValue = False
+	    window.external.raiseEvent "linkClick", replace(strUrl , "#", "")
+	    
+	End Sub
+		
+	Function Public_Agregar(Byval Opcion, Byval Url, Byval Target, ByVal Tipo)
+		Dim sTmp
+		Dim sPie
+		Dim sTab
+		Dim sEncabezado
+		Dim nEsp		
+		Dim sEsp
+		Dim i
+		sEncabezado = "<table cellspacing=""0"" cellpadding=""0"" ><tr><td width=""200""><table cellspacing=""0"" cellpadding=""0""><tr>"		
+				
+		sClass = "tab" & Tipo
+		nEsp = 10 - int(Len(Opcion) / 2)
+		For i = 1 To nEsp: sEsp = sEsp & "&nbsp;": Next
+		Opcion = sEsp & Opcion & sEsp
+		sTab = Detalle(Opcion, Url, Target)
+		sPie = uCase("</tr></tbody></table></td></tr></tbody></table>")
+		
+		sTmp =  replace(divBody.innerHTML, sPie, sTab & sPie)
+		
+		divBody.innerHTML = sTmp
+		Public_Agregar = sId		
+	End Function
+	
+	Function Encabezado()
+			
+		Encabezado = "<table cellspacing=""0"" cellpadding=""0"" ><tr><td width=""200""><table cellspacing=""0"" cellpadding=""0""><tr>"		
+			
+	End Function
+	
+	Function Detalle(Byval Opcion, Byval Url, Byval Target)
+		Dim nWidth
+		Dim sClase
+		nWidth = nId * 100 + 100
+		
+		nId = nId + 1
+		sId = "td" & nId
+		If nId = 1 Then 
+			sClase = "tabselect"
+		Else
+			sClase = sClass
+		End If
+		
+		If InStr(Url, "#") <> 0 Then
+			Detalle = "<td id=""" & sId & """ class=""" & sClase & """ OnClick=""DoLinkEvent(" & chr(39) & Url & chr(39) & ")"">" & Opcion & "</td>"
+		Else
+			Detalle = "<a class=""normal"" title=""" & replace(Opcion, "&nbsp;", "") & """ target=""" & Target & """ href=""" & Url & """><td id=""" & sId & """ class=""" & sClase & """ OnClick=""OnMouseClick()"">" & Opcion & "</td></a>"
+		End If
+		
+	End Function
+	
+	Function Pie()
+		
+		Pie = "</tr></table></td></tr></table>"
+
+	End Function
+	
+	Sub Public_Activar(Byval Id)
+		Dim oId
+		
+		document.all.item(sTabActivo).classname = sClass
+		document.all.item(id).classname = "tabselect"
+		sTabActivo = Id
+		
+	End Sub
+	
+	Function HexDec(Byval Valor)
+	
+		If cByte(valor) > 0 Then
+			HexDec = 16 * Valor
+		Else
+			HexDec = Asc(UCase(valor)) - 55
+		End If
+
+	End Function
+	
+	Function cHexDec(Byval Valor)
+		Dim i
+		Dim b2
+		Dim nRojo
+		Dim nVerde
+		Dim nAzul
+		b2 = False
+		
+		valor = Ucase(Valor)
+		chexDec = HexDec(Mid(Valor, 1, 1)) + HexDec(Mid(Valor, 2, 1))
+		
+	End Function
+	
+	Sub window_onload()
+		Dim sColor		
+		 
+		'public_Agregar "uno", "#afexweb/afexmoneyweb/Giros", "main", "2"
+		'public_Agregar "dos", "#afexweb/afexmoneyweb/Giros", "main", "2"
+
+	End Sub
+
+-->
+</script>
+
+</head>
+
+
+<body id="bBody" bgcolor="transparent" s="#66cc99" topmargin="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" BOTTOMMARGIN="0">
+
+<div id="divBody">
+<table cellspacing="0" cellpadding="0" >
+<tr>
+	<td>
+	<table cellspacing="0" cellpadding="0">
+	<tr>
+	</tr>
+	</table>
+	</td>
+</tr>
+</table>
+</div>
+</body>
+</html>
+

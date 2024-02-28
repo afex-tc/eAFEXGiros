@@ -1,0 +1,19 @@
+TR.tc	{	
+			color:			white;
+			font-family:	arial, verdana;
+			font-size:		12pt;
+			font-weight:	bold
+		}
+TR.tt	
+		{
+			color:			white;
+			font-family:	Tahoma, arial, verdana;
+			font-size:		8pt;
+			line-spacing:	-20pt 
+		}
+TR.tt2
+		{
+			color:			gray;
+			font-family:	Tahoma, arial, verdana;
+			font-size:		8pt 
+		}

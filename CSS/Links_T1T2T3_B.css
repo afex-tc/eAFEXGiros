@@ -1,0 +1,15 @@
+.Borde_tabla_sucursal {
+	font-family: Tahoma;
+	font-size: 11px;
+	color: #333333;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #999999;
+	border-bottom: 1px solid #999999;
+}
+.Borde_tabla_sucursal2 {
+	border-bottom: 1px solid #999999;
+	border-left: 1px solid #999999;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #999999;
+}

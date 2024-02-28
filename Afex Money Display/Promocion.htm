@@ -1,0 +1,292 @@
+<html>
+<head>
+<meta name="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<title>AFEX Ltda.</title>
+<style TYPE="text/css">
+.M1
+{
+    BACKGROUND-COLOR: transparent;
+    COLOR: white;
+    FONT-FAMILY: 'Arial Black', Arial, Verdana;
+    FONT-SIZE: 40pt;
+    FONT-WEIGHT: lighter;
+    LEFT: 0px;
+    LETTER-SPACING: -4pt;
+    LINE-HEIGHT: 40pt;
+    MARGIN: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-RIGHT: 0px;
+    PADDING-TOP: 0px;
+    POSITION: relative;
+    TEXT-ALIGN: left;
+    TOP: 0px;
+    VERTICAL-ALIGN: super;
+}
+
+.M2
+{
+    BACKGROUND-COLOR: transparent;
+    COLOR: #ffff88;
+    FONT-FAMILY: 'Arial Black', Arial, Verdana;
+    FONT-SIZE: 160pt;
+    FONT-WEIGHT: lighter;
+    LEFT: 0px;
+    LETTER-SPACING: -18pt;
+    LINE-HEIGHT: 70pt;
+    MARGIN: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-RIGHT: 0px;
+    PADDING-TOP: 0px;
+    POSITION: relative;
+    TEXT-ALIGN: left;
+    TOP: 0px;
+    VERTICAL-ALIGN: super;
+    ALIGN: top;
+}
+.M3
+{
+    BACKGROUND-COLOR: transparent;
+    COLOR: skyblue;
+    FONT-FAMILY: 'Arial Black', Arial, Verdana;
+    FONT-SIZE: 60pt;
+    FONT-WEIGHT: lighter;
+    LEFT: 0px;
+    LETTER-SPACING: -5pt;
+    LINE-HEIGHT: 60pt;
+    MARGIN: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-RIGHT: 0px;
+    PADDING-TOP: 0px;
+    POSITION: relative;
+    TEXT-ALIGN: left;
+    TOP: 0px;
+    VERTICAL-ALIGN: middle;
+}
+
+.M4
+{
+    BACKGROUND-COLOR: transparent;
+    COLOR: white;
+    FONT-FAMILY: Arial, Verdana;
+    FONT-SIZE: 40pt;
+    FONT-WEIGHT: lighter;
+    LEFT: 0px;
+    LETTER-SPACING: -1t;
+    LINE-HEIGHT: 54pt;
+    MARGIN: 0px;
+    POSITION: absolute;
+    TEXT-ALIGN: left;
+    TOP: 0px;
+    VERTICAL-ALIGN: super;
+}
+
+</style> 
+</head>
+<script language="vbscript">
+<!--
+	Dim rs
+
+	Sub window_onload()
+	
+		Set rs = Buscar
+		If rs.EOF Then
+			Set rs = Nothing
+			window.navigate "moneyDisplay New.htm"
+			Exit Sub
+		End If
+		If rs("alias_moneda") <> "" Then		
+			CargarPromocion		
+		End If
+			
+	End Sub	
+
+	Sub CargarPromocion()
+		Dim sHtml, sLabel
+		
+		Select Case rs("shower_etiqueta")
+			Case 1
+				sLabel = "compra-buy"
+			Case 2
+				sLabel = "venta-sell"
+		End Select
+		sHtml = "<marquee id=""mq1"" align=""middle"" class=""M2"" direction=""down"" scrolldelay=""10"" scrollamount=""20"" behavior=""slide"" style=""HEIGHT: 450px; LEFT: 10px; POSITION: absolute; TOP: -20px; WIDTH: 98%"">" & _
+				"<center id=""Moneda"">" & rs("shower_promocion") & "<br>&nbsp;" & "</center>" & _
+				"</marquee>" & _
+				"<marquee id=""Msg"" loop=""1"" class=""M1"" direction=""left"" scrolldelay=""20"" scrollamount=""30"" behavior=""slide"" style=""LEFT: 10px; POSITION: absolute; TOP: 10px; HEIGHT: 200px; width: 98%"">" & _
+				"<table class=""M1"" WIDTH=""100%""><tr>" & _
+				"<td><img id=""Bandera1"" src=""" & "imagenes/" & trim(rs("codigo_pais")) & ".jpg" & """ width=""200px"" height=""120px""></td>" & _
+				"<td width=""10%""></td>" & _
+				"<td width=""700px"" align=""right"">" & trim(rs("shower_mensaje")) & "</td>" & _
+				"</tr></table>" & _
+				"</marquee>" & _
+				"<marquee id=""mq4"" class=""M3"" direction=""right"" scrolldelay=""30"" scrollamount=""50"" behavior=""slide"" style=""HEIGHT: 450px; LEFT: 0px; POSITION: absolute; TOP: 400px; WIDTH: 98%; color: skyblue"">" & _
+				"<table class=""M3"" WIDTH=""100%""><tr>" & _
+				"<td>" & Trim(rs("alias_moneda")) & "</td><td width=""100%""></td>" & _
+				"<td><img id=""Bandera2"" src=""" & "imagenes/" & trim(rs("codigo_pais")) & ".jpg" & """ width=""200px"" height=""120px""></td>" & _
+				"</tr></table>" & _
+				"</marquee>" & _
+				"<marquee id=""mq5"" class=""M4"" direction=""right"" scrolldelay=""1"" scrollamount=""20"" behavior=""slide"" style=""HEIGHT: 100px; LEFT: 0px; POSITION: absolute; TOP: 150px; WIDTH: 300px"">" & _
+				sLabel & _
+				"</marquee>"
+
+		Promocion.innerHTML = sHtml
+		'	window.Moneda.innerHtml = Replace(Trim(rs("alias_moneda")), " ", "<br>") & "<br>&nbsp;"
+		'	window.Compra.innerText = FormatNumber(rs("tipo_cambio_compra"), 2)
+		'	window.Venta.innerText = FormatNumber(rs("tipo_cambio_venta"), 2)
+		'	window.Bandera1.src = "imagenes/" & trim(rs("codigo_pais")) & ".jpg"
+		'	window.Bandera2.src = "imagenes/" & trim(rs("codigo_pais")) & ".jpg"
+		'	window.Msg.innerHTML = trim(rs("shower_mensaje")) & "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;."
+	End Sub
+		
+	Sub mqCiclo_onstart
+	End Sub
+	
+	Sub mqCiclo_onfinish
+		If mqCiclo.loop = 2 Then
+			mqCiclo.loop = 1
+		Else
+			mqCiclo.loop = 2
+		End If
+		
+		rs.MoveNext 
+		If rs.EOF Then
+			Set rs = Nothing
+			window.navigate "moneyDisplay New.htm"
+			Exit Sub
+		End If
+		If Msg.loop = 2 Then
+			Msg.loop = 1
+		Else
+			Msg.loop = 2
+		End If
+		If mq1.loop = 2 Then
+			mq1.loop = 1
+		Else
+			mq1.loop = 2
+		End If
+		If mq4.loop = 2 Then
+			mq4.loop = 1
+		Else
+			mq4.loop = 2
+		End If
+		If mq5.loop = 2 Then
+			mq5.loop = 1
+		Else
+			mq5.loop = 2
+		End If
+ 		If rs("alias_moneda") <> "" Then		
+			CargarPromocion
+		End If
+		
+	End Sub	
+	
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function Buscar()
+		Dim rs
+		Dim sSQL
+		Set Buscar = Nothing
+		
+		sSQL = "SELECT pmn.codigo_moneda, mn.alias_moneda, pmn.tipo_cambio_compra, pmn.tipo_cambio_venta, mn.codigo_pais, mn.shower_mensaje,mn.shower_etiqueta, mn.shower_promocion " & _
+				 "FROM	Plan_Moneda PMN " & _
+				 "JOIN	Moneda MN ON mn.codigo_moneda=pmn.codigo_moneda " & _
+				 "WHERE	pmn.codigo_producto=1 AND " & _
+				 "			pmn.codigo_caja = '0000' AND " & _
+				 "			pmn.tipo_cambio_compra <> 0 AND " & _
+				 "			RTRIM(mn.shower_mensaje) <> ''  "
+
+		' crea la conexión con la base de datos
+		On Error Resume Next
+		Set rs = Createobject("ADODB.Recordset")
+		rs.CursorLocation = 3 'Cliente
+		
+		rs.Open sSQL, "DSN=AFEXchange;UID=cambios;PWD=cambios;", 3, 4, 1
+		If err.number <> 0 Then					
+			Exit Function
+		End if
+		Set rs.ActiveConnection = Nothing
+		Set Buscar = rs
+		Set rs = Nothing
+
+	End Function
+	
+-->
+</script>
+<script language="vbscript">
+<!--
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function BuscarPromociones()
+		Dim rs
+		Dim sSQL
+		Set BuscarPromociones = Nothing
+		
+		sSQL = "SELECT pmn.codigo_moneda, mn.alias_moneda, pmn.tipo_cambio_compra, pmn.tipo_cambio_venta, mn.codigo_pais, mn.shower_mensaje, mn.shower_etiqueta, mn.shower_promocion " & _
+				 "FROM	Plan_Moneda PMN " & _
+				 "JOIN	Moneda MN ON mn.codigo_moneda=pmn.codigo_moneda " & _
+				 "WHERE	pmn.codigo_producto=1 AND " & _
+				 "			pmn.codigo_caja = '0000' AND " & _
+				 "			pmn.tipo_cambio_compra <> 0 AND " & _
+				 "			RTRIM(mn.shower_mensaje) <> ''  "
+
+		' crea la conexión con la base de datos
+		On Error Resume Next
+		Set rs = Createobject("ADODB.Recordset")
+		rs.CursorLocation = 3 'Cliente
+		
+		rs.Open sSQL, "DSN=AFEXchange;UID=cambios;PWD=cambios;", 3, 4, 1
+		If err.number <> 0 Then					
+			Exit Function
+		End if
+		Set rs.ActiveConnection = Nothing
+		Set BuscarPromociones = rs
+		Set rs = Nothing
+
+	End Function
+
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function ObtenerPromociones()
+		Dim rs
+		Set rs = BuscarPromociones
+		
+		If rs.EOF Then		
+			ObtenerPromociones = 0
+		Else
+			ObtenerPromociones = rs.RecordCount 
+		End If
+		
+		Set rs = Nothing
+	End Function
+	
+-->
+</script>
+
+<body style="COLOR: black" id ="bBody" leftmargin="0" bottommargin="0" rightmargin="0" topmargin="0" scroll="no" bgcolor="#164d79">
+<marquee id="mqCiclo" scrolldelay="6" scrollamount="6" style="display: " behavior="slide" align="" >
+&nbsp;
+</marquee>		
+<div id="Promocion">
+
+</div>
+
+<!--
+<marquee id="mq1" align="middle" class="M2" direction="down" scrolldelay="10" scrollamount="20" behavior="slide" style="HEIGHT: 450px; LEFT: -100px; POSITION: absolute; TOP: -10px; WIDTH: 1000px">
+<center id="Moneda">Peso<br>Argentino<br>&nbsp;</center>
+</marquee>
+<marquee id="Msg" loop="1" class="M1" direction="left" scrolldelay="20" scrollamount="30" behavior="slide" style="LEFT: 60px; POSITION: absolute; TOP: 0px; HEIGHT: 200px; ">
+<table class="M1" WIDTH="700px"><tr>
+<td><img id="Bandera1" src="" width="200px" height="120px"></td>
+<td width="700px" align="center">Solo por esta semana</td>
+</tr></table>
+</marquee>
+<marquee id="mq4" class="M3" direction="right" scrolldelay="30" scrollamount="50" behavior="slide" style="HEIGHT: 100px; LEFT: 0px; POSITION: absolute; TOP: 430px; WIDTH: 750px; color: #ffff88">
+<a id="Venta">180</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<img id="Bandera2" src="" width="200px" height="120px">
+</marquee>
+<marquee id="mq5" class="M4" direction="right" scrolldelay="1" scrollamount="20" behavior="slide" style="HEIGHT: 100px; LEFT: 0px; POSITION: absolute; TOP: 430px; WIDTH: 250px">
+venta-sell
+</marquee>
+-->
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!-- MenuActualizarCliente.asp -->
+<table class="BordeSombra" cellpadding="0" cellspacing="0" border="0" width="175" bgcolor="#f1f1f1" style="background-color: white; color: ">
+<tr height="22" bgcolor="#ccddee" style="font-size: 10pt; font-weight: bold">
+	<td colspan="5">&nbsp;&nbsp;Opciones</td>
+</tr>
+<tr height="1"><td colspan="5" bgcolor="#D6D3D6"></td></tr>
+<tr>
+	<td width="10"></td>
+	<td>
+		<table cellpadding="0" cellspacing="0" border="0" style="color: gray">
+		<% If Session("CodigoAgente") <> "WS" Then %>
+			<tr height="5px"><td></td></tr>					
+			<tr>
+				<td style="font-family: marlett">8</td>
+				<td width="10"></td>
+				<td style="color:blue; cursor: Hand" width="175" id="GuardarCambios" onmouseover="document.elementFromPoint(window.event.x, window.event.y).style.color ='black'" >Guardar Cambios<br></td>
+			</tr>
+			<tr height="5px"><td></td></tr>					
+			<tr>
+				<td style="font-family: marlett">8</td>
+				<td width="10"></td>
+				<td width="175" class="Caja" onclick="Contacto" style="cursor: hand">Contacto<br></td>
+			</tr>
+		<% End If %>
+		    <tr height="5px"><td></td></tr>					
+			<tr>
+				<td style="font-family: marlett">8</td>
+				<td width="10"></td>
+				<td width="175"><a class="Caja" href="http:ListaCoincidenciasWorldcheck.asp?cc=<%=Request("cc")%>&nombres=<%=trim(snombres)%>&apellidos=<%=trim(trim(sapellidop) & " " & trim(sapellidom))%>&porcentaje=90">WorldCheck<br></a></td>
+			</tr>
+			<tr height="10px"><td></td></tr>
+			<tr height="5px"><td></td></tr>					
+			<tr>
+				<td style="font-family: marlett">8</td>
+				<td width="10"></td>
+				<td width="175"><a class="Caja" href="http:DetalleCliente.asp?cc=<%=Request("cc")%>&nc=<%=Request("nc")%>&rt=<%=Request("rt")%>">Cancelar<br></a></td>
+			</tr>
+			<tr height="10px"><td></td></tr>
+		</table>
+	</td>	
+	<td width="20"></td>
+</tr>
+</table>
+<SCRIPT LANGUAGE=vbscript>
+<!--
+	
+	sub Contacto()
+		dim sContacto
+		dim i
+		
+		sContacto = window.showmodaldialog("EmpleadoContacto.asp?contacto1=" & frmCliente.txtContacto1.value & _
+													"&porcentagecontacto1=" & frmCliente.txtPorcentageContacto1.value & _
+													"&contacto2=" & frmCliente.txtContacto2.value & _
+													"&porcentagecontacto2=" & frmCliente.txtPorcentageContacto2.value & _
+													"&fechaactivacion=" & frmCliente.txtFechaActivacionComision.value)
+		if  trim(sContacto) = empty then
+			exit sub
+		elseif len(trim(sContacto)) = 4 then 
+			frmCliente.txtContacto1.value = ""
+			frmCliente.txtporcentageContacto1.value = ""
+			frmCliente.txtContacto2.value = ""
+			frmCliente.txtporcentageContacto2.value = ""
+			frmCliente.txtfechaactivacioncomision.value = ""
+		
+		else			
+			i = instr(sContacto, ";")
+			frmCliente.txtContacto1.value = left(sContacto, i - 1)
+			sContacto = mid(scontacto, i + 1)
+			i = instr(sContacto, ";")
+			frmCliente.txtporcentageContacto1.value = left(sContacto, i - 1)			
+			sContacto = mid(scontacto, i + 1)
+			i = instr(sContacto, ";")
+			frmCliente.txtContacto2.value = left(sContacto, i - 1)
+			sContacto = mid(scontacto, i + 1)
+			i = instr(sContacto, ";")
+			frmCliente.txtporcentageContacto2.value = left(sContacto, i - 1)
+			sContacto = mid(scontacto, i + 1)			
+			frmCliente.txtfechaactivacioncomision.value = sContacto			
+		end if
+	end sub		
+	
+//-->
+</SCRIPT>

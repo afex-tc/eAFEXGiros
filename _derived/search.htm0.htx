@@ -1,0 +1,111 @@
+<html> 
+ 
+<head>
+<base href="http://afexweb/AfexMoneyWeb/search.htm">
+ 
+<title>Buscar texto</title> 
+<meta NAME="FORMATTER" CONTENT="Microsoft Visual InterDev 1.0"> 
+<link rel="stylesheet" type="text/css" href="Hoja%20de%20Estilos%201.css">
+ 
+</head> 
+ 
+<body> 
+ 
+<h1><a NAME="top">Buscar texto</a></h1> 
+ 
+<hr> 
+ 
+<p>Utilice el formulario siguiente para buscar los documentos de este Web
+que contengan palabras o combinaciones de palabras concretas. 
+El motor de búsqueda de texto mostrará una lista clasificada de documentos, 
+con las coincidencias más exactas en primer lugar. Cada elemento de lista es un vínculo a un
+documento coincidente; si el documento tiene título, se mostrará éste; 
+de lo contrario, sólo aparecerá el nombre del archivo. Junto con los ejemplos se ofrece 
+una breve <a HREF="#querylang">explicación</a> del lenguaje de consulta.</p> 
+<!--webbot bot="Search" s-link s-fields="TimeStamp,DocumentK," s-index="All" s-dsn="default" tag="FORM" s-text="Buscar:" i-size="20" s-submit="Comenzar búsqueda" s-clear="Borrar" b-useindexserver="1" startspan U-DOC-URL="search.htm" --><form action="_vti_script/search.htm0.idq" method="POST"><p><b>Buscar: </b><input type="text" name="UserRestriction" size="20" value="<%if UserRestriction NE VT_EMPTY%><%if UserRestriction NE "UserRestriction"%><%UserRestriction%><%endif%><%endif%>"></p><p><input type="submit" value="Comenzar búsqueda"><input type="reset" value="Borrar"></p></form><!--webbot bot="Search" endspan i-checksum="58669" -->
+<table BORDER="0">
+  <tr>
+    <td><%if CiContainsFirstRecord EQ 0%>
+      <form ACTION="_vti_script/search.htm0.idq" METHOD="POST">
+        <input TYPE="HIDDEN" NAME="CiBookmark" VALUE="<%CiBookmark%>"><input TYPE="HIDDEN" NAME="CiBookmarkSkipCount" VALUE="-<%EscapeRAW CiMaxRecordsPerPage%>"><input TYPE="HIDDEN" NAME="CiMaxRecordsPerPage" VALUE="<%EscapeRAW CiMaxRecordsPerPage%>"><input TYPE="HIDDEN" NAME="UserRestriction" VALUE="<%UserRestriction%>"><input TYPE="HIDDEN" NAME="CiScope" VALUE="<%CiScope%>"><%if CiMaxRecordsPerPage EQ 1%><input TYPE="SUBMIT" VALUE="Página encontrada anterior"><%else%><input TYPE="SUBMIT" VALUE="Anterior <%CiMaxRecordsPerPage%> Visitas a la página"><%endif%>
+      </form>
+      <%endif%></td>
+    <td><%if CiContainsLastRecord EQ 0%>
+      <form ACTION="_vti_script/search.htm0.idq" METHOD="POST">
+        <input TYPE="HIDDEN" NAME="CiBookmark" VALUE="<%CiBookmark%>"><input TYPE="HIDDEN" NAME="CiBookmarkSkipCount" VALUE="<%EscapeRAW CiMaxRecordsPerPage%>"><input TYPE="HIDDEN" NAME="CiMaxRecordsPerPage" VALUE="<%EscapeRAW CiMaxRecordsPerPage%>"><input TYPE="HIDDEN" NAME="UserRestriction" VALUE="<%UserRestriction%>"><input TYPE="HIDDEN" NAME="CiScope" VALUE="<%CiScope%>"><%if CiRecordsNextPage EQ 1%><input TYPE="SUBMIT" VALUE="Página encontrada siguiente"><%else%><input TYPE="SUBMIT" VALUE="Siguiente <%CiRecordsNextPage%> Visitas a la página"><%endif%>
+      </form>
+      <%endif%></td>
+  </tr>
+</table>
+<%if CiMatchedRecordCount EQ 0%>
+<p><b>No se encontró ningún documento. Vuelva a intentarlo.</b></p>
+<%else%>
+<p><b>Número de documentos encontrados: <%CiMatchedRecordCount%>. Haga clic en
+un documento para verlo o realice otra búsqueda.</b></p>
+<table BORDER>
+  <caption><b>Resultados de la búsqueda</b></caption>
+  <tr>
+    <td><b>Documento</b></td>
+    <td><b>Fecha</b></td>
+    <td align="right"><b>Tamaño</b></td>
+  </tr>
+  <%endif%><%begindetail%>
+  <tr>
+    <td><a href="<%EscapeURL vpath%>"><%if DocTitle ISEMPTY%><%Filename%><%else%><%DocTitle%><%endif%></a></td>
+    <td><%if write NE ""%><%write%> GMT<%else%>&nbsp<%endif%></td>
+    <td align="right"><%if size NE ""%><%size%><%else%>&nbsp<%endif%></td>
+  </tr>
+  <%enddetail%><%if CiMatchedRecordCount GT 0%>
+</table>
+<%endif%> 
+ 
+<hr> 
+ 
+<h2><a NAME="querylang">Lenguaje de consulta</a></h2> 
+ 
+<p>El motor de búsqueda de texto permite la formación de consultas 
+a partir de expresiones booleanas arbitrarias que contengan las palabras clave AND, OR 
+y NOT agrupadas con paréntesis. Por ejemplo:</p> 
+ 
+<blockquote> 
+    <dl> 
+        <dt><strong><tt>recuperación información</tt></strong></dt> 
+        <dd>busca documentos que contengan 'recuperación' o 
+            'información'<br> 
+            <br> 
+        </dd> 
+        <dt><strong><tt>recuperación or información</tt></strong></dt> 
+        <dd>igual que en el anterior<br> 
+            <br> 
+        </dd> 
+        <dt><strong><tt>recuperación and información</tt></strong></dt>
+        <dd>busca los documentos que contengan 'recuperación' 
+            e 'información'<br> 
+            <br> 
+        </dd> 
+        <dt><strong><tt>recuperación not información</tt></strong></dt> 
+        <dd>busca documentos que contienen 'recuperación' pero 
+            no 'información'<br> 
+            <br> 
+        </dd> 
+        <dt><strong><tt>(recuperación not información) and WAIS</tt></strong></dt> 
+        <dd>busca los documentos que contienen 'WAIS' y 'recuperación'
+            pero no 'información'<br> 
+            <br> 
+        </dd> 
+        <dt><strong><tt>Web*</tt></strong></dt> 
+        <dd>busca los documentos que contengan palabras que comiencen con 'Web'<br> 
+            <br> 
+        </dd> 
+    </dl> 
+</blockquote> 
+ 
+<h5 STYLE="FONT-SIZE: 16pt"><a HREF="#top">Volver al principio</a></h5> 
+ 
+<hr> 
+ 
+<h5>Aquí se incluye la información del autor.<br> 
+© 1995 Nombre de la organización. Reservados todos los derechos.<br> 
+</h5> 
+</body> 
+</html>

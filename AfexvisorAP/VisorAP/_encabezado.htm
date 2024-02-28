@@ -1,0 +1,23 @@
+<!--	_encabezado.htm	-->
+		<table cellspacing="0" cellpadding="0" border="0" width="100%">
+		<tr width="100%">
+			<% If VLogo Then %>
+					<td align=left><img src="../images/AFEX.jpg" WIDTH="72" HEIGHT="72"></td>
+			<% End If %>
+			<% If VPromo Then %>	
+					<td id="tdPromo" align="center" ><embed id="embPromo" SRC="../images/Promocion1.swf" STYLE="HEIGHT: 72px; WIDTH: 100%" type="application/x-shockwave-flash"></td>
+			<% End If %>
+		</tr>
+		</table>
+		<script language="vbscript">
+		   Dim nPromoActual, nVecesPromo, nVecesPromoActual
+
+			Sub Cargar_promociones
+				nVecesPromoActual = nVecesPromoActual + 1
+				If nVecesPromoActual < nVecesPromo Then Exit Sub
+				nVecesPromoActual = 0
+				If nPromoActual > <%=nPromos%> Then nPromoActual = 1
+				tdPromo.innerHTML = "<embed SRC=""../images/Promocion" & nPromoActual & ".swf"" STYLE=""HEIGHT: 72px; WIDTH: 172px"" type=""application/x-shockwave-flash""></embed>"
+				nPromoActual = nPromoActual + 1	
+			End Sub
+		</script>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<script language="JavaScript" type="text/JavaScript">
+
+var message="Centro Recreacional AFEX - El Monte"    
+var message=message+"          " 
+i="0"			         
+var temptitle=""
+var speed="150"
+
+function titler(){
+if (!document.all&&!document.getElementById)
+return
+document.title=temptitle+message.charAt(i)
+temptitle=temptitle+message.charAt(i)
+i++	
+if(i==message.length)
+{
+i="0"
+temptitle=""
+}
+setTimeout("titler()",speed)
+}
+
+window.onload=titler
+</script>
+<TITLE> New Document </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+<style type="text/css">
+<!--
+.Estilo1 {
+	font-family: Tahoma;
+	font-size: 12px;
+	font-weight: bold;
+}
+a:link {
+	color: #333333;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #666666;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:active {
+	text-decoration: none;
+}
+.Estilo2 {font-family: Tahoma; font-size: 12px; font-weight: bold; color: #333333; }
+-->
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></HEAD>
+
+<BODY>
+<div align="center">
+  <p align="left"><img src="Cen_Gran_04.jpg" width="416" height="316"></p>
+  <table width="410" border="1" align="left" cellpadding="1" cellspacing="1" bordercolor="#CCCCCC">
+    <tr>
+      <td width="51"><div align="center" class="Estilo1"><a href="file:///C|/Inetpub/wwwroot/Giros2006/fotos_exp/foto_Imagen 042.htm" target="_self">Anterior</a></div></td>
+      <td width="279"><div align="center" class="Estilo2">AFEX - Centro Recreacional </div></td>
+      <td width="62"><div align="center" class="Estilo1"><a href="file:///C|/Inetpub/wwwroot/Giros2006/fotos_exp/foto_Imagen 007.htm" target="_self">Siguiente</a></div></td>
+    </tr>
+  </table>
+  <div align="left"></div>
+  <div align="left"></div>
+  <p>&nbsp;  </p>
+</div>
+</BODY>
+</HTML>

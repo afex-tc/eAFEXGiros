@@ -1,0 +1,25 @@
+<!--	_estadistica.htm	-->
+		<table border="0"  cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid silver">	
+		<tr class="tt2">
+			<td id="tdTVeces" style="border-right: 1px solid silver" title="Veces que ha cambiado el precio durante el dia">&nbsp;variaciones del dia</td>
+			<td id="tdTTiempo" style="border-right: 1px solid silver" title="Hora de la ultima vez que cambió el precio" >&nbsp;ultima vez</td>
+			<!--<td>&nbsp;Ejecutivo</td>-->
+		</tr>
+		<tr class="tt2" align="center">
+			<td id="tdVeces" style="border-right: 1px solid silver " title="Veces que ha cambiado el precio durante el dia"></td>
+			<td id="tdTiempo" style="border-right: 1px solid silver " title="Hora de la ultima vez que cambió el precio"></td>
+			<!--<td id="tduser"> </td>-->
+		</tr>
+		</table>	
+		<script language="vbscript">
+			Sub Cargar_estadistica()
+				'tdtiempo.innerText="<%=DiferenciaHora(Trim(rs("hora")), Trim(rs("hora_actual")))%>"
+				tdtiempo.innerText="<%=rs("hora")%>"
+				tdtiempo.title = "a las <%=rs("hora")%> fue la última vez que cambió el precio"
+				tdTTiempo.title = "a las <%=rs("hora")%> fue la últimia vez que cambió el precio"
+				tdveces.innerText= "<%=rs("veces")%>"
+				tdveces.title = "<%=rs("veces")%> veces ha cambiado el precio durante el dia"
+				tdTVeces.title = "<%=rs("veces")%> veces ha cambiado el precio durante el dia"
+				'tduser.innerText=rs("nombre_usuario")
+			End Sub
+		</script>

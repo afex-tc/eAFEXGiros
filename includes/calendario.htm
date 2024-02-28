@@ -1,0 +1,268 @@
+<html>
+<head>
+<meta NAME="GENERATOR" Content="Microsoft FrontPage 4.0">
+<title>Calendario &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</title>
+<script>
+	function valnum(objeto){
+		var texto = objeto.value;
+		var decimales = objeto.decimales;
+		vDigitosAceptados = '0123456789';
+		if ((decimales==null) || (decimales==0)) {
+			vDigitosAceptados = '0123456789';
+		}
+		else{
+			vDigitosAceptados = '0123456789.,';
+		}
+		var salida='';
+		var pos=0;
+		for (var x=0; x < texto.length; x++){
+			pos = vDigitosAceptados.indexOf(texto.substr(x,1));
+			if (pos != -1) salida += texto.substr(x,1);
+			if (pos == 10) vDigitosAceptados = '0123456789';
+		}
+		if (decimales!=null) {
+			punto = salida.indexOf('.');
+			if (punto != -1) punto = salida.indexOf(',');
+			if (punto != -1){
+				salida = salida.substr(0,punto + Number(decimales)+1);
+			}
+		}
+		if (objeto.value != salida) objeto.value = salida;
+		objeto.value=(objeto.value).replace(",",".")
+	}
+</script>
+<style>
+td {text-align: right};
+.cuerpo{
+	background-color: #c0c0c0;
+	position:absolute;
+	top:0;
+	left:0;
+};
+.Domingo {color: #FF0000};
+.hoy {background-color:#DCDCDC};
+.seleccionado{
+	color = "FFFFFF";
+	background = "808080";
+	cursor = "hand";
+	margin:0
+}
+.titulo {color: #FF0000; 
+			border-bottom-style: solid;
+			border-bottom-color:#006666;
+		 text-align: center}
+</style>
+</head>
+<body class=cuerpo onunload="window.returnValue = salida">
+<table border="0" bgcolor="#c0c0c0" width="100%">
+<tr>
+<td align="left">
+	<select size="1" name="xmes" onchange="fecha_fija()">
+    <option value="1">Enero</option>
+    <option value="2">Febrero</option>
+    <option value="3">Marzo</option>
+    <option value="4">Abril</option>
+    <option value="5">Mayo</option>
+    <option value="6">Junio</option>
+    <option value="7">Julio</option>
+    <option value="8">Agosto</option>
+    <option value="9">Septiembre</option>
+    <option value="10">Octubre</option>
+    <option value="11">Noviembre</option>
+    <option value="12">Diciembre</option>
+	</select>
+	<img align="absMiddle" border="0" src="calendario_sube_baja.gif" useMap="#mapmes" WIDTH="7" HEIGHT="20">
+</td>
+<td>
+	<input size="4" name="xano" onkeyup="valnum(this);fecha_fija()" maxlength="4" >
+	<img align="absMiddle" border="0" src="calendario_sube_baja.gif" useMap="#mapano" WIDTH="7" HEIGHT="20">
+</td>
+</tr>
+<tr>
+<td colspan="3" align="center">
+<table border="0" cellPadding="2" cellSpacing="0" width="100%">
+  <tr>
+    <td width="20" class="titulo">Lu</td>
+    <td width="20" class="titulo">Ma</td>
+    <td width="20" class="titulo">Mi</td>
+    <td width="20" class="titulo">Ju</td>
+    <td width="20" class="titulo">Vi</td>
+    <td width="20" class="titulo">Sa</td>
+    <td width="20" class="titulo">Do</td>
+  </tr>
+  <tr>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x1"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x2"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x3"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x4"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x5"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x6"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x7" class="Domingo"></td>
+  </tr>
+  <tr>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x8"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x9"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x10"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x11"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x12"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x13"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x14" class="Domingo"></td>
+  </tr>
+  <tr>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x15"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x16"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x17"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x18"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x19"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x20"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x21" class="Domingo">      </td>
+  </tr>
+  <tr>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x22"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x23"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x24"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x25"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x26"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x27"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x28" class="Domingo">      </td>
+  </tr>
+  <tr>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x29"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x30"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x31"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x32"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x33"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x34"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x35" class="Domingo">      </td>
+  </tr>
+  <tr>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x36"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x37"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x38"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x39"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x40"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x41"></td>
+    <td onclick="fecha_sale(this)" onmouseover="fecha_sobre(this)" onmouseout="fecha_chao(this)" id="x42" class="Domingo"></td>
+  </tr>
+</table>
+</td></tr>
+</table>
+<map name="mapano">
+	<area shape="RECT" coords="0,0,6,9" onclick="document.all('xano').value=Number(document.all('xano').value)+1;fecha_fija()">
+	<area shape="RECT" coords="0,10,6,20" onclick="document.all('xano').value=Number(document.all('xano').value)-1;fecha_fija()">
+</map>
+<map name="mapmes">
+	<area shape="RECT" coords="0,0,6,9" onclick="fecha_suma_mes(1)">
+	<area shape="RECT" coords="0,10,6,20" onclick="fecha_suma_mes(-1)">
+</map>
+</body>
+</html>
+
+<script language="JavaScript">
+//resizeTo(120,170);
+//moveTo(200,200);
+salida = window.dialogArguments;
+if (window.dialogArguments==''){
+	hoy=new Date();
+	param_fecha = largo2(hoy.getDate()) + '/' + largo2(hoy.getMonth()+1) + '/' + hoy.getYear();
+}
+else{
+	param_fecha = window.dialogArguments;
+}
+//param_fecha="06/10/2004"
+if (param_fecha.substr(3,2).substr(0,1)=='0'){
+	mes = Number(param_fecha.substr(3,2).substr(1,1)) -1
+}
+else{
+	mes = Number(param_fecha.substr(3,2)) -1
+}
+document.all('xmes').selectedIndex = mes;
+document.all('xano').value = Number(param_fecha.substr(6,4));
+
+if (param_fecha.substr(0,2).substr(0,1)=='0'){
+	xdia = Number(param_fecha.substr(0,2).substr(1,1)) 
+}
+else{
+	xdia = Number(param_fecha.substr(0,2)) 
+}
+function fecha_suma_mes(factor){
+	mes = Number(document.all('xmes').value) + factor - 1;
+	if (mes==-1) {
+		document.all('xano').value=Number(document.all('xano').value)-1;
+		mes =11;
+	}
+	if (mes==12) {
+		document.all('xano').value=Number(document.all('xano').value)+1;
+		mes =0;
+	}
+	document.all('xmes').selectedIndex = mes;
+	fecha_fija();
+}
+function fecha_sobre(este){
+	este.miclase = este.className;
+	if (este.fecha!=''){
+		este.className = 'seleccionado';
+	}
+}
+function fecha_chao(este){
+	este.className = este.miclase;
+}
+function fecha_sale(este){
+	if (este.fecha != ''){
+		salida = este.fecha;
+		window.close();
+	}
+}
+function largo2(numero){
+	if (numero < 10) {
+		return ('0' + numero);
+	}
+	return (numero);
+}
+function fecha_fija(){
+if ((document.all('xano').value).length==4){
+	var f = '01/' + largo2(document.all('xmes').value) + '/' + document.all('xano').value;
+	genera_calendario(f);}
+}
+function genera_calendario(fecha_param){
+	fecha = fecha_param.substr(3,3) + fecha_param.substr(0,3) + fecha_param.substr(6,4);
+	var faux = new Date(fecha);
+	hoy = faux.getDate();
+	mes = faux.getMonth() +1;
+	if (mes==1) t_mes = 'Enero';
+	if (mes==2) t_mes = 'Febrero';
+	if (mes==3) t_mes = 'Marzo';
+	if (mes==4) t_mes = 'Abril';
+	if (mes==5) t_mes = 'Mayo';
+	if (mes==6) t_mes = 'Junio';
+	if (mes==7) t_mes = 'Julio';
+	if (mes==8) t_mes = 'Agosto';
+	if (mes==9) t_mes = 'Septiembre';
+	if (mes==10) t_mes = 'Octubre';
+	if (mes==11) t_mes = 'Noviembre';
+	if (mes==12) t_mes = 'Diciembre';
+
+	for(x=1;x<=42;x++){
+		document.all('x' + x).innerHTML = '';
+		document.all('x' + x).fecha = '';
+	}
+	faux.setDate(1);
+	primer_dia=faux.getDay();
+	if (primer_dia==0) primer_dia=7;
+	primer_dia--;
+	mes=faux.getMonth();
+	for(x=1;x<35;x++){
+		faux.setDate(x);
+		document.all('x' + (primer_dia + x)).className = '';
+		if (mes == faux.getMonth()){
+			document.all('x' + (primer_dia + x)).innerHTML = x;
+			document.all('x' + (primer_dia + x)).fecha = largo2(faux.getDate()) + '/' + largo2((faux.getMonth()+1)) + '/' + faux.getFullYear();
+		}
+		if ((x+primer_dia)%7==0){
+			document.all('x' + (primer_dia + x)).className = 'Domingo';
+		}
+	}
+	document.all('x' + (primer_dia + xdia)).className = 'hoy';
+}
+genera_calendario(param_fecha);
+</script>

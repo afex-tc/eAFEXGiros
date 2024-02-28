@@ -1,0 +1,204 @@
+BODY
+{
+    CLEAR: both;
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    FONT-SIZE: 9pt;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    TEXT-TRANSFORM: none;
+    COLOR: black;
+    PADDING-TOP: 0px;
+    FONT-FAMILY: Verdana, 'Times New Roman', Arial, 'Arial Black';
+    LIST-STYLE-TYPE: none
+}
+H1
+{
+    COLOR: steelblue;
+    FONT-FAMILY: 'Arial Black', Verdana, 'Arial Narrow';
+    LETTER-SPACING: -2pt
+}
+H3
+{
+    COLOR: steelblue;
+    FONT-FAMILY: 'Arial Black', Verdana;
+    LETTER-SPACING: -1pt
+}
+H2
+{
+    COLOR: steelblue;
+    FONT-FAMILY: 'Arial Black', Verdana;
+    LETTER-SPACING: -1.6pt
+}
+H5
+{
+    FONT-SIZE: 28pt;
+    FLOAT: right;
+    TEXT-TRANSFORM: none;
+    COLOR: white;
+    PADDING-TOP: 2pt;
+    FONT-FAMILY: Arial;
+    LETTER-SPACING: -2pt;
+    POSITION: static;
+    TOP: 1%
+}
+H6
+{
+    FONT-WEIGHT: lighter;
+    FONT-SIZE: 60pt;
+    WIDTH: 100%;
+    COLOR: #f5f5f5;
+    FONT-FAMILY: 'Arial Black', Arial, Verdana;
+    LETTER-SPACING: -5pt;
+    POSITION: relative;
+    TOP: -30px;
+    HEIGHT: 40px;
+    TEXT-ALIGN: left
+}
+TABLE
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    FONT-SIZE: 8pt;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    PADDING-TOP: 0px;
+    FONT-FAMILY: Verdana, Arial
+}
+.Sombra
+{
+    COLOR: #cfcfcf;
+    FONT-FAMILY: 'Arial Black'
+}
+TABLE.Borde
+{
+    BORDER-RIGHT: #509ecf 1px solid;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: #509ecf 1px solid;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    BORDER-LEFT: #509ecf 1px solid;
+    COLOR: black;
+    PADDING-TOP: 0px;
+    BORDER-BOTTOM: #509ecf 1px solid;
+    BACKGROUND-COLOR: #f7f7f7
+}
+TD.Menu
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    CURSOR: hand;
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    BACKGROUND-COLOR: steelblue
+}
+TD.Titulo
+{
+    FONT-WEIGHT: 600;
+    FONT-SIZE: 9pt;
+    COLOR: snow;
+    FONT-FAMILY: Verdana, Arial;
+    BACKGROUND-COLOR: #509ecf
+}
+TR.Descripcion
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    BACKGROUND-COLOR: #dcf9ff
+}
+A:link
+{
+    COLOR: mediumblue;
+    TEXT-DECORATION: none
+}
+A:visited
+{
+    COLOR: mediumblue;
+    TEXT-DECORATION: none
+}
+A:hover
+{
+    COLOR: black;
+    TEXT-DECORATION: none
+}
+TABLE.BordeInactivo
+{
+    BORDER-RIGHT: silver 1px solid;
+    BORDER-TOP: silver 1px solid;
+    BORDER-LEFT: silver 1px solid;
+    COLOR: black;
+    BORDER-BOTTOM: silver 1px solid
+}
+TD.MenuInactivo
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    CURSOR: hand;
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    BACKGROUND-COLOR: silver
+}
+TD.TituloInactivo
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    BACKGROUND-COLOR: silver
+}
+.TextoBoton
+{
+    BORDER-RIGHT: white 1px solid;
+    BORDER-TOP: white 1px solid;
+    FONT-WEIGHT: 800;
+    FONT-SIZE: 13pt;
+    BORDER-LEFT: white 1px solid;
+    CURSOR: hand;
+    COLOR: white;
+    BORDER-BOTTOM: white 1px solid;
+    FONT-FAMILY: Arial, Verdana;
+    LETTER-SPACING: -1pt;
+    POSITION: relative;
+    BACKGROUND-COLOR: steelblue
+}
+TD.TituloFondo
+{
+    BORDER-RIGHT: black;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: black;
+    PADDING-LEFT: 0px;
+    FONT-WEIGHT: lighter;
+    FONT-SIZE: 60pt;
+    LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    VERTICAL-ALIGN: super;
+    BORDER-LEFT: black;
+    WIDTH: 100%;
+    COLOR: #f5f5f5;
+    LINE-HEIGHT: 54pt;
+    PADDING-TOP: 0px;
+    BORDER-BOTTOM: black;
+    FONT-FAMILY: 'Arial Black', Arial, Verdana;
+    LETTER-SPACING: -5pt;
+    POSITION: relative;
+    TOP: 0px;
+    BACKGROUND-COLOR: transparent;
+    TEXT-ALIGN: left
+}
+TABLE.BordeMenu
+{
+    BORDER-RIGHT: #509ecf 1px solid;
+    BORDER-TOP: #509ecf 1px solid;
+    BORDER-LEFT: #509ecf 1px solid;
+    COLOR: black;
+    BORDER-BOTTOM: #509ecf 1px solid
+}
+SELECT
+{
+    BORDER-RIGHT: 1px solid;
+    BORDER-TOP: 1px solid;
+    BORDER-LEFT: 1px solid;
+    BORDER-BOTTOM: 1px solid
+}

@@ -1,0 +1,65 @@
+<!--	_monedas.htm	-->
+		
+		<div id="dvMonedas" style="display: none">
+			espere...
+		</div>
+		<script language="vbscript">		
+			Sub Mostrar_monedas()
+				If bVPr3 Then Mostrar_detalleposicion
+				If bVUt1 Then Mostrar_utilidad
+				If bVUt2 Then Mostrar_utilidadmensual
+				If bVCo1 Then Mostrar_configuracion
+				If bVCd1 Then Mostrar_cierrediario
+				If dvMonedas.style.display = "" Then
+					dvMonedas.style.display = "none"
+				Else
+					dvMonedas.style.display = ""
+					Cargar_monedas "<%=sConexion%>"
+				End IF
+				bVMn1 = (dvMonedas.style.display = "")
+			End Sub
+			
+			Sub Cargar_monedas(ByVal Conexion)
+			   Dim rs, sSQL, sHTML
+			   
+			   On Error Resume Next
+
+				sSQL = "SELECT    Alias_moneda AS Moneda, pr_compra AS Compra, pr_venta AS Venta, paridad_compra AS 'P.Compra', paridad_venta AS 'P.Venta', codigo_moneda, codigo_internacional " & _
+				       "FROM      VAPPrecio_referencia WITH(nolock) " & _
+				       "WHERE     estado_ap = 1 AND estado = 1 AND (producto = 1 OR producto IS NULL)" & _
+				       "ORDER BY  orden_ap"
+			   
+				Set rs = EjecutarSQLCliente(Conexion, sSQL)			   
+				If Err.Number <> 0 Then 
+					Set rs = Nothing
+					Exit Sub
+				End If	   
+
+				sHTML = "<table id=tbMonedas border=0 cellspacing=1 cellpadding=1 style=""display: ; border: 1px solid '#EEEEEE'"">"
+				sHTML =  sHTML & "<tr class=""titulo"" align=center class=titulo style=""height: 10px"">" & _
+							 "<td width=118px>" & rs.Fields(0).name & "</td>" & _
+							 "<td width=60px>" & rs.Fields(1).name & "</td>" & _
+							 "<td width=60px>" & rs.Fields(2).name & "</td>" & _
+							 "</tr>"			      
+			   Do Until rs.EOF
+					sHTML = sHTML & _
+								 "<tr style=""height: 10px; cursor: hand; "" color=#BBBBBB bgcolor=#F6F6F6 onMouseOver=""javascript:this.bgColor='#EEEEEE'"" onMouseOut=""javascript:this.bgColor='#F6F6F6'"" onClick=""MostrarMoneda '" & rs.Fields(5) & "', '" & rs.Fields(6) & "' "">" & _
+								 "<td align=left >" & rs.Fields(0) & "</td>" & _
+								 "<td align=right style=""color: blue"">" & FormatNumber(rs.Fields(1), 2) & "</td>" & _
+								 "<td align=right style=""color: red"">" & FormatNumber(rs.Fields(2), 2) & "</td></tr>"
+			   
+			      rs.MoveNext
+			   Loop
+			   rs.Close		   
+				sHTML = sHTML & "</table>"
+				dvMonedas.innerHTML = sHTML
+			   Set rs = Nothing
+			   
+			End Sub
+
+			Sub MostrarMoneda(ByVal Moneda, ByVal CodigoInternacional)
+				'window.open("APMoneda.asp?mn=" & Moneda & "&cmn=" & CodigoInternacional, null, "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no")
+				'msgbox "APMoneda.asp?mn=" & Moneda & "&cmn=" & CodigoInternacional
+				Window.showModelessDialog "APMoneda.asp?mn=" & Moneda & "&cmn=" & CodigoInternacional , , "dialogWidth:20; dialogHeight:24"		
+			End Sub
+		</script>

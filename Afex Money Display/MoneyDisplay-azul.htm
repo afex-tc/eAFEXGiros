@@ -1,0 +1,366 @@
+<html>
+<head>
+<meta name="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<title>AFEX Ltda.</title>
+<!--
+<link rel="stylesheet" type="text/css" href="Estilos/Principal.css">
+-->
+<style TYPE="text/css">
+BODY
+{
+    CLEAR: both;
+    MARGIN: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-RIGHT: 0px;
+    PADDING-TOP: 0px;
+    TEXT-TRANSFORM: none
+}
+	tr.fila1	{	background-color: #336699;
+				}
+	tr.fila2	{	background-color:  steelblue;
+				}
+	td.monto {	align: right }
+</style> 
+</head>
+<script language="vbscript">
+dim curtrans
+dim numtrans
+dim speed
+Dim nRecord
+curtrans = 0
+numtrans = 23
+Speed=2.0
+
+	Dim sCodigoMoneda
+	sCodigoMoneda = "USD"
+	
+	Sub CargarTablaPrecios
+		Const ForReading = 1, ForWriting = 2, ForAppending = 8
+		Dim fso, f, nPos, i, rs
+		Dim sString , sMoneda, sCodigo, sCompra, sVenta, sTr
+		Set fso = CreateObject("Scripting.FileSystemObject")
+		Set f = fso.OpenTextFile("K:\Desarrollo\Afex Money Shower\Moneda.shw", ForReading, False)
+		
+		document.write "<table style=""color: white; font-family: Verdana, Arial;	font-size: 16pt; font-weight: bold;"" id=""tabPrecios"" border=""0"">" & _
+							"<tr style=""background-color:  #023362; height: 40px""><td width=""480px"" align=""center"">Moneda</td><td width=""170px"" align=""center"">Compra</td><td width=""170px"" align=""center"">Venta</td></tr>"
+		
+		document.write "<tr><td colspan=""3"">"
+		document.write "<marquee id=""mqPrecios"" height=""320px"" width=""100%"" direction=""up"" scrollamount=""1"" scrolldelay=""5"" behavior=""scroll"" loop=""2"">"
+		document.write "<table style=""color: white; font-family: Verdana, Arial;	font-size: 20pt; font-weight: sbold;"" id=""tabPrecios"" border=""0"">"
+
+		On Error Resume Next							
+		Do Until False
+			If sTr = "Fila1" Then
+				sTr = "Fila2"
+			Else
+				sTr = "Fila1"
+			End If
+			sString = f.ReadLine						
+			If Err.number <> 0 Then Exit Do
+			nPos = InStr(sString, ":")
+			sCodigo = Mid(sString, 1, nPos -1)
+			sString = Mid(sString, nPos+1)
+			nPos = InStr(sString, ":")
+			sMoneda = Mid(sString, 1, nPos -1)
+			sString = Mid(sString, nPos+1)
+			nPos = InStr(sString, ":")
+			sCompra = Mid(sString, 1, nPos -1)
+			sString = Mid(sString, nPos+1)
+			sVenta = sString
+			document.write "<tr class=" & sTr & " height=""50px""><td width=""480px"">" & sMoneda & " (" & sCodigo & ")</td><td align=""right"" width=""170px"">" & sCompra & "</td><td align=""right"" width=""170px"">" & sVenta & "</td></tr>"
+		Loop
+		document.write "</table>"
+		document.write "</marquee>"
+		document.write "</td></tr>"
+		
+		document.write "</table>"		
+		f.Close
+
+	End Sub
+
+	Sub CargarMoneda(ByVal Codigo)
+		Const ForReading = 1, ForWriting = 2, ForAppending = 8
+		Dim fso, f, nPos
+		Dim sString , sMoneda, sCodigo, sCompra, sVenta, sTr
+		Set fso = CreateObject("Scripting.FileSystemObject")
+		Set f = fso.OpenTextFile("K:\Desarrollo\Afex Money Shower\Moneda.shw", ForReading, False)
+		
+		Do Until False
+			sString = f.ReadLine
+			nPos = InStr(sString, ":")
+			sCodigo = Mid(sString, 1, nPos -1)
+			IF sCodigo = Codigo Then Exit Do
+		Loop
+
+		document.write "<table style=""font-family: Verdana, Arial;	font-size: 16pt; "" id=""tabPrecios"" border=""0"">"
+		nPos = InStr(sString, ":")
+		sCodigo = Mid(sString, 1, nPos -1)
+		sString = Mid(sString, nPos+1)
+		nPos = InStr(sString, ":")
+		sMoneda = Mid(sString, 1, nPos -1)
+		sString = Mid(sString, nPos+1)
+		nPos = InStr(sString, ":")
+		sCompra = Mid(sString, 1, nPos -1)
+		sString = Mid(sString, nPos+1)
+		sVenta = sString
+		document.write "<tr style="" font-size: 90pt; font-weight: bold;""><td align=""center"" colspan=""3"">" & sCodigo & "</td></tr>" & _
+							"<tr style="" font-size: 30pt; font-weight: ;""><td align=""center"">Compra</td><td width=""100%""></td><td align=""center"">Venta</td></tr>" & _
+							"<tr style="" font-size: 50pt""><td align=""center"">" & sCompra & "</td><td width=""100%""></td><td align=""center"">" & sVenta & "</td></tr>"
+		document.write "</table>"		
+		f.Close
+
+	End Sub
+	
+	Sub window_onload()
+		'window.resizeTo 844, 850
+		'window.moveTo -14, -100	
+		CargarMonedaRS sCodigoMoneda		
+		nRecord = 0
+	End Sub	
+
+	
+	Sub mqPrecios_onstart
+		exit sub
+		 mqprecios.loop = 1
+	End Sub
+
+	Sub mq_onstart
+		mq.loop = 1
+  		divPrecios.innerHTML = MostrarTablaPrecios  		
+	End Sub
+	
+	Sub mq_onfinish
+		If mq.loop = 2 Then
+			mq.loop = 1
+		Else
+			mq.loop = 2
+		End If
+		Select Case sCodigoMoneda
+			Case "USD"
+				sCodigoMoneda = "EUR"
+			Case "EUR"
+				sCodigoMoneda = "ARP"
+			Case "ARP"
+				sCodigoMoneda = "USD"
+		End Select			
+		CargarMonedaRS sCodigoMoneda
+		If nRecord=0 Then navigate "AFEX.htm"
+
+		
+	End Sub	
+	
+	Function MostrarTablaPrecios 
+		Dim rs, sTr, sString, i
+		
+		
+		Set rs = CreateObject("ADODB.Recordset")
+		Set rs = Buscar("")		
+		If Err.number <> 0 Then 
+			Set rs = Nothing
+			Exit Function
+		End If
+		sString = sString &  "<table style=""color: white; font-family: Verdana, Arial;	font-size: 16pt; font-weight: bold;"" id=""tabPrecios"" border=""0"">" & _
+							"<tr style=""background-color:  #023362; height: 40px""><td width=""480px"" align=""center"">Moneda</td><td width=""170px"" align=""center"">Compra</td><td width=""170px"" align=""center"">Venta</td></tr>"
+		
+		sString = sString &  "<tr><td colspan=""3"">"
+		sString = sString &  "<marquee id=""mqPrecios"" height=""260px"" width=""100%"" direction=""down"" scrollamount=""20"" scrolldelay=""40"" behavior=""slide"" loop=""1"">"
+		sString = sString &  "<table style=""color: white; font-family: Verdana, Arial;	font-size: 20pt; font-weight: sbold;"" id=""tabPrecios"" border=""0"">"
+		i = 0
+		If nRecord < rs.RecordCount Then
+			If rs.RecordCount - nRecord < 5 Then
+				nRecord = rs.recordCount - 5
+			End If
+			rs.move nRecord		
+		End If
+		Do Until rs.EOF
+			If sTr = "Fila1" Then
+				sTr = "Fila2"
+			Else
+				sTr = "Fila1"
+			End If
+			sString = sString &  "<tr class=" & _
+									sTr & _
+								" height=""50px""><td width=""480px"">" & _
+									rs("alias_Moneda") & " (" & _
+									rs("Codigo_moneda") & ") " & _
+								"</td><td align=""right"" width=""170px"">" & _
+									Formatnumber(rs("tipo_cambio_Compra"), 2) & _
+								"</td><td align=""right"" width=""170px"">" & _
+									Formatnumber(rs("tipo_cambio_Venta"), 2) & _
+								"</td></tr>"
+			
+			rs.movenext			
+			i = i + 1
+			If i = 5 Then Exit Do
+		Loop
+		If rs.EOF Then
+			nRecord = 0
+		Else
+			nRecord = nRecord + 5			
+		End If
+		sString = sString &  "</table>"
+		sString = sString &  "</marquee>"
+		sString = sString &  "</td></tr>"
+		
+		sString = sString &  "</table>"		
+		MostrarTablaPrecios = sString
+		Set rs = Nothing
+		
+	End Function
+
+
+	Sub mqPrecios_onfinish
+		exit sub
+		
+		If mqprecios.loop = 2 Then
+			mqprecios.loop=1
+		Else
+			Select Case sCodigoMoneda
+				Case "USD"
+					sCodigoMoneda = "EUR"
+				Case "EUR"
+					sCodigoMoneda = "ARP"
+				Case "ARP"
+					sCodigoMoneda = "USD"
+					window.navigate "MoneyShower.htm"				
+			End Select
+			
+			CargarMonedaRS sCodigoMoneda
+			mqprecios.loop=2
+		End If		
+	End Sub
+	
+
+	Sub CargarTablaPreciosRS
+		Dim rs, sTr
+		
+		
+		document.write "<table style=""color: white; font-family: Verdana, Arial;	font-size: 16pt; font-weight: bold;"" id=""tabPrecios"" border=""0"">" & _
+							"<tr style=""background-color:  #023362; height: 40px""><td width=""480px"" align=""center"">Moneda</td><td width=""170px"" align=""center"">Compra</td><td width=""170px"" align=""center"">Venta</td></tr>"
+		
+		document.write "<tr><td colspan=""3"">"
+		document.write "<marquee id=""mqPrecios"" height=""320px"" width=""100%"" direction=""down"" scrollamount=""4"" scrolldelay=""100"" behavior=""scroll"" loop=""2"">"
+		document.write "<table style=""color: white; font-family: Verdana, Arial;	font-size: 20pt; font-weight: sbold;"" id=""tabPrecios"" border=""0"">"
+		Set rs = CreateObject("ADODB.Recordset")
+		Set rs = Buscar("")				 		
+		Do Until rs.EOF
+			If sTr = "Fila1" Then
+				sTr = "Fila2"
+			Else
+				sTr = "Fila1"
+			End If
+			document.write "<tr class=" & _
+									sTr & _
+								" height=""50px""><td width=""480px"">" & _
+									rs("alias_Moneda") & " (" & _
+									rs("Codigo_moneda") & ") " & _
+								"</td><td align=""right"" width=""170px"">" & _
+									Formatnumber(rs("tipo_cambio_Compra"), 2) & _
+								"</td><td align=""right"" width=""170px"">" & _
+									Formatnumber(rs("tipo_cambio_Venta"), 2) & _
+								"</td></tr>"
+			
+			rs.movenext			
+		Loop
+		document.write "</table>"
+		document.write "</marquee>"
+		document.write "</td></tr>"
+		
+		document.write "</table>"		
+		
+		Set rs = Nothing
+	End Sub	
+
+	Sub CargarMonedaRS(Byval CodigoMoneda)
+		Dim rs, sTr, cTC, sTd
+				
+		Set rs = CreateObject("ADODB.Recordset")
+		Set rs = Buscar(CodigoMoneda)			
+		If Err.number <> 0 Then 
+			Set rs = Nothing
+			Exit Sub
+		End If
+		tdCodigo.innerText = CodigoMoneda
+		If Not rs.EOF Then
+			tdCompra.innerText = FormatNumber(rs("tipo_cambio_compra"), 2)
+			tdVenta.innerText = FormatNumber(rs("tipo_cambio_venta"), 2)
+		Else
+			tdCompra.innerText = "0,00"
+			tdVenta.innerText = "0,00"
+		End If
+		img1.src = left(CodigoMoneda, 2) & ".jpg"
+		img2.src = left(CodigoMoneda, 2) & ".jpg"
+		Set rs = Nothing
+	End Sub	
+
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function Buscar(ByVal CodigoMoneda)
+		Dim rs
+		Dim sSQL
+		Set Buscar = Nothing
+		
+		sSQL = "SELECT pmn.codigo_moneda, mn.alias_moneda, pmn.tipo_cambio_compra, pmn.tipo_cambio_venta " & _
+				 "FROM	Plan_Moneda PMN " & _
+				 "JOIN	Moneda MN ON mn.codigo_moneda=pmn.codigo_moneda " & _
+				 "WHERE	pmn.codigo_producto=1 AND " & _
+				 "			pmn.codigo_caja = '0000' "
+				 '"--AND " & _
+				 '"			--pmn.tipo_cambio_compra <> 0 " & _
+
+		If CodigoMoneda <> "" Then
+			sSQL = sSQL & " AND pmn.codigo_moneda = '" & CodigoMoneda & "'"
+		End If
+		sSql = sSQL & "ORDER BY mn.alias_moneda "
+		' crea la conexión con la base de datos
+		On Error Resume Next
+		Set rs = Createobject("ADODB.Recordset")
+		rs.CursorLocation = 3 'Cliente
+		
+		rs.Open sSQL, "DSN=AFEXchange;UID=cambios;PWD=cambios;", 3, 4, 1
+		If err.number <> 0 Then					
+			Exit Function
+		End if
+		Set rs.ActiveConnection = Nothing
+		Set Buscar = rs
+		Set rs = Nothing
+
+	End Function
+
+
+-->
+</script>
+<body bgcolor=#164d79 style="color: white" id="bBody" leftmargin="0" bottommargin="0" rightmargin="0" topmargin="0" style="" scroll="no">
+<script language="vbscript">
+		'window.resizeTo 844, 850
+		'window.moveTo -14, -100
+</script>
+<table border="0" cellpadding="0" cellspacing="0" style="position: relative; left: 0px; top: -20px;">
+	<tr>		
+		<td><embed SRC="Logo.swf" STYLE="position: relative; HEIGHT: 233px; LEFT: 4px; TOP: 0px; WIDTH: 231px" type="application/x-shockwave-flash">&nbsp;</td>
+		<td width="20"></td>
+		<td align="middle" width="800">
+			<table style="font-family: Verdana, Arial;	font-size: 16pt; " id="tabMoneda" border="0" style="" cellpadding="0" cellspacing="0">
+				<tr style=" font-size: 80pt; font-weight: bold;"><td align="center"><img id="img1" width="69"></td><td align="center" id="tdCodigo" colspan="0" width="488px"></td><td align="center"><img id="img2" width="69"></td></tr>
+				<tr style=" font-size: 30pt; font-weight: ;"><td align="center">Compra</td><td width="100%"></td><td align="center">Venta</td></tr>
+				<tr style=" font-size: 50pt"><td id="tdCompra" align="center"></td><td width="100%"></td><td id="tdVenta" align="center"></td></tr>
+				<tr><td>
+				</td></tr>
+			</table>
+		</td>
+	</tr>
+	<tr><td colspan="3" >
+		<marquee id="mq" scrolldelay="10" scrollamount="10" style="display: " behavior="slide">
+		&nbsp;
+		</marquee>		
+		<div id="divPrecios">
+<!--		<script language="vbscript">
+			CargarTablaPreciosRS
+		</script>
+-->
+		</div>
+	</td></tr>
+	<tr><td></td></tr>
+</table>
+</body>
+</html>

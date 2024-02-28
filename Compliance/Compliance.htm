@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<META name=VI60_defaultClientScript content=VBScript>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<TITLE>Resultado de la Consulta</TITLE>
+</HEAD>
+<BODY>
+<SCRIPT LANGUAGE=vbscript>
+<!--
+	Sub window_onload()
+		Dim rs, rsConsulta, Sql
+		Dim sLinea, CodigoAgente, CodigoMoneda
+	
+		CodigoAgente = "AM"
+		CodigoMoneda = "USD"
+		
+		Sql = "Select Distinct " & _
+					  "s.fecha_solicitud, s.codigo_solicitud, " & _
+					  "ds.codigo_producto, ds.codigo_moneda, " & _
+					  "ds.monto_extranjera, ds.tipo_cambio, " & _
+					  "ds.monto_nacional, isnull(ch.numero_cheque, '') as numero_cheque, " & _
+					  "isnull(c.nombre_completo_cliente, '') as nombre_cliente, '" & _
+					  CodigoAgente & "' as codigo_agente, " & _
+					  "ds.tipo_operacion " & _
+			   "From " & _
+					  "detalle_solicitud ds " & _
+			   "inner join solicitud s on ds.codigo_solicitud = s.codigo_solicitud " & _
+			   "left outer join cliente c on s.codigo_cliente = c.codigo_cliente " & _
+			   "left outer join cheque ch on s.codigo_solicitud = ch.codigo_solicitud " & _
+			   "Where " & _
+					  "s.fecha_solicitud between convert(char, '" & Date() & "', 112) and convert(char, '" & Date() & "', 112) " & _
+			   "and	   isnull(s.estado_solicitud, 0) <> 0 " & _
+			   "and	   ds.codigo_moneda = '" & CodigoMoneda & "' " & _
+			   "and	   ds.tipo_operacion in (1, 2)"
+		
+		Set rsConsulta = CreateObject("AFEXSql.Sql") 
+		Set rs = rsConsulta.Buscar("DSN=AFEXchange;UID=cambios;PWD=cambios;", Sql)
+	
+		If rsConsulta.ErrNumber <> 0 Then
+			MsgBox rsConsulta.ErrDescription
+		End If
+		
+		Do Until rs.eof
+			sLinea = sLinea &  rs("fecha_solicitud") & ";" & rs("codigo_solicitud") & ";" & _
+							   rs("codigo_producto") & ";" & rs("codigo_moneda") & ";" & _
+							   rs("monto_extranjera") & ";" & rs("tipo_cambio") & ";" & _
+							   rs("monto_nacional") & ";" & rs("numero_cheque") & ";" & _
+							   rs("nombre_cliente") & ";" & CodigoAgente & ";" & _
+							   rs("tipo_operacion") & vbCrLf
+							   
+			rs.movenext
+		Loop
+	
+		Set rs = Nothing
+	
+		frm.contenido.value = sLinea
+
+		frm.action = "http:compliance.asp"
+		frm.submit
+		frm.action=""		
+	End Sub
+-->
+</SCRIPT>
+
+<form id="frm" method="post">
+	<input type="hidden" name="contenido">
+</form>
+<P>&nbsp;</P>
+</BODY>
+</HTML>

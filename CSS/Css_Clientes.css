@@ -1,0 +1,41 @@
+.Css_Home {
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: normal;
+	color: #FFFFFF;
+	height: 2px;
+	text-align: justify;
+}
+.Columnastextbox {
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #CCCCCC;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+}
+.Columnatexbox2 {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+}
+
+
+.CapaAfuera {
+	border: 1px solid #666666;
+}
+
+.Texto_linksabajo {
+	font-family: Tahoma;
+	font-size: 11px;
+	color: #000000;
+	font-style: normal;
+	font-weight: normal;
+}
+.textohome2 {
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: bold;
+	color: #333333;
+}

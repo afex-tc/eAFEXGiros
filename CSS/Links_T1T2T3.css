@@ -1,0 +1,20 @@
+.Borde_tabla_abajo {
+	border: 1px solid #999999;
+	font-family: Tahoma;
+	font-size: 11px;
+	color: #333333;
+}
+.bordelogo {
+	border: thin solid #FFFFFF;
+}
+.Borde_tabla_abajo2 {
+	border-right: 1px solid #999999;
+	border-bottom: 1px solid #999999;
+	border-left: 1px solid #999999;
+}
+.texto_piepagina {
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	color: #FFFFFF;
+}

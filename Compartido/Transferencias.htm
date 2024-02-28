@@ -1,0 +1,129 @@
+<!-- Transferencias.htm -->
+<script language="VBScript">
+<!--
+	'Objetivo:		devolver el valor de la Taria
+	'Parámetros:	Valuta, valor de la valuta
+	'				Moneda, código de la moneda seleccionada
+	'Devuelve:		Tarifa
+	Function ObtenerTarifaTransfer(ByVal Valuta, Byval Moneda, ByVal Monto)
+		ObtenerTarifaTransfer = 0
+		
+		' verifica si hay monto		
+		If cCur(cDbl(0 & Monto)) = 0 Then Exit Function
+		
+		Select Case Valuta
+			Case 48	'48 horas
+				If Moneda = "USD" Then
+					ObtenerTarifaTransfer = 60
+				Elseif Moneda ="EURO" then
+					ObtenerTarifaTransfer = 80
+				else
+					ObtenerTarifaTransfer = 80
+				End If
+			
+			Case 24	'Express
+				If Moneda = "USD" Then
+					ObtenerTarifaTransfer = 60
+				Elseif Moneda ="EURO" then
+					ObtenerTarifaTransfer = 80
+				else
+					ObtenerTarifaTransfer = 80
+				End If
+			
+			Case 0	'Premium
+				If Moneda = "USD" Then
+					ObtenerTarifaTransfer = 100
+				Elseif Moneda ="EURO" then
+					ObtenerTarifaTransfer = 100
+				else
+					ObtenerTarifaTransfer = 100
+				End If
+			
+		End Select
+		
+		' da formato a la tarifa
+		ObtenerTarifaTransfer = FormatNumber(ObtenerTarifaTransfer,2)
+	End Function	
+	
+	'Objetivo:		calcular el gasto de la transferencia
+	'Parámetros:	Valuta, tipo de valuta
+	'				Moneda, código de la moneda
+	Function ObtenerComisionTransfer(ByVal Valuta, Byval Moneda, ByVal Monto)
+		ObtenerComisionTransfer = 0
+		
+		' verifica si hay monto		
+		If cCur(cDbl(0 & Monto)) = 0 Then Exit Function
+		
+		Select Case Valuta
+			Case 48	'48 horas
+				'JBV comisiones <> dependiendo de la moneda (sol. Jesus 29-04-2008)
+				'<%If Session("CodigoAgente") = Session("CodigoMoneyBroker") Then %>
+				'	ObtenerComisionTransfer = 12
+				'<%Else%>
+				'	ObtenerComisionTransfer = 12
+				'<%End If%>
+				if moneda = "USD" then
+					<%If Session("CodigoAgente") = Session("CodigoMoneyBroker") Then %>
+						ObtenerComisionTransfer = 25' PSS nueva comision 03-08-2010
+					<%Else%>
+						ObtenerComisionTransfer = 25 ' PSS nueva comisión 03-08-2010
+					<%End If%>
+				else
+					<%If Session("CodigoAgente") = Session("CodigoMoneyBroker") Then %>
+						ObtenerComisionTransfer = 10
+					<%Else%>
+						ObtenerComisionTransfer = 10
+					<%End If%>
+				end if
+				'Fin 08-04-2008				
+
+			Case 24	'Express
+				'JBV comisiones <> dependiendo de la moneda (Sol.Jesus 08-04-2008)
+				'<%If Session("CodigoAgente") = Session("CodigoMoneyBroker") Then %>
+				'	ObtenerComisionTransfer = 12
+				'<%Else%>
+				'	ObtenerComisionTransfer = 12
+				'<%End If%>
+				if moneda = "USD" then
+					<%If Session("CodigoAgente") = Session("CodigoMoneyBroker") Then %>
+						ObtenerComisionTransfer = 25 ' PSS nueva comisión 03-08-2010
+					<%Else%>
+						ObtenerComisionTransfer = 25 ' PSS nueva comisión 03-08-2010
+					<%End If%>
+				else
+					<%If Session("CodigoAgente") = Session("CodigoMoneyBroker") Then %>
+						ObtenerComisionTransfer = 10
+					<%Else%>
+						ObtenerComisionTransfer = 10
+					<%End If%>
+				end if
+				'Fin 08-04-2008
+			Case 0	'Premium
+				'JBV comisiones <> dependiendo de la moneda (Sol.Jesus 08-04-2008)
+				'<%If Session("CodigoAgente") = Session("CodigoMoneyBroker") Or Session("CodigoAgente") = "AW" Then %>
+				'	ObtenerComisionTransfer = 12
+				'<%Else%>
+				'	ObtenerComisionTransfer = 15
+				'<%End If%>
+				if moneda = "USD" then
+					<%If Session("CodigoAgente") = Session("CodigoMoneyBroker") Or Session("CodigoAgente") = "AW" Then %>
+						ObtenerComisionTransfer = 25 ' nueva comisión PSS 03-08-2010
+					<%Else%>
+						ObtenerComisionTransfer = 15
+					<%End If%>
+				else
+					<%If Session("CodigoAgente") = Session("CodigoMoneyBroker") Or Session("CodigoAgente") = "AW" Then %>
+						ObtenerComisionTransfer = 10
+					<%Else%>
+						ObtenerComisionTransfer = 15
+					<%End If%>
+				end if
+				'Fin 08-04-2008
+		End Select
+						
+		' da formato a la comisión
+		ObtenerComisionTransfer = FormatNumber(ObtenerComisionTransfer,2)
+	End Function
+
+-->
+</script>

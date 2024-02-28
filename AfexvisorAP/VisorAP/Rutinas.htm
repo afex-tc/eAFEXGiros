@@ -1,0 +1,104 @@
+<!-- Rutinas.htm -->
+<!--#INCLUDE virtual="/afexvisorap/Compartido/Rutinas.htm" -->
+<script language="vbscript" id="RutinasHTML">
+'************* Funciones y Procedimientos *******************
+			
+	Function ObtenerVisorAP(Byval Conexion, ByVal Moneda, ByVal Fecha)
+	   Dim rs
+		Dim sSQL
+
+	   Set ObtenerVisorAP = Nothing
+
+	   On Error Resume Next
+
+		sSQL = "APObtenerPRActualPro '" & (Moneda) & "', '" & Fecha & "' "
+	   	   
+	   Set rs = EjecutarSQLCliente(Conexion, sSQL)
+		'msgbox ssql
+	   If Err.Number <> 0 Then 
+			Set rs = Nothing
+			Exit Function
+		End If
+	   
+	   Set ObtenerVisorAP = rs
+
+	   Set rs = Nothing
+	End Function
+
+
+
+
+	Function ObtenerRSAPVPosicion(ByVal Conexion, ByVal Moneda, ByVal Fecha)
+	   Dim rs
+	   Dim sSQL
+	      
+	   On Error Resume Next
+	   Set ObtenerRSAPVPosicion = Nothing
+	   
+	   sSQL = "APVisorPosicion '" & Moneda & "', '" & FormatoFechaSQL(Fecha) & "' "
+'		sSQL = SQLVisorPosicion(Moneda, Fecha)
+		
+		If sSQL = Empty Then	Exit Function
+		
+	   Set rs = EjecutarSQLCliente(Conexion, sSQL)
+	   If Err.Number <> 0 Then 
+			Set rs = Nothing
+			Exit Function
+		End If	   
+		
+	   Set ObtenerRSAPVPosicion = rs	   
+	   Set rs = Nothing
+	End Function
+
+	Function SQLVisorPosicion(ByVal Moneda, ByVal Fecha)
+		Dim fs, f
+		Dim sArchivo, sLinea
+		
+		sArchivo = "C:\Desarrollo\Afex Money Web\AfexVisorAP\AfexVisorAP_Local\VisorAP\SQLScript\APVisorPosicion.sql"
+		sLinea = LeerArchivo(sArchivo)
+		sLinea = Replace(sLinea, "«Moneda»", EvaluarStr(Moneda))
+		sLinea = Replace(sLinea, "«Fecha»", EvaluarStr(FormatoFechaSQL(Fecha)))
+		SQLVisorPosicion = sLinea
+	
+	End Function
+
+
+	Function LeerArchivo(ByVal Archivo)
+		Dim fs, f, sLinea
+		LeerArchivo = ""
+		
+		On Error Resume Next
+		Set  fs = CreateObject("Scripting.FileSystemObject")
+		Set f = fs.OpenTextFile(Archivo, 1, False)
+		sLinea = f.readall		
+		f.Close
+		If Err.number <> 0 Then
+			Err.Clear 
+			Exit Function
+		End If
+		LeerArchivo = sLinea
+		
+	End Function
+
+
+	Function ObtenerRSAPVPosicionOld(ByVal Conexion, ByVal Moneda, ByVal Fecha)
+	   Dim rs
+	   Dim sSQL
+	      
+	   On Error Resume Next
+	   Set ObtenerRSAPVPosicionOld = Nothing
+	   
+	   sSQL = "APVisorPosicion '" & Moneda & "', '" & FormatoFechaSQL(Fecha) & "' "
+
+	   Set rs = EjecutarSQLCliente(Conexion, sSQL)
+	   If Err.Number <> 0 Then 
+			Set rs = Nothing
+			'Msgbox " ..." & err.Description 			
+		End If	   
+		
+	   Set ObtenerRSAPVPosicionOld = rs	   
+	   Set rs = Nothing
+	End Function
+
+
+</script>

@@ -1,0 +1,15 @@
+TABLE.BordeSombra
+{
+		BORDER-RIGHT: gray 1px solid;
+		BORDER-TOP: silver 1px solid;
+		BORDER-LEFT: silver 1px solid;
+		BORDER-BOTTOM: gray 1px solid;
+}
+
+TABLE.Borde
+{
+		BORDER-RIGHT: silver 1px solid;
+		BORDER-TOP: silver 1px solid;
+		BORDER-LEFT: silver 1px solid;
+		BORDER-BOTTOM: silver 1px solid;
+}

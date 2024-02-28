@@ -1,0 +1,39 @@
+<!-- MenuDetalleCliente.asp -->
+<!--#INCLUDE virtual="/Compartido/Rutinas.htm" -->
+<table class="BordeSombra" cellpadding="0" cellspacing="0" border="0" width="175" bgcolor="#f1f1f1" style="background-color: white; color: ">
+<tr height="22" bgcolor="#ccddee" style="font-size: 10pt; font-weight: bold">
+	<td colspan="5">&nbsp;&nbsp;Configuración Lista</td>
+</tr>
+<tr height="1"><td colspan="5" bgcolor="#D6D3D6"></td></tr>
+<tr>
+	<td width="10"></td>
+	<td>
+		<table cellpadding="0" cellspacing="4" border="0" style="color: gray">
+			<tr height="5px"><td></td></tr>					
+			<tr>
+				<td>Sucursal<br>
+					<select id="cbxSucursal" style="width: 300px" <%=sHabilitado%>>
+						<% CargarSucursal sSucursal %>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Cliente<br>
+					<input name="txtCliente" id="txtCliente" style="width: 300px" OnKeyPress="IngresarTexto(3)" maxlength="60" value="<%=sCliente%>">
+					<br>
+				</td>
+			</tr>
+			<tr >
+				<td align="center"><img src="http:../images/BotonAceptar.jpg" id="cmdAceptar" style="cursor: hand"></td>
+			</tr>
+			<tr height="10px"><td></td></tr>
+		</table>
+	</td>	
+	<td width="20"></td>
+</tr>
+</table>
+<SCRIPT LANGUAGE=vbscript>
+<!--
+
+//-->
+</SCRIPT>

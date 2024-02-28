@@ -1,0 +1,58 @@
+.Estilo2 {
+	font-size: 11px;
+	font-family: Tahoma;
+	color: #333333;
+	font-weight: bold;
+}
+.textoempresa {
+	font-family: Tahoma;
+	font-size: 11px;
+	color: #333333;
+}
+.Textopequeño {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	color: #333333;
+}
+.link_chico {
+	font-family: Tahoma;
+	font-size: 11px;
+	font-style: normal;
+	color: #0000FF;
+	font-weight: bold;
+}
+link_chico:link {
+	text-decoration: none;
+	color: #333333;
+	font-family: Tahoma;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: bold;
+}
+link_chico:visited {
+	text-decoration: none;
+	color: #333333;
+	font-family: Tahoma;
+	font-size: 10px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: bold;
+}
+link_chico:hover {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 12px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: bold;
+}
+link_chico:active {
+	text-decoration: none;
+	color: #0000FF;
+	font-family: Tahoma;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: bold;
+}

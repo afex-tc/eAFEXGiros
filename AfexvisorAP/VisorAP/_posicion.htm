@@ -1,0 +1,63 @@
+<!--	_posicion.htm	-->
+		<table border="0"  cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid silver">	
+		<tr class="tt2">
+			<td style="border-right: 1px solid silver">&nbsp;Posicion</td>
+			<td>&nbsp;Promedio</td>
+		</tr>
+		<tr class="tc" align="center">
+			<td id="tdPosActual" style="color: blue; border-right: 1px solid silver; " ></td>
+			<td id="tdTCActual" style="color: black"> </td>
+		</tr>
+		</table>	
+		<script language="vbscript">			
+			Sub Cargar_posicion()
+				Dim rsPos
+				
+				On Error Resume Next
+				Set rsPos = ObtenerRSAPVPosicion("<%=sConexion%>", "<%=sMoneda%>", "<%=sFecha%>")
+				If Err.number <> 0 Then
+					Set rsPos = Nothing
+					Err.Clear 
+					Exit Sub
+				End If
+				
+				Do Until rsPos.EOF
+					Select Case rsPos("tipo")
+					   Case 1	'Inicial
+								If cCur(rsPos("montoextranjera")) >= 0 Then
+									tdposanterior.style.color="blue"
+								Else
+									tdposanterior.style.color="red"
+								End If
+					         tdPosAnterior.innerText= FormatNumber(rsPos("montoextranjera"), 2)
+					         tdTCAnterior.innerText = FormatNumber(rsPos("tipocambio"), 2)
+					         
+					   Case 2	'Compra
+					         tdPosCompra.innerText= FormatNumber(rsPos("montoextranjera"), 2)
+					         tdTCCompra.innerText = FormatNumber(rsPos("tipocambio"), 2)
+					   
+					   Case 3	'Venta
+					         tdPosVenta.innerText= FormatNumber(rsPos("montoextranjera"), 2)
+					         tdTCVenta.innerText = FormatNumber(rsPos("tipocambio"), 2)
+					   
+					   Case 4	'Actual
+								If cCur(rsPos("montoextranjera")) >= 0 Then
+									tdPosActual.style.color="blue"
+									tdPosFinal.style.color="blue"
+								Else
+									tdPosActual.style.color="red"
+									tdPosFinal.style.color="red"
+								End If
+					         tdPosActual.innerText= FormatNumber(rsPos("montoextranjera"), 2)
+					         tdTCActual.innerText = FormatNumber(rsPos("tipocambio"), 2)
+					         tdPosFinal.innerText= FormatNumber(rsPos("montoextranjera"), 2)
+					         tdTCFinal.innerText = FormatNumber(rsPos("tipocambio"), 2)
+      
+					End Select
+					rsPos.MoveNext
+				Loop
+				Set rsPos = Nothing		
+				Err.Clear 	
+			End Sub
+			
+		</script>

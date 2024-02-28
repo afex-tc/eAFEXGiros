@@ -1,0 +1,267 @@
+<!-- Rutinas.htm -->
+<script language="VBScript">
+<!--
+'***************************************FUNCIONES VARIAS********************************************
+	'Objetivo:		verificar si la tecla que se presionó corresponde a un número o letra y dejarla 
+	'				seguir o eliminar la acción según el llamado del procedimiento
+	'Parámetros:	Tipo, indica que quiere verificar "1=Número; 2=Letra; 3=Número y Letra"
+	Public Sub IngresarTexto(byval Tipo)
+		' verifica el tipo de dato que se quiere verificar
+		
+		Select Case Tipo
+			Case 1		' verificar si es un número o coma
+				If window.event.keycode=Asc(".") Then
+					window.event.keycode = Asc(",")
+					Exit Sub
+				End If
+				If (window.event.keycode < 48 OR window.event.keycode > 57) And _
+					window.event.keycode <> Asc(",") Then
+					window.event.keycode = 0
+				End If
+
+			Case 2		' verificar si es una letra
+				If (window.event.keycode < 65 OR window.event.keycode > 90) AND _
+				   (window.event.keycode < 97 OR window.event.keycode > 122) AND _
+				   window.event.keycode <> 46 AND window.event.keycode <> 39 AND _
+				   window.event.keycode <> 180 AND window.event.keycode <> 209 AND _
+				   window.event.keycode <> 241 AND window.event.keycode <> 32 Then
+					' no es una letra, se cancela la acción
+					window.event.keycode = 0
+				ElseIf (window.event.keycode >= 97 AND window.event.keycode <= 122 ) Then
+					' es una minuscula, se transforma a mayúscula
+					window.event.keycode = (window.event.keycode - 32)
+				ElseIf window.event.keycode = 241 Then
+					'
+					window.event.keycode = 209
+				End If
+			
+			Case 3		' verificar si es una letra o número
+				If (window.event.keycode < 65 OR window.event.keycode > 90  ) AND _
+				   (window.event.keycode < 97 OR window.event.keycode > 122 ) AND _
+				   window.event.keycode <> 46 AND window.event.keycode <> 39 AND _
+				   window.event.keycode <> 180 AND window.event.keycode <> 209 AND _
+				   window.event.keycode <> 241 AND window.event.keycode <> 32 AND _
+				   window.event.keycode <> 44 AND window.event.keycode <> 45 AND _
+				   (window.event.keycode < 48 OR window.event.keycode > 57  ) AND _
+				   window.event.keycode <> 35 Then
+					window.event.keycode = 0 
+				ElseIf ( window.event.keycode >= 97 AND window.event.keycode <= 122 ) Then
+					window.event.keycode = ( window.event.keycode - 32 )
+				ElseIf window.event.keycode = 241 Then
+					window.event.keycode = 209
+				End If					
+
+			Case 4		' verificar si es un número o coma
+				If (window.event.keycode < 48 OR window.event.keycode > 57) And _
+					window.event.keycode <> Asc(",") Then
+					window.event.keycode = 0
+				End If
+				
+			Case 5	'Todo a mayuscula
+					window.event.keyCode = asc(Ucase(chr(window.event.keyCode)))
+
+			Case 6	'Todo a minuscula
+					window.event.keyCode = asc(lcase(chr(window.event.keyCode)))
+		End Select
+	End Sub
+	
+	'Objetivo:  Devuelve una cadena de caracteres transformados a mayuscula y minuscula
+	Public Function MayMin(ByVal Cadena)
+	   Dim aCadena
+	   Dim i 
+	   Dim sCadena 
+	   Dim STRING_MAYMIN 
+
+		MayMin = UCase(Cadena)
+		Exit Function
+		If Cadena = "" Then Exit Function
+			   
+	   STRING_MAYMIN = ";es;una;uno;de;por;para;que;si;"
+	   aCadena = Split(Cadena, " ")
+	   sCadena = ""
+	   For i = 0 To UBound(aCadena)
+	      If InStr(UCase(STRING_MAYMIN), ";" & UCase(aCadena(i)) & ";") = 0 Then
+	         sCadena = sCadena & PMayuscula(aCadena(i)) & " "
+	      Else
+	         sCadena = sCadena & aCadena(i) & " "
+	      End If
+	   Next
+	   sCadena = Left(sCadena, Len(sCadena) - 1)
+	   MayMin = sCadena
+	   
+	End Function
+	
+	Public Function PMayuscula(ByVal Cadena)
+	   
+	   If Cadena = "" Then Exit Function
+	   PMayuscula = UCase(Left(Cadena, 1)) & LCase(Mid(Cadena, 2))
+	   
+	End Function
+	
+	Public Function LimpiarCampoTxt(ByVal Cadena)
+	        
+	        Cadena = Replace(LCase(Cadena),"select","")
+	        Cadena = Replace(LCase(Cadena),"drop","")
+	        Cadena = Replace(LCase(Cadena),"delete","")
+	        Cadena = Replace(LCase(Cadena),"update","")
+	        Cadena = Replace(LCase(Cadena),"exec","")
+	        Cadena = Replace(LCase(Cadena),"having","")
+	        Cadena = Replace(LCase(Cadena),"truncate","")
+	        Cadena = Replace(LCase(Cadena),"alter","")
+	        Cadena = Replace(LCase(Cadena),"create","")
+	        Cadena = Replace(LCase(Cadena),"grant","")
+	        Cadena = Replace(LCase(Cadena),"insert","")
+	        Cadena = Replace(LCase(Cadena),"<","")
+	        Cadena = Replace(LCase(Cadena),">","")
+	        Cadena = Replace(LCase(Cadena),"'","")
+	        Cadena = Replace(LCase(Cadena),"--","")	   
+	        
+	        LimpiarCampoTxt = Cadena
+	End Function
+
+
+	Public Function MayusculaMinuscula(ByVal Cadena)
+	   Dim aCadena
+	   Dim i 
+	   Dim sCadena 
+	   Dim STRING_MAYMIN 
+
+		If Cadena = "" Then Exit Function
+			   
+	   STRING_MAYMIN = ";es;una;uno;de;por;para;que;si;"
+	   aCadena = Split(Cadena, " ")
+	   sCadena = ""
+	   For i = 0 To UBound(aCadena)
+	      If InStr(UCase(STRING_MAYMIN), ";" & UCase(aCadena(i)) & ";") = 0 Then
+	         sCadena = sCadena & PMayuscula(aCadena(i)) & " "
+	      Else
+	         sCadena = sCadena & aCadena(i) & " "
+	      End If
+	   Next
+	   sCadena = Left(sCadena, Len(sCadena) - 1)
+	   MayusculaMinuscula = sCadena
+	   
+	End Function
+
+	'Objetivo:	Valida un rut.
+	'Devuelve:	Rut formateado si la validación es verdadera
+	'				Empty si la validacion es falsa
+	'					
+	Function ValidarRut(ByVal Rut)
+		Rut = ucase( Rut )
+		dim S_ValRut
+		dim S_Numero
+		dim S_Digito
+		dim K
+		dim S_Multip, C_Suma, S_DigRes
+		
+		ValidarRut = Empty
+		S_ValRut = trim( Rut ) 
+		If S_ValRut = "" then Exit Function
+
+		S_ValRut = replace( S_ValRut, ".", "")
+		S_ValRut = replace( S_ValRut, "-", "")
+		If S_ValRut = "" then Exit Function
+		S_Numero = left(S_ValRut,len(S_ValRut)-1)
+		S_Digito = right(S_ValRut,1)
+		S_Multip = right("765432765432", len(S_Numero))
+		for K=1 to len(S_Numero)
+			C_Suma = C_Suma + ( cint(mid(S_numero,K,1)) * cint(mid(S_Multip,K,1)) )
+		next
+		C_Suma = 11 - ( C_Suma mod 11 )
+		if C_Suma = 11 then
+			S_DigRes = "0"
+		elseif C_Suma = 10 then
+			S_DigRes = "K"
+		else
+			S_DigRes = cstr( C_Suma )
+		end if
+		If S_Digito = S_DigRes then
+			ValidarRut = formatnumber(S_numero, 0) & "-" & S_Digito
+		End if
+	End Function
+	
+	'Objetivo   :  Da formato tipo Rut
+	Function FormatoRut(ByVal Rut)
+
+	   FormatoRut = Empty
+	   
+	   If Rut = Empty Or IsNull(Rut) Then
+	      Exit Function
+	   End If
+	   Rut = Trim(Replace(Rut, "-", ""))
+	   Rut = Replace(Rut, ".", "")
+	   FormatoRut = FormatNumber(Left(Rut, Len(Rut) - 1), 0) & "-" & Right(Rut, 1)
+	                              
+	End Function
+
+	Sub HabilitarControles
+		Dim i
+		
+		'i = window.document.all.length
+		On Error Resume Next
+		For i = 1 To window.document.all.length
+			If window.document.all.item(i).disabled Then
+				window.document.all.item(i).disabled = False
+			End If
+		Next 
+		On Error Goto 0
+	End Sub
+
+	Function ValidarFecha(ByRef Fecha)
+		Fecha = UCase(Trim(Fecha))
+		Fecha = Replace(Fecha, "-", "")
+		Fecha = Replace(Fecha, "/", "")
+		ValidarFecha = True		
+		Select Case Fecha
+		Case "" 
+			Fecha = Date()
+			Exit Function
+		Case "HOY"
+			fecha = Date()
+			Exit Function
+		Case "AYER"
+			Fecha = Date() - 1
+			Exit Function
+		End Select
+
+		ValidarFecha = False
+		If Len(Fecha) < 6 Then
+			MsgBox "Debe ingresar una fecha válida con uno de estos formatos: " & vbCrLf & vbCrLf & _
+					 "mm-dd-aaaa, mm-dd-aa, mmddaa, HOY o AYER"
+			Exit Function
+		End If
+		If Len(Fecha) = 7 Then
+			MsgBox "Debe ingresar una fecha válida con uno de estos formatos: " & vbCrLf & vbCrLf & _
+					 "mm-dd-aaaa, mm-dd-aa, mmddaa, HOY o AYER"
+			Exit Function
+		End If
+		If Len(Fecha) > 8 Then
+			MsgBox "Debe ingresar una fecha válida con uno de estos formatos: " & vbCrLf & vbCrLf & _
+					 "mm-dd-aaaa, mm-dd-aa, mmddaa, HOY o AYER"
+			Exit Function
+		End If
+		If Len(Fecha) = 6 Then
+			Fecha = Left(Fecha, 2) & "-" & Mid(fecha, 3, 2) & "-"  & Right(Fecha, 2)
+			Fecha = cDate(fecha)
+		ElseIf Len(Fecha) = 8 Then
+			Fecha = Left(Fecha, 2) & "-" & Mid(fecha, 3, 2) & "-" & Right(Fecha, 4)
+			Fecha = cDate(fecha)
+		End If
+		ValidarFecha = True
+	End Function
+
+	Function CajaPregunta(ByVal Titulo, ByVal Mensaje)
+
+	   CajaPregunta = (MsgBox(vbCrLf & Mensaje & vbCrLf, vbQuestion + vbOKCancel + vbDefaultButton2, Titulo) = vbOk)
+
+	End Function
+
+	Function CajaPreguntaSiNo(ByVal Titulo, ByVal Mensaje)
+
+	   CajaPreguntaSiNo = (MsgBox(vbCrLf & Mensaje & vbCrLf, vbQuestion + vbYesNo + vbDefaultButton2, Titulo) = vbYes)
+
+	End Function
+	
+-->
+</script>

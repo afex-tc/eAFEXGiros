@@ -1,0 +1,48 @@
+<!-- Rutinas.htm -->
+<script language="vbscript">
+<!--
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function BuscarPromociones()
+		Dim rs
+		Dim sSQL
+		Set BuscarPromociones = Nothing
+		
+		sSQL = "SELECT pmn.codigo_moneda, mn.alias_moneda, pmn.tipo_cambio_compra, pmn.tipo_cambio_venta, mn.codigo_pais, mn.shower_mensaje " & _
+				 "FROM	Plan_Moneda PMN " & _
+				 "JOIN	Moneda MN ON mn.codigo_moneda=pmn.codigo_moneda " & _
+				 "WHERE	pmn.codigo_producto=1 AND " & _
+				 "			pmn.codigo_caja = '0000' AND " & _
+				 "			pmn.tipo_cambio_compra <> 0 AND " & _
+				 "			RTRIM(mn.shower_mensaje) <> ''  "
+
+		' crea la conexión con la base de datos
+		On Error Resume Next
+		Set rs = Createobject("ADODB.Recordset")
+		rs.CursorLocation = 3 'Cliente
+		
+		rs.Open sSQL, "DSN=AFEXchange;UID=cambios;PWD=cambios;", 3, 4, 1
+		If err.number <> 0 Then					
+			Exit Function
+		End if
+		Set rs.ActiveConnection = Nothing
+		Set BuscarPromociones = rs
+		Set rs = Nothing
+
+	End Function
+
+	'Objetivo:	Abrir un rs para trabajar sin conexión
+	Function ObtenerPromociones()
+		Dim rs
+		Set rs = BuscarPromociones
+		
+		If rs.EOF Then		
+			ObtenerPromociones = 0
+		Else
+			ObtenerPromociones = rs.RecordCount 
+		End If
+		
+		Set rs = Nothing
+	End Function
+	
+-->
+</script>

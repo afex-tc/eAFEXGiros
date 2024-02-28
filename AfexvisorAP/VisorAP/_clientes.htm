@@ -1,0 +1,54 @@
+<!--	_cierrediario.htm	-->
+		<table id="tbClientes" border="0" cellpadding="5" cellspacing="5" width="100%" style="border: 1px solid silver; display: none">	
+		<tr class="tt2" align="left">
+			<td>&nbsp;Rut&nbsp;<input name="txtRut" style="width: 74px"></td>
+			<td colspan="2">
+				&nbsp;Desde&nbsp;<input name="txtDesde" value=<%=sFecha%> style="width: 70px"><br>
+				&nbsp;Hasta&nbsp;&nbsp;<input name="txtHasta" value=<%=sFecha%> style="width: 70px">
+			</td>
+		</tr>
+		<tr>
+			<td ></td>
+			<td ></td>
+			<td align="center" class="boton" style="height: 20px; width: 80px" onClick="RankingCliente(txtRut.value)" onMouseOver="MouseOver()" onMouseOut="MouseOut()">Ranking</td>
+		</tr>
+		
+		</table>
+		<script language="vbscript">
+		   Dim BD			
+
+			Sub Mostrar_clientes()
+				If bVUt1 Then Mostrar_utilidad
+				If bVUt2 Then Mostrar_utilidadmensual
+				If bVMn1 Then Mostrar_monedas
+				If bVCo1 Then Mostrar_configuracion
+				If bVPr3 Then Mostrar_detalleposicion
+				If bVCd1 Then Mostrar_cierrediario
+				If tbClientes.style.display = "" Then
+					tbClientes.style.display = "none"
+				Else
+					tbClientes.style.display = ""
+				End IF
+				bVCl1 = (tbClientes.style.display = "")
+			End Sub
+			
+			Sub RankingCliente(ByVal Fecha)
+			   Dim sSQL
+			      
+			   Exit sub
+			   On Error Resume Next
+			   CerrarUtilidad = False
+
+			   sSQL = "APCerrarUtilidad '" & FormatoFechaSQL(Fecha) & "', '" & FormatoFechaSQL(Fecha) & "' "
+				   
+				'Consulta
+				BD.Execute sSQL                           'Ejecuta la consulta
+				If Err.Number <> 0 Then 
+					Exit Sub
+				End If
+		   			   
+			   CerrarUtilidad = True
+			End Sub
+
+
+		</script>

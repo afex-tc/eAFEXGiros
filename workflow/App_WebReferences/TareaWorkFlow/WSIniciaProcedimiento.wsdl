@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="WSIniciaProcedimiento2" xmlns:impl="WSIniciaProcedimiento2" targetNamespace="WSIniciaProcedimiento2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="WSIniciaProcedimiento2">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ArrayOf_xsd_string">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ejecutaAccionRequest">
+    <wsdl:part name="cParam" type="impl:ArrayOf_xsd_string" />
+  </wsdl:message>
+  <wsdl:message name="ejecutaAccionResponse">
+    <wsdl:part name="ejecutaAccionReturn" type="impl:ArrayOf_xsd_string" />
+  </wsdl:message>
+  <wsdl:message name="iniciaProcedimientoResponse">
+    <wsdl:part name="iniciaProcedimientoReturn" type="impl:ArrayOf_xsd_string" />
+  </wsdl:message>
+  <wsdl:message name="iniciaProcedimientoRequest">
+    <wsdl:part name="cParam" type="impl:ArrayOf_xsd_string" />
+  </wsdl:message>
+  <wsdl:portType name="WSIniciaProcedimiento">
+    <wsdl:operation name="iniciaProcedimiento" parameterOrder="cParam">
+      <wsdl:input name="iniciaProcedimientoRequest" message="impl:iniciaProcedimientoRequest" />
+      <wsdl:output name="iniciaProcedimientoResponse" message="impl:iniciaProcedimientoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ejecutaAccion" parameterOrder="cParam">
+      <wsdl:input name="ejecutaAccionRequest" message="impl:ejecutaAccionRequest" />
+      <wsdl:output name="ejecutaAccionResponse" message="impl:ejecutaAccionResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSIniciaProcedimientoSoapBinding" type="impl:WSIniciaProcedimiento">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="iniciaProcedimiento">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="iniciaProcedimientoRequest">
+        <wsdlsoap:body use="encoded" namespace="WSIniciaProcedimiento2" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="iniciaProcedimientoResponse">
+        <wsdlsoap:body use="encoded" namespace="WSIniciaProcedimiento2" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ejecutaAccion">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="ejecutaAccionRequest">
+        <wsdlsoap:body use="encoded" namespace="WSIniciaProcedimiento2" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="ejecutaAccionResponse">
+        <wsdlsoap:body use="encoded" namespace="WSIniciaProcedimiento2" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSIniciaProcedimientoService">
+    <wsdl:port name="WSIniciaProcedimiento" binding="impl:WSIniciaProcedimientoSoapBinding">
+      <wsdlsoap:address location="http://roble:8080/axis/services/WSIniciaProcedimiento" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

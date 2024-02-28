@@ -1,0 +1,159 @@
+<!--	_cierrediario.htm	-->
+		<table id="tbCierreDiario" border="0" cellpadding="5" cellspacing="5" width="100%" style="border: 1px solid silver; display: none">	
+		<tr class="tt2" align="left">
+			<td>&nbsp;Fecha Cierre<br><input name="txtFechaCD" value=<%=sFecha%> style="width: 80px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="center" class="boton" style="height: 20px; width: 80px" onClick="CerrarDia(txtFechaCD.value)" "CerrarMes()" onMouseOver="MouseOver()" onMouseOut="MouseOut()">CerrarDia</td>
+		</tr>
+		
+		</table>
+		<script language="vbscript">
+		   Dim BD			
+
+			Sub Mostrar_cierrediario()
+				If bVUt1 Then Mostrar_utilidad
+				If bVUt2 Then Mostrar_utilidadmensual
+				If bVMn1 Then Mostrar_monedas
+				If bVCo1 Then Mostrar_configuracion
+				If bVPr3 Then Mostrar_detalleposicion
+				If tbCierreDiario.style.display = "" Then
+					tbCierreDiario.style.display = "none"
+				Else
+					tbCierreDiario.style.display = ""
+				End IF
+				bVCd1 = (tbCierreDiario.style.display = "")
+			End Sub
+			
+			Sub CerrarMes()
+				CerrarDia "11/03/2005"
+				CerrarDia "14/03/2005"
+				CerrarDia "15/03/2005"
+				CerrarDia "16/03/2005"
+				CerrarDia "17/03/2005"
+				CerrarDia "18/03/2005"
+				CerrarDia "21/03/2005"
+				CerrarDia "22/03/2005"
+				CerrarDia "23/03/2005"
+				CerrarDia "24/03/2005"
+				CerrarDia "28/03/2005"
+				CerrarDia "29/03/2005"
+				CerrarDia "30/03/2005"
+				CerrarDia "31/03/2005"
+			End Sub
+			
+			Sub CerrarDia(ByVal Fecha)
+				Dim bOk
+				If Not CajaPreguntaSiNo("Cerrar el Día", "Está seguro que desea cerrar el día " & Fecha & "?") Then Exit Sub
+				
+				'Conexion
+				Set BD = CreateObject("ADODB.Connection")
+				BD.ConnectionTimeOut = 30
+				BD.Open "<%=Session("cnxVisorAP")%>"     'Abre la conexion				
+				If Err.Number <> 0 Then
+					Set BD = Nothing
+					MsgBox "Se produjo un error al intentar abrir la BD." & vbcrlf & err.number & vbcrlf & err.Description , vbInformation, "Cierre Diario"
+					Exit Sub
+				End If
+				
+				'Inicio Transaccion
+				BD.CommandTimeout = 180
+				BD.BeginTrans
+								
+				'Mantencion
+				bOk = Mantencion(Fecha)				
+				If Not bOk Then
+					BD.RollbackTrans 
+					BD.Close 
+					Set BD = Nothing
+					MsgBox "Se produjo un error al intentar hacer la Mantención." & vbcrlf & err.Description , vbExclamation, "Cierre Diario"
+					Exit Sub
+				End If
+
+				'Utilidad
+				bOk = CerrarUtilidad(Fecha)				
+				If Not bOk Then
+					BD.RollbackTrans 
+					BD.Close 
+					Set BD = Nothing
+					MsgBox "Se produjo un error al intentar cerrar la Utilidad." & vbcrlf & err.Description , vbExclamation, "Cierre Diario"
+					Exit Sub
+				End If
+
+				BD.CommitTrans
+				BD.Close
+				Set BD = Nothing
+
+				MsgBox "El día se ha cerrado exitosamente!", vbInformation, "Cierre Diario"				
+			End Sub
+			
+			Function CerrarUtilidad(ByVal Fecha)
+			   Dim sSQL
+			      
+			   On Error Resume Next
+			   CerrarUtilidad = False
+
+			   sSQL = "APCerrarUtilidad '" & FormatoFechaSQL(Fecha) & "', '" & FormatoFechaSQL(Fecha) & "' "
+				   
+				'Consulta
+				BD.Execute sSQL                           'Ejecuta la consulta
+				If Err.Number <> 0 Then 
+					Exit Function
+				End If
+		   			   
+			   CerrarUtilidad = True
+			End Function
+
+
+			Function Mantencion(ByVal Fecha)
+			   Dim sSQL
+			      
+			   On Error Resume Next
+			   Mantencion = False
+
+			   sSQL = "APMantencion '" & FormatoFechaSQL(Fecha) & "' "
+				   
+				'Consulta
+				BD.Execute sSQL                           'Ejecuta la consulta
+				If Err.Number <> 0 Then 
+					Exit Function
+				End If
+		   			   
+			   Mantencion = True
+			End Function
+
+
+			Function CerrarUtilidadOld(ByVal Conexion, ByVal Fecha)
+			   Dim BD, rs
+			   Dim sSQL
+			      
+			   On Error Resume Next
+			   CerrarUtilidadOld = False
+
+			   sSQL = "APCerrarUtilidad '" & FormatoFechaSQL(Fecha) & "', '" & FormatoFechaSQL(Fecha) & "' "
+				'Conexion
+				Set BD = CreateObject("ADODB.Connection")
+				BD.Open Conexion                          'Abre la conexion
+				If Err.Number <> 0 Then
+					Set BD = Nothing
+					Exit Function
+				End If
+				   
+				'Consulta
+				BD.BeginTrans
+				BD.Execute sSQL                           'Ejecuta la consulta
+				If Err.Number <> 0 Then 
+					BD.RollbackTrans 
+					BD.Close 
+					Set BD = Nothing
+					Exit Function
+				End If
+		   			   
+			   CerrarUtilidadOld = True
+				BD.CommitTrans
+				BD.Close
+				Set BD = Nothing
+			End Function
+		</script>
